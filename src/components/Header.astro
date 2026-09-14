@@ -46,6 +46,8 @@ const pfad = Astro.url.pathname;
 
 <style>
   .kopf {
+    --wappen: 44px;
+    --kopf-hoehe: 74px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -53,6 +55,11 @@ const pfad = Astro.url.pathname;
     color: #fff;
     transition: background-color 0.3s ease;
   }
+
+  /* Ueber dem Held darf das Wappen gross auftreten und schrumpft
+     beim Scrollen auf das Mass der uebrigen Seiten zurueck. */
+  .kopf--transparent { --wappen: 62px; --kopf-hoehe: 96px; }
+  .kopf--transparent.ist-gescrollt { --wappen: 44px; --kopf-hoehe: 74px; }
   .kopf--transparent {
     position: fixed;
     top: 0;
@@ -71,11 +78,16 @@ const pfad = Astro.url.pathname;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    min-height: 74px;
+    min-height: var(--kopf-hoehe);
+    transition: min-height 0.3s ease;
   }
 
   .marke { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
-  .marke img { width: 44px; height: auto; }
+  .marke img {
+    width: var(--wappen);
+    height: auto;
+    transition: width 0.3s ease;
+  }
   .marke__text {
     font-family: var(--font-display);
     font-weight: 400;
@@ -97,22 +109,23 @@ const pfad = Astro.url.pathname;
     font-weight: 600;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    padding-block: 0.4em;
+    padding-block: 0.6em;
     position: relative;
     white-space: nowrap;
   }
-  .nav a::after {
+  /* Markierung sitzt als Overline ueber dem Menuepunkt */
+  .nav a::before {
     content: '';
     position: absolute;
-    left: 0; right: 0; bottom: 0;
+    left: 0; right: 0; top: 0;
     height: 2px;
     background: var(--scn-gold);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.22s ease;
   }
-  .nav a:hover::after,
-  .nav a[aria-current='page']::after { transform: scaleX(1); }
+  .nav a:hover::before,
+  .nav a[aria-current='page']::before { transform: scaleX(1); }
 
   .burger {
     display: inline-grid;
@@ -141,7 +154,9 @@ const pfad = Astro.url.pathname;
   @media (min-width: 60rem) {
     .nav { display: block; }
     .burger { display: none; }
-    .marke img { width: 52px; }
+    .kopf { --wappen: 52px; }
+    .kopf--transparent { --wappen: 92px; --kopf-hoehe: 124px; }
+    .kopf--transparent.ist-gescrollt { --wappen: 52px; --kopf-hoehe: 74px; }
   }
 </style>
 

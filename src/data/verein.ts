@@ -54,7 +54,7 @@ export const sparten: Sparte[] = [
   {
     slug: 'fussball',
     name: 'Fußball',
-    kurz: 'Sieben Mannschaften von den G-Junioren bis zu Herren und Damen – die größte Sparte im Verein.',
+    kurz: 'Sieben Mannschaften von der G-Jugend bis zu Herren und Damen – die größte Sparte im Verein.',
     icon: 'tabler:ball-football',
     farbe: 'rot',
     alter: 'ab 4 Jahren bis Ü30',
@@ -177,16 +177,16 @@ export const sparten: Sparte[] = [
 ];
 
 /** Fußballmannschaften – die größte und belebteste Sparte. */
-/** Absteigend sortiert: von den Herren bis zu den G-Junioren. */
+/** Absteigend sortiert: von den Herren bis zur G-Jugend. */
 export const mannschaften = [
   { name: 'Herren', zeiten: ['Di 19:00 – 20:30', 'Do 19:00 – 20:30'], trainer: 'Nick Erdmann' },
   { name: 'Damen', zeiten: ['Mi 18:30 – 20:00'], trainer: 'Marko Schneider-Pauly' },
   { name: 'A-Jugend', zeiten: ['Mo 19:00 – 20:30', 'Mi 19:00 – 20:30'], trainer: 'Maximilian Brachtendorf' },
-  { name: 'C-Junioren', zeiten: ['Mi 17:30 – 19:00', 'Fr 17:30 – 19:00'], trainer: 'Kevin Tillmann' },
-  { name: 'D-Junioren', zeiten: ['Mi 17:00 – 18:30', 'Fr 15:00 – 16:30'], trainer: 'Max Neumann' },
-  { name: 'E-Junioren', zeiten: ['Di 17:30 – 19:00', 'Do 17:30 – 19:00'], trainer: 'Chris Jaeckstet' },
-  { name: 'F-Junioren', zeiten: [], trainer: null, sucht: true },
-  { name: 'G-Junioren', zeiten: ['Do 16:30 – 17:30'], trainer: 'Robert Schröder' },
+  { name: 'C-Jugend', zeiten: ['Mi 17:30 – 19:00', 'Fr 17:30 – 19:00'], trainer: 'Kevin Tillmann' },
+  { name: 'D-Jugend', zeiten: ['Mi 17:00 – 18:30', 'Fr 15:00 – 16:30'], trainer: 'Max Neumann' },
+  { name: 'E-Jugend', zeiten: ['Di 17:30 – 19:00', 'Do 17:30 – 19:00'], trainer: 'Chris Jaeckstet' },
+  { name: 'F-Jugend', zeiten: [], trainer: null, sucht: true },
+  { name: 'G-Jugend', zeiten: ['Do 16:30 – 17:30'], trainer: 'Robert Schröder' },
 ];
 
 /** Wochenplan – gespiegelt aus SCN_Uebungsangebote_Hallenbelegung.csv */
@@ -200,28 +200,28 @@ export const wochenplan = [
   ]},
   { tag: 'Dienstag', eintraege: [
     { zeit: '16:30 – 17:30', was: 'Eltern-Kind-Turnen', ort: 'Halle', slug: 'eltern-kind-turnen' },
-    { zeit: '17:30 – 19:00', was: 'Fußball · E-Junioren', ort: 'Platz', slug: 'fussball' },
+    { zeit: '17:30 – 19:00', was: 'Fußball · E-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '18:30 – 20:00', was: 'Taekwondo', ort: 'Halle', slug: 'taekwondo' },
     { zeit: '19:00 – 20:30', was: 'Fußball · Herren', ort: 'Platz', slug: 'fussball' },
   ]},
   { tag: 'Mittwoch', eintraege: [
-    { zeit: '17:00 – 18:30', was: 'Fußball · D-Junioren', ort: 'Platz', slug: 'fussball' },
-    { zeit: '17:30 – 19:00', was: 'Fußball · C-Junioren', ort: 'Platz', slug: 'fussball' },
+    { zeit: '17:00 – 18:30', was: 'Fußball · D-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '17:30 – 19:00', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '18:00 – 19:00', was: 'Zumba & Mobility', ort: 'Halle', slug: 'zumba-mobility' },
     { zeit: '18:30 – 20:00', was: 'Fußball · Damen', ort: 'Platz', slug: 'fussball' },
     { zeit: '19:00 – 20:30', was: 'Fußball · A-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: 'ab 19:00', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
   ]},
   { tag: 'Donnerstag', eintraege: [
-    { zeit: '16:30 – 17:30', was: 'Fußball · G-Junioren', ort: 'Platz', slug: 'fussball' },
-    { zeit: '17:30 – 19:00', was: 'Fußball · E-Junioren', ort: 'Platz', slug: 'fussball' },
+    { zeit: '16:30 – 17:30', was: 'Fußball · G-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '17:30 – 19:00', was: 'Fußball · E-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '18:30 – 20:00', was: 'Taekwondo', ort: 'Halle', slug: 'taekwondo' },
     { zeit: '19:00 – 20:00', was: 'Dart', ort: 'Vereinsheim', slug: 'dart' },
     { zeit: '19:00 – 20:30', was: 'Fußball · Herren', ort: 'Platz', slug: 'fussball' },
   ]},
   { tag: 'Freitag', eintraege: [
-    { zeit: '15:00 – 16:30', was: 'Fußball · D-Junioren', ort: 'Platz', slug: 'fussball' },
-    { zeit: '17:30 – 19:00', was: 'Fußball · C-Junioren', ort: 'Platz', slug: 'fussball' },
+    { zeit: '15:00 – 16:30', was: 'Fußball · D-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '17:30 – 19:00', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
   ]},
 ];
 
