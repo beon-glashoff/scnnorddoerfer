@@ -1,0 +1,65 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const fakten = [
+  { icon: 'tabler:ball-football', zahl: '8', text: 'Sportarten unter einem Dach' },
+  { icon: 'tabler:users-group', zahl: '7', text: 'Fußballmannschaften' },
+  { icon: 'tabler:map-pin', zahl: '1', text: 'Adresse für Halle, Platz und Vereinsheim' },
+  { icon: 'tabler:ticket', zahl: 'ab 8 €', text: 'Mitgliedsbeitrag im Monat' },
+];
+---
+
+<section class="fakten" aria-label="Der Verein in Zahlen">
+  <div class="container fakten__grid">
+    {fakten.map((f) => (
+      <div class="fakt">
+        <Icon name={f.icon} aria-hidden="true" />
+        <p class="fakt__zahl">{f.zahl}</p>
+        <p class="fakt__text">{f.text}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .fakten { background: var(--scn-gold); color: var(--ink); }
+  .fakten__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    padding-block: 0;
+  }
+  @media (min-width: 56rem) { .fakten__grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .fakt {
+    padding: clamp(1.5rem, 3vw, 2.4rem) clamp(0.6rem, 2vw, 1.5rem);
+    position: relative;
+    text-align: center;
+  }
+  .fakt::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 22%; bottom: 22%;
+    width: 1px;
+    background: rgba(11, 23, 32, 0.18);
+  }
+  .fakt:last-child::after { display: none; }
+  @media (max-width: 55.99rem) {
+    .fakt:nth-child(2n)::after { display: none; }
+  }
+
+  .fakt [data-icon] { font-size: 1.6rem; opacity: 0.55; }
+  .fakt__zahl {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 4.5vw, 3.1rem);
+    line-height: 1;
+    margin: 0.35rem 0 0.4rem;
+  }
+  .fakt__text {
+    margin: 0;
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+</style>

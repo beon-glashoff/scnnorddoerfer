@@ -1,0 +1,176 @@
+---
+import { Icon } from 'astro-icon/components';
+import { navigation, verein } from '../data/verein';
+
+interface Props { transparent?: boolean }
+const { transparent = false } = Astro.props;
+const pfad = Astro.url.pathname;
+---
+
+<header class:list={['kopf', transparent && 'kopf--transparent']} data-kopf>
+  <div class="kopf__inner container">
+    <a href="/" class="marke" aria-label={`${verein.kurzname} – zur Startseite`}>
+      <img src="/wappen-scn.png" alt="" width="52" height="50" />
+      <span class="marke__text">
+        <strong>SC Norddörfer</strong>
+        <small>{verein.claim}</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Hauptnavigation">
+      <ul>
+        {navigation.map((eintrag) => (
+          <li>
+            <a href={eintrag.href} aria-current={pfad.startsWith(eintrag.href) ? 'page' : undefined}>
+              {eintrag.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="kopf__aktionen">
+      <a class="btn btn--gold kopf__cta" href="/mitglied-werden/">Mitglied werden</a>
+      <button type="button" class="burger" aria-expanded="false" aria-controls="mobilnav" data-burger>
+        <Icon name="tabler:menu-2" aria-hidden="true" />
+        <span class="visually-hidden">Menü öffnen</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobilnav" id="mobilnav" hidden data-mobilnav>
+    <ul>
+      {navigation.map((eintrag) => (
+        <li><a href={eintrag.href}>{eintrag.label}</a></li>
+      ))}
+      <li><a class="btn btn--gold" href="/mitglied-werden/">Mitglied werden</a></li>
+    </ul>
+  </div>
+  <div class="band band--full" aria-hidden="true"><span></span><span></span><span></span></div>
+</header>
+
+<style>
+  .kopf {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+  .kopf--transparent {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    background: linear-gradient(to bottom, rgba(11, 23, 32, 0.78), rgba(11, 23, 32, 0));
+  }
+  .kopf--transparent.ist-gescrollt {
+    background: var(--ink);
+    box-shadow: 0 6px 24px -12px rgba(0, 0, 0, 0.8);
+  }
+  .kopf--transparent .band { opacity: 0; transition: opacity 0.3s ease; }
+  .kopf--transparent.ist-gescrollt .band { opacity: 1; }
+
+  .kopf__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 74px;
+  }
+
+  .marke { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+  .marke img { width: 44px; height: auto; }
+  .marke__text { display: grid; line-height: 1.1; }
+  .marke__text strong {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 1.28rem;
+    letter-spacing: 0.01em;
+  }
+  .marke__text small {
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.17em;
+    color: var(--scn-gold);
+  }
+
+  .nav { display: none; }
+  .nav ul { display: flex; gap: 1.9rem; list-style: none; margin: 0; padding: 0; }
+  .nav a {
+    text-decoration: none;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding-block: 0.4em;
+    position: relative;
+    white-space: nowrap;
+  }
+  .nav a::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 2px;
+    background: var(--scn-gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s ease;
+  }
+  .nav a:hover::after,
+  .nav a[aria-current='page']::after { transform: scaleX(1); }
+
+  .kopf__aktionen { display: flex; align-items: center; gap: 0.75rem; }
+  .kopf__cta { display: none; padding: 0.7em 1.2em; }
+
+  .burger {
+    display: inline-grid;
+    place-items: center;
+    width: 44px; height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 0;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+
+  .mobilnav { background: var(--ink); border-top: 1px solid var(--line-dark); }
+  .mobilnav ul { list-style: none; margin: 0; padding: 0.5rem var(--gutter) 1.5rem; display: grid; gap: 0.2rem; }
+  .mobilnav a {
+    display: block;
+    padding: 0.85em 0;
+    text-decoration: none;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .mobilnav .btn { margin-top: 1rem; border-bottom: 0; justify-content: center; }
+
+  @media (min-width: 62rem) {
+    .nav { display: block; }
+    .burger { display: none; }
+    .kopf__cta { display: inline-flex; }
+    .marke img { width: 52px; }
+  }
+</style>
+
+<script>
+  const kopf = document.querySelector('[data-kopf]');
+  const burger = document.querySelector('[data-burger]');
+  const mobilnav = document.querySelector('[data-mobilnav]');
+
+  if (kopf?.classList.contains('kopf--transparent')) {
+    const beobachter = () => kopf.classList.toggle('ist-gescrollt', window.scrollY > 40);
+    beobachter();
+    window.addEventListener('scroll', beobachter, { passive: true });
+  }
+
+  burger?.addEventListener('click', () => {
+    const offen = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', String(!offen));
+    if (mobilnav instanceof HTMLElement) mobilnav.hidden = offen;
+  });
+</script>

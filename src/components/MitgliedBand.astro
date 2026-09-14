@@ -1,0 +1,86 @@
+---
+import { Icon } from 'astro-icon/components';
+import { beitraege } from '../data/verein';
+---
+
+<section class="mitglied section" id="mitglied">
+  <div class="container mitglied__grid">
+    <div class="mitglied__text reveal">
+      <div class="band" aria-hidden="true"><span></span><span></span><span></span></div>
+      <h2>Werde Teil der<br />SCN-Familie</h2>
+      <p class="lead">
+        Erst reinschnuppern, dann entscheiden. Wenn du regelmäßig dabei bist, füllst du das
+        Anmeldeformular aus und gibst es bei deiner Trainerin, deinem Trainer oder im
+        Vereinsheim ab. Fertig.
+      </p>
+      <div class="cluster">
+        <a class="btn btn--gold" href="/mitglied-werden/">
+          <Icon name="tabler:file-download" aria-hidden="true" />
+          Anmeldeformular
+        </a>
+        <a class="btn btn--ghost" href="/faq/">Häufige Fragen</a>
+      </div>
+    </div>
+
+    <div class="mitglied__preise reveal">
+      <h3>Beiträge im Monat</h3>
+      <ul>
+        {beitraege.map((b) => (
+          <li>
+            <span>{b.wer}</span>
+            <span class="preis">{b.preis}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="hinweis">Der Einzug erfolgt vierteljährlich per Lastschrift.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mitglied { background: var(--scn-blue); color: #fff; }
+
+  .mitglied__grid { display: grid; gap: clamp(2.2rem, 5vw, 4rem); align-items: center; }
+  @media (min-width: 62rem) { .mitglied__grid { grid-template-columns: 1.1fr 0.9fr; } }
+
+  .mitglied__text .band { margin-bottom: 1.5rem; }
+  .mitglied__text h2 { font-size: var(--step-4); margin-bottom: 1.2rem; }
+  .mitglied__text .lead {
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.86);
+    max-width: 48ch;
+    margin-bottom: 1.8rem;
+  }
+
+  .mitglied__preise {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+    backdrop-filter: blur(2px);
+  }
+  .mitglied__preise h3 {
+    font-size: 1.5rem;
+    color: var(--scn-gold);
+    margin-bottom: 1.1rem;
+  }
+  .mitglied__preise ul { list-style: none; margin: 0 0 1.1rem; padding: 0; }
+  .mitglied__preise li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.2rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: 0.95rem;
+  }
+  .mitglied__preise li:last-child { border-bottom: 0; }
+  .preis {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .hinweis { font-size: 0.85rem; color: rgba(255, 255, 255, 0.72); margin: 0; }
+</style>

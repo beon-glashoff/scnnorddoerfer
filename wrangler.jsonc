@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "scnnorddoerfer",
+  "compatibility_date": "2026-09-14",
+
+  // Reines Static-Asset-Deployment: kein Worker-Script noetig.
+  // Build:  npm run build      -> erzeugt ./dist
+  // Deploy: npx wrangler deploy -> laedt ./dist hoch
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<section class="section section--sand news">
+  <div class="container">
+    <div class="news__kopf">
+      <div class="section-head">
+        <p class="eyebrow">Aus dem Verein</p>
+        <h2>Neues vom SCN</h2>
+        <p class="lead">
+          Berichte, Ergebnisse und Termine – eingebunden über den Nachrichten-Feed von DeinSylt.
+        </p>
+      </div>
+    </div>
+
+    {/*
+      Platzhalter. Das DeinSylt-Widget laedt ein Skript von einem fremden Server und
+      wird erst eingebunden, wenn die Datenschutzerklaerung steht.
+      Embed-Code: 01_Assets/08_Sonstiges/DeinSylt_News_Widget_Embed.html
+    */}
+    <div class="news__platzhalter">
+      <Icon name="tabler:news" aria-hidden="true" />
+      <p><strong>Hier kommt der DeinSylt-Feed hin.</strong></p>
+      <p class="klein">
+        Wird eingebunden, sobald die Datenschutzerklärung steht – das Widget lädt ein
+        Skript von dein-sylt.online nach.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .news__kopf { margin-bottom: 2rem; }
+
+  .news__platzhalter {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 0.35rem;
+    padding: clamp(2.5rem, 6vw, 4.5rem) 1.5rem;
+    border: 2px dashed rgba(11, 23, 32, 0.22);
+    border-radius: var(--radius-lg);
+    color: var(--text-muted);
+  }
+  .news__platzhalter [data-icon] { font-size: 2.4rem; color: var(--scn-blue); margin-bottom: 0.5rem; }
+  .news__platzhalter p { margin: 0; }
+  .klein { font-size: 0.87rem; max-width: 46ch; }
+</style>

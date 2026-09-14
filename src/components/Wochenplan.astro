@@ -1,0 +1,121 @@
+---
+import { Icon } from 'astro-icon/components';
+import { wochenplan } from '../data/verein';
+---
+
+<section class="section" id="trainingszeiten">
+  <div class="container">
+    <div class="plan__kopf reveal">
+      <div class="section-head">
+        <p class="eyebrow">Trainingszeiten</p>
+        <h2>Die Woche<br />beim SCN</h2>
+        <p class="lead">
+          Montag bis Freitag ist bei uns etwas los. Such dir raus, was passt, und komm vorbei.
+        </p>
+      </div>
+      <a class="btn btn--blue" href="/trainingszeiten/">Kompletter Plan</a>
+    </div>
+
+    <div class="plan reveal">
+      {wochenplan.map((tag) => (
+        <div class="tag">
+          <h3 class="tag__name">{tag.tag}</h3>
+          <ul>
+            {tag.eintraege.map((e) => (
+              <li>
+                <a href={`/sportarten/${e.slug}/`}>
+                  <span class="zeit">{e.zeit}</span>
+                  <span class="was">{e.was}</span>
+                  <span class:list={['ort', `ort--${e.ort.toLowerCase()}`]}>{e.ort}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <p class="plan__fuss">
+      <Icon name="tabler:info-circle" aria-hidden="true" />
+      Fußball findet draußen auf dem Sportplatz statt, bei schlechtem Wetter in der Halle.
+      Spieltage am Wochenende stehen nicht im Plan – die Termine hängen an der Saison.
+    </p>
+  </div>
+</section>
+
+<style>
+  .plan__kopf {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.8rem;
+    margin-bottom: clamp(2.2rem, 4vw, 3rem);
+  }
+  .plan__kopf h2 { font-size: var(--step-4); }
+
+  .plan {
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  @media (min-width: 52rem) { .plan { grid-template-columns: repeat(5, 1fr); } }
+
+  .tag { background: var(--paper); padding: 1.15rem 1.15rem 1.4rem; }
+
+  .tag__name {
+    font-size: 1.15rem;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.9rem;
+    border-bottom: 3px solid var(--scn-red);
+    letter-spacing: 0.02em;
+  }
+
+  .tag ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .tag a {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.6rem 0.7rem;
+    text-decoration: none;
+    border-radius: var(--radius);
+    background: var(--sand);
+    transition: background-color 0.18s ease;
+  }
+  .tag a:hover { background: #ebe4d8; }
+
+  .zeit {
+    font-size: 0.76rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+  }
+  .was { font-weight: 600; font-size: 0.92rem; line-height: 1.25; }
+  .ort {
+    justify-self: start;
+    margin-top: 0.2rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.16em 0.5em;
+    border-radius: 99px;
+    color: #fff;
+    background: var(--scn-blue);
+  }
+  .ort--platz { background: var(--scn-red); }
+  .ort--vereinsheim { background: var(--ink); }
+
+  .plan__fuss {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.6rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    max-width: 78ch;
+  }
+  .plan__fuss [data-icon] { flex: none; font-size: 1.15rem; color: var(--scn-blue); }
+</style>

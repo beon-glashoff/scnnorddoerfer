@@ -1,0 +1,129 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { mannschaften } from '../data/verein';
+import huddle from '../assets/fotos/fussball-huddle.jpg';
+import abendlicht from '../assets/fotos/fussball-abendlicht.jpg';
+import jugend from '../assets/fotos/fussball-jugend.jpg';
+---
+
+<section class="fussball section section--dark" id="fussball">
+  <div class="container">
+    <div class="fussball__kopf reveal">
+      <div class="section-head">
+        <p class="eyebrow">Die größte Sparte</p>
+        <h2>König Fußball<br />regiert die Insel</h2>
+        <p class="lead">
+          Von den G-Junioren bis zu Herren und Damen: Sieben Mannschaften trainieren beim
+          SC Norddörfer – im Sommer draußen unter Flutlicht, im Winter in der Norddörfer Halle.
+        </p>
+      </div>
+      <div class="band" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="fussball__inhalt">
+      <div class="fussball__bilder reveal">
+        <figure class="bild bild--gross">
+          <Image src={huddle} alt="Mannschaftskreis der A-Jugend vor dem Anpfiff" widths={[560, 900, 1400]} sizes="(min-width: 64rem) 46vw, 92vw" />
+        </figure>
+        <figure class="bild">
+          <Image src={abendlicht} alt="Spielerin der Damenmannschaft im Abendlicht am Ball" widths={[320, 560]} sizes="(min-width: 64rem) 22vw, 45vw" />
+        </figure>
+        <figure class="bild">
+          <Image src={jugend} alt="Nachwuchsspieler des SC Norddörfer am Ball" widths={[320, 560]} sizes="(min-width: 64rem) 22vw, 45vw" />
+        </figure>
+      </div>
+
+      <div class="fussball__teams reveal">
+        <h3 class="teams__titel">Unsere Mannschaften</h3>
+        <ul class="teams">
+          {mannschaften.map((m) => (
+            <li class:list={['team', m.sucht && 'team--sucht']}>
+              <span class="team__name">{m.name}</span>
+              {m.sucht ? (
+                <span class="team__hinweis">
+                  <Icon name="tabler:alert-triangle" aria-hidden="true" />
+                  Pausiert – wir suchen eine:n Trainer:in
+                </span>
+              ) : (
+                <span class="team__zeiten">{m.zeiten.join(' · ')}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <div class="cluster teams__aktionen">
+          <a class="btn btn--gold" href="/sportarten/fussball/">Zur Fußballsparte</a>
+          <a class="btn btn--ghost" href="/mitmachen/">Trainer:in werden</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fussball__kopf { display: grid; gap: 1.6rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .fussball__kopf h2 { font-size: var(--step-4); }
+
+  .fussball__inhalt { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
+  @media (min-width: 64rem) {
+    .fussball__inhalt { grid-template-columns: 1.15fr 0.85fr; align-items: start; }
+  }
+
+  .fussball__bilder {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .bild { margin: 0; overflow: hidden; border-radius: var(--radius-lg); background: #0e1c26; }
+  .bild--gross { grid-column: 1 / -1; }
+  .bild :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  .bild--gross :global(img) { aspect-ratio: 16 / 10; }
+  .bild:not(.bild--gross) :global(img) { aspect-ratio: 3 / 4; }
+  .bild:hover :global(img) { transform: scale(1.04); }
+
+  .teams__titel {
+    font-size: var(--step-2);
+    margin-bottom: 1.4rem;
+    color: var(--scn-gold);
+  }
+
+  .teams { list-style: none; margin: 0 0 2rem; padding: 0; }
+  .team {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem 1.2rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .team:first-child { border-top: 1px solid var(--line-dark); }
+
+  .team__name {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.35rem;
+    letter-spacing: 0.01em;
+  }
+  .team__zeiten {
+    font-size: 0.88rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-on-dark-muted);
+  }
+  .team__hinweis {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--scn-gold);
+  }
+  .team--sucht .team__name { color: var(--scn-gold); }
+</style>

@@ -1,0 +1,141 @@
+---
+import { Icon } from 'astro-icon/components';
+import { verein, sparten } from '../data/verein';
+const jahr = new Date().getFullYear();
+---
+
+<footer class="fuss">
+  <div class="band band--full" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <div class="container fuss__inner">
+    <div class="fuss__marke">
+      <img src="/wappen-scn.png" alt="Wappen des SC Norddörfer" width="88" height="84" />
+      <p class="fuss__claim">{verein.claim}</p>
+      <div class="cluster">
+        <a class="sozial" href={verein.instagram} aria-label="SC Norddörfer bei Instagram" rel="me noopener" target="_blank">
+          <Icon name="tabler:brand-instagram" aria-hidden="true" />
+        </a>
+        <a class="sozial" href={verein.facebook} aria-label="SC Norddörfer bei Facebook" rel="me noopener" target="_blank">
+          <Icon name="tabler:brand-facebook" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+
+    <nav class="fuss__spalte" aria-labelledby="fuss-sport">
+      <h2 id="fuss-sport">Sportarten</h2>
+      <ul>
+        {sparten.map((s) => (
+          <li><a href={`/sportarten/${s.slug}/`}>{s.name}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="fuss__spalte" aria-labelledby="fuss-verein">
+      <h2 id="fuss-verein">Verein</h2>
+      <ul>
+        <li><a href="/verein/">Über uns</a></li>
+        <li><a href="/verein/vorstand/">Vorstand</a></li>
+        <li><a href="/trainingszeiten/">Trainingszeiten</a></li>
+        <li><a href="/mitglied-werden/">Mitglied werden</a></li>
+        <li><a href="/mitmachen/">Mitmachen &amp; Ehrenamt</a></li>
+        <li><a href="/bandenwerbung/">Bandenwerbung</a></li>
+        <li><a href="/faq/">Häufige Fragen</a></li>
+      </ul>
+    </nav>
+
+    <div class="fuss__spalte">
+      <h2>Kontakt</h2>
+      <address>
+        {verein.vollname}<br />
+        {verein.strasse}<br />
+        {verein.plz} {verein.ort}
+      </address>
+      <ul class="fuss__kontakt">
+        <li>
+          <Icon name="tabler:phone" aria-hidden="true" />
+          <a href={`tel:${verein.telefonHref}`}>{verein.telefon}</a>
+        </li>
+        <li>
+          <Icon name="tabler:mail" aria-hidden="true" />
+          <a href={`mailto:${verein.email}`}>{verein.email}</a>
+        </li>
+      </ul>
+      <p class="fuss__hinweis">
+        Sporthalle, Sportplatz und Vereinsheim liegen alle an dieser Adresse.
+      </p>
+    </div>
+  </div>
+
+  <div class="container fuss__unten">
+    <p>© {jahr} {verein.vollname}</p>
+    <ul>
+      <li><a href="/impressum/">Impressum</a></li>
+      <li><a href="/datenschutz/">Datenschutz</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .fuss { background: var(--ink); color: var(--text-on-dark); }
+
+  .fuss__inner {
+    display: grid;
+    gap: 2.6rem;
+    padding-block: clamp(3rem, 6vw, 5rem) 2.5rem;
+  }
+  @media (min-width: 40rem) { .fuss__inner { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 64rem) { .fuss__inner { grid-template-columns: 1.4fr 1fr 1fr 1.3fr; gap: 3rem; } }
+
+  .fuss__marke img { width: 78px; height: auto; }
+  .fuss__claim {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.35rem;
+    margin: 0.9rem 0 1.1rem;
+    color: var(--scn-gold);
+  }
+
+  .sozial {
+    display: inline-grid;
+    place-items: center;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 1.25rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .sozial:hover { background: var(--scn-red); transform: translateY(-2px); }
+
+  .fuss__spalte h2 {
+    font-size: 0.78rem;
+    font-family: var(--font-text);
+    font-weight: 700;
+    letter-spacing: 0.17em;
+    color: var(--scn-gold);
+    margin-bottom: 1.1rem;
+  }
+  .fuss__spalte ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .fuss__spalte a { text-decoration: none; color: var(--text-on-dark-muted); font-size: 0.95rem; }
+  .fuss__spalte a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+
+  address { font-style: normal; color: var(--text-on-dark-muted); margin-bottom: 1rem; line-height: 1.7; }
+  .fuss__kontakt li { display: flex; align-items: center; gap: 0.6rem; }
+  .fuss__kontakt [data-icon] { color: var(--scn-gold); font-size: 1.1rem; flex: none; }
+  .fuss__hinweis { margin-top: 1.1rem; font-size: 0.85rem; color: var(--text-on-dark-muted); }
+
+  .fuss__unten {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.8rem;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1.4rem;
+    border-top: 1px solid var(--line-dark);
+    font-size: 0.85rem;
+    color: var(--text-on-dark-muted);
+  }
+  .fuss__unten p { margin: 0; }
+  .fuss__unten ul { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }
+  .fuss__unten a { text-decoration: none; }
+  .fuss__unten a:hover { text-decoration: underline; text-underline-offset: 4px; }
+</style>

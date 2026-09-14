@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { verein } from '../data/verein';
+import halle from '../assets/fotos/sportstaette-halle.jpg';
+import platz from '../assets/fotos/sportstaette-fussballplatz_abend.jpg';
+import heim from '../assets/fotos/sportstaette-vereinsheim.jpg';
+
+const orte = [
+  {
+    bild: halle,
+    name: 'Die Sporthalle',
+    text: 'Turnen, Tanzen, Kampfsport und im Winter das Fußballtraining – die Norddörfer Halle ist unser Dach über dem Kopf.',
+    alt: 'Innenansicht der Norddörfer Sporthalle',
+  },
+  {
+    bild: platz,
+    name: 'Der Sportplatz',
+    text: 'Heimat der Fußballmannschaften. Seit 2023 sorgt die neue Flutlichtanlage dafür, dass auch in der dunklen Jahreszeit gespielt wird.',
+    alt: 'Der Sportplatz des SC Norddörfer bei Flutlicht',
+  },
+  {
+    bild: heim,
+    name: 'Das Vereinsheim',
+    text: 'Hier trainieren die Dartspieler, hier wird gefeiert und hier laufen alle Fäden des Vereins zusammen.',
+    alt: 'Das Vereinsheim des SC Norddörfer',
+  },
+];
+---
+
+<section class="section section--dark orte">
+  <div class="container">
+    <div class="orte__kopf reveal">
+      <div class="section-head">
+        <p class="eyebrow">Unsere Sportstätten</p>
+        <h2>Alles an<br />einem Ort</h2>
+        <p class="lead">
+          Halle, Sportplatz und Vereinsheim liegen direkt beieinander – am Norderweg 4 in Wenningstedt.
+          Einmal parken, alles erreicht.
+        </p>
+      </div>
+      <a class="btn btn--gold" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${verein.strasse}, ${verein.plz} ${verein.ort}`)}`} target="_blank" rel="noopener">
+        <Icon name="tabler:map-2" aria-hidden="true" />
+        Route planen
+      </a>
+    </div>
+
+    <ul class="orte__liste reveal">
+      {orte.map((o) => (
+        <li class="ort">
+          <figure>
+            <Image src={o.bild} alt={o.alt} widths={[420, 760]} sizes="(min-width: 60rem) 31vw, 92vw" />
+          </figure>
+          <h3>{o.name}</h3>
+          <p>{o.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .orte__kopf {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.8rem;
+    margin-bottom: clamp(2.2rem, 4vw, 3.2rem);
+  }
+  .orte__kopf h2 { font-size: var(--step-4); }
+
+  .orte__liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.8rem;
+  }
+  @media (min-width: 60rem) { .orte__liste { grid-template-columns: repeat(3, 1fr); } }
+
+  .ort figure { margin: 0 0 1.1rem; border-radius: var(--radius-lg); overflow: hidden; }
+  .ort :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  .ort:hover :global(img) { transform: scale(1.04); }
+
+  .ort h3 { font-size: 1.7rem; margin-bottom: 0.5rem; color: var(--scn-gold); }
+  .ort p { color: var(--text-on-dark-muted); font-size: 0.95rem; }
+</style>

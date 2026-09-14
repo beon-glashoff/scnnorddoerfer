@@ -1,0 +1,33 @@
+{
+  "name": "scnnorddoerfer",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "astro build && wrangler deploy",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.5",
+    "@fontsource/anton": "^5.2.5",
+    "@iconify-json/tabler": "^1.2.17",
+    "astro": "^5.14.1",
+    "astro-icon": "^1.1.5",
+    "sharp": "^0.34.2"
+  },
+  "devDependencies": {
+    "wrangler": "^4.40.0"
+  },
+  "allowScripts": {
+    "sharp@0.35.4": true,
+    "sharp@0.34.5": true,
+    "esbuild@0.27.7": true,
+    "esbuild@0.25.12": true,
+    "esbuild@0.28.1": true,
+    "workerd@1.20260911.1": true,
+    "fsevents@2.3.3": true
+  }
+}

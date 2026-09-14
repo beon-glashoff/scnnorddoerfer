@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import FaktenBand from '../components/FaktenBand.astro';
+import FussballSektion from '../components/FussballSektion.astro';
+import SpartenGrid from '../components/SpartenGrid.astro';
+import Wochenplan from '../components/Wochenplan.astro';
+import Sportstaetten from '../components/Sportstaetten.astro';
+import MitgliedBand from '../components/MitgliedBand.astro';
+import NewsTeaser from '../components/NewsTeaser.astro';
+---
+
+<BaseLayout
+  title="Sportverein auf Sylt"
+  description="Acht Sportarten, sieben Fußballmannschaften, eine Halle hinterm Deich. Der SC Norddörfer in Wenningstedt auf Sylt – komm einfach zum Training vorbei."
+  transparentHeader
+>
+  <Hero />
+  <FaktenBand />
+  <FussballSektion />
+  <SpartenGrid />
+  <Wochenplan />
+  <Sportstaetten />
+  <MitgliedBand />
+  <NewsTeaser />
+</BaseLayout>
