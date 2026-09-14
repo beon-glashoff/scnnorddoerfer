@@ -1,11 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import { Icon } from 'astro-icon/components';
 import { sparten } from '../data/verein';
-import fussballBild from '../assets/fotos/fussball-schuss.jpg';
-
-// Nur fuer die Sparten, zu denen es schon Bildmaterial gibt.
-const bilder: Record<string, ImageMetadata> = { fussball: fussballBild };
+import SpartenKarte from './SpartenKarte.astro';
 ---
 
 <section class="section section--sand" id="sportarten">
@@ -23,33 +18,7 @@ const bilder: Record<string, ImageMetadata> = { fussball: fussballBild };
 
     <ul class="sparten reveal">
       {sparten.map((s) => (
-        <li>
-          <a class:list={['karte', `karte--${s.farbe}`]} href={`/sportarten/${s.slug}/`}>
-            <div class="karte__medium">
-              {bilder[s.slug] ? (
-                <Image src={bilder[s.slug]} alt="" widths={[360, 640]} sizes="(min-width: 64rem) 30vw, 92vw" />
-              ) : (
-                <span class="karte__muster" aria-hidden="true"></span>
-              )}
-              <span class="karte__chip"><Icon name={s.icon} aria-hidden="true" /></span>
-            </div>
-
-            <div class="karte__text">
-              <h3>{s.name}</h3>
-              <p class="karte__kurz">{s.kurz}</p>
-              <dl class="karte__meta">
-                <dt><Icon name="tabler:users" aria-hidden="true" /><span class="visually-hidden">Altersgruppe</span></dt>
-                <dd>{s.alter}</dd>
-                <dt><Icon name="tabler:clock" aria-hidden="true" /><span class="visually-hidden">Trainingszeit</span></dt>
-                <dd>{s.zeitKurz}</dd>
-              </dl>
-              <span class="karte__mehr">
-                Mehr erfahren
-                <Icon name="tabler:arrow-right" aria-hidden="true" />
-              </span>
-            </div>
-          </a>
-        </li>
+        <li><SpartenKarte sparte={s} /></li>
       ))}
     </ul>
   </div>
@@ -67,91 +36,4 @@ const bilder: Record<string, ImageMetadata> = { fussball: fussballBild };
     gap: 1.2rem;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
   }
-
-  .karte {
-    --akzent: var(--scn-red);
-    display: grid;
-    grid-template-rows: auto 1fr;
-    height: 100%;
-    background: var(--paper);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: 0 1px 2px rgba(11, 23, 32, 0.07);
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
-  }
-  .karte--blau { --akzent: var(--scn-blue); }
-  .karte--gold { --akzent: var(--scn-gold); --akzent-text: var(--scn-gold-dark); }
-  .karte { --akzent-text: var(--akzent); }
-
-  .karte:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 34px -18px rgba(11, 23, 32, 0.4);
-  }
-
-  .karte__medium { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--akzent); }
-  .karte__medium :global(img) { width: 100%; height: 100%; object-fit: cover; }
-
-  /* Platzhalter, solange fuer eine Sparte noch keine Fotos vorliegen:
-     Wappenstreifen statt Fremdbild. */
-  .karte__muster {
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.11) 0 14px,
-        rgba(255, 255, 255, 0) 14px 28px
-      ),
-      var(--akzent);
-  }
-
-  .karte__chip {
-    position: absolute;
-    left: 1rem;
-    bottom: 1rem;
-    display: grid;
-    place-items: center;
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: var(--paper);
-    color: var(--akzent-text);
-    font-size: 1.7rem;
-    box-shadow: 0 6px 16px -8px rgba(11, 23, 32, 0.5);
-  }
-
-  .karte__text {
-    display: grid;
-    align-content: start;
-    gap: 0.7rem;
-    padding: 1.3rem 1.4rem 1.5rem;
-  }
-  .karte__text h3 { font-size: 1.75rem; }
-  .karte__kurz { font-size: 0.93rem; color: var(--text-muted); margin: 0; }
-
-  .karte__meta {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.35rem 0.6rem;
-    margin: 0.2rem 0 0;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-  }
-  .karte__meta dt { color: var(--akzent-text); font-size: 1.05rem; line-height: 1.3; }
-  .karte__meta dd { margin: 0; }
-
-  .karte__mehr {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.4rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--akzent-text);
-  }
-  .karte:hover .karte__mehr [data-icon] { transform: translateX(4px); }
-  .karte__mehr [data-icon] { transition: transform 0.2s ease; }
 </style>

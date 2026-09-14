@@ -31,6 +31,20 @@ export const verein = {
   vereinsregister: 'VR 194 NI, Amtsgericht Niebüll',
 } as const;
 
+/** Inhalte der Spartenseite. Aufbau ist fuer alle Sparten gleich. */
+export type SpartenDetail = {
+  /** Einleitung direkt unter der Überschrift */
+  intro: string;
+  /** Fliesstext-Abschnitte mit eigener Überschrift */
+  abschnitte: { titel: string; absaetze: string[] }[];
+  /** Was zum Training mitzubringen ist */
+  mitbringen?: string[];
+  /** Hervorgehobener Hinweis, z. B. zur Aufsichtspflicht */
+  hinweis?: { titel: string; text: string };
+  /** Zitat als gestalterischer Akzent */
+  zitat?: { text: string; quelle: string };
+};
+
 export type Sparte = {
   slug: string;
   name: string;
@@ -48,6 +62,8 @@ export type Sparte = {
   textVorhanden: boolean;
   /** true = es gibt bereits eigenes Bildmaterial */
   fotoVorhanden: boolean;
+  /** Ausfuehrliche Inhalte der Spartenseite */
+  detail?: SpartenDetail;
 };
 
 export const sparten: Sparte[] = [
@@ -143,6 +159,34 @@ export const sparten: Sparte[] = [
     telefon: '0171 3165942',
     textVorhanden: true,
     fotoVorhanden: false,
+    detail: {
+      intro:
+        'Zweimal in der Woche wird es in der Norddörfer Halle laut: Beim Taekwondo lernst du eine ' +
+        'traditionelle Kampfkunst, bei der es genauso um Technik und Kondition geht wie um Respekt ' +
+        'und einen klaren Kopf.',
+      abschnitte: [
+        {
+          titel: 'Was ist Taekwondo?',
+          absaetze: [
+            'Taekwondo ist eine koreanische Kampfsportart. Der Name setzt sich aus Tae (Fuß), Kwon (Faust) und Do (der Weg) zusammen.',
+            'Und Taekwondo ist sogar eine olympische Disziplin.',
+          ],
+        },
+        {
+          titel: 'Was bieten wir an?',
+          absaetze: [
+            'Wir bringen euch das traditionelle Taekwondo bei. Ihr erlernt Grundtechniken und übt an den Pratzen.',
+            'Dazu kommen Selbstverteidigung – die Abwehr von Angriffen mit Stock oder Messer, gegen einen oder mehrere Angreifer –, Formenlaufen, Wettkampf mit Schutzausrüstung und die Theorie.',
+            'Und zur Prüfung gehört der spektakuläre Bruchtest.',
+          ],
+        },
+      ],
+      mitbringen: [
+        'Spaß und Freude',
+        'Lust auf eine tolle Kampfsportart',
+        'Sportsachen – aber keine Schuhe',
+      ],
+    },
   },
   {
     slug: 'muay-thai',

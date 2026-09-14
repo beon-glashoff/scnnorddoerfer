@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SpartenKarte from '../../components/SpartenKarte.astro';
+import { sparten, einheitenProWoche } from '../../data/verein';
+---
+
+<BaseLayout
+  title="Sportarten"
+  description="Acht Sportarten beim SC Norddörfer – von Fußball über Eltern-Kind-Turnen und Tanzen bis zu Taekwondo, Muay Thai und Dart."
+>
+  <section class="kopf section--dark">
+    <div class="container">
+      <div class="band" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p class="eyebrow">Alle Sparten</p>
+      <h1>Acht Sportarten,<br />ein Verein</h1>
+      <p class="kopf__lead">
+        {einheitenProWoche} Trainings und Kurse in der Woche – vom Eltern-Kind-Turnen bis zum
+        Muay Thai. In jedes davon kannst du ohne Anmeldung reinschnuppern.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <ul class="liste">
+        {sparten.map((s) => (
+          <li><SpartenKarte sparte={s} /></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .kopf {
+    background: var(--ink);
+    color: var(--text-on-dark);
+    padding-block: clamp(3rem, 7vw, 5.5rem);
+  }
+  .kopf .band { margin-bottom: 1.6rem; }
+  .kopf h1 { font-size: var(--step-4); margin-bottom: 1.2rem; }
+  .kopf__lead {
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--text-on-dark-muted);
+    max-width: 54ch;
+  }
+
+  .liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  }
+</style>
