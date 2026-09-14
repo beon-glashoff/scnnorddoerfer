@@ -3,9 +3,14 @@
   "name": "scnnorddoerfer",
   "compatibility_date": "2026-09-14",
 
+  // Wrangler baut vor jedem Deploy selbst. Dadurch genuegt in der Cloudflare-CI
+  // der Deploy-Befehl "npx wrangler deploy" - ohne diesen Hook faende er kein ./dist.
+  "build": {
+    "command": "npm run build",
+    "watch_dir": "src"
+  },
+
   // Reines Static-Asset-Deployment: kein Worker-Script noetig.
-  // Build:  npm run build      -> erzeugt ./dist
-  // Deploy: npx wrangler deploy -> laedt ./dist hoch
   "assets": {
     "directory": "./dist",
     "html_handling": "auto-trailing-slash",

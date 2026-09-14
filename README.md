@@ -17,12 +17,15 @@ Die Seite wird komplett statisch gebaut. Auf Cloudflare läuft sie als reines
 Static-Asset-Deployment – es gibt kein Worker-Script, nur den Ordner `dist`.
 
 ```bash
-npm run build
 npx wrangler deploy
 ```
 
-Die Konfiguration steht in `wrangler.jsonc`. Beim ersten Deploy fragt Wrangler nach dem
-Cloudflare-Login.
+Ein separater `npm run build` davor ist nicht nötig: `wrangler.jsonc` enthält einen
+`build.command`, den Wrangler vor jedem Deploy ausführt. Deshalb genügt in den
+Cloudflare Workers Builds als Deploy-Befehl ebenfalls `npx wrangler deploy` –
+ein eigener Build-Befehl im Dashboard muss nicht gesetzt sein.
+
+Beim ersten lokalen Deploy fragt Wrangler nach dem Cloudflare-Login.
 
 ### Späterer Umzug zu Strato
 
