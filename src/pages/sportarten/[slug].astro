@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SpartenKarte from '../../components/SpartenKarte.astro';
 import { sparten, mannschaften, standDerDaten, type Sparte } from '../../data/verein';
 import fussballKopf from '../../assets/fotos/fussball-duell.jpg';
 
@@ -20,7 +19,6 @@ const { sparte } = Astro.props;
 const kopfBilder: Record<string, ImageMetadata> = { fussball: fussballKopf };
 const bild = kopfBilder[sparte.slug];
 
-const weitere = sparten.filter((s) => s.slug !== sparte.slug).slice(0, 3);
 ---
 
 <BaseLayout
@@ -150,6 +148,10 @@ const weitere = sparten.filter((s) => s.slug !== sparte.slug).slice(0, 3);
           </div>
         </aside>
       </div>
+
+      <div class="container">
+        <p class="stand">Stand: {standDerDaten}</p>
+      </div>
     </div>
 
     {sparte.slug === 'fussball' && (
@@ -203,22 +205,6 @@ const weitere = sparten.filter((s) => s.slug !== sparte.slug).slice(0, 3);
       </div>
     </section>
 
-    <!-- Weitere Sportarten -->
-    <section class="section section--sand">
-      <div class="container">
-        <div class="weitere__kopf">
-          <h2>Weitere Sportarten</h2>
-          <a class="weitere__alle" href="/sportarten/">
-            Alle ansehen
-            <Icon name="tabler:arrow-right" aria-hidden="true" />
-          </a>
-        </div>
-        <ul class="weitere">
-          {weitere.map((s) => <li><SpartenKarte sparte={s} /></li>)}
-        </ul>
-        <p class="stand">Stand: {standDerDaten}</p>
-      </div>
-    </section>
   </article>
 </BaseLayout>
 
@@ -478,34 +464,5 @@ const weitere = sparten.filter((s) => s.slug !== sparte.slug).slice(0, 3);
   }
   .teams__fuss [data-icon] { flex: none; font-size: 1.1rem; color: var(--scn-blue); }
 
-  /* ---------- Weitere ---------- */
-  .weitere__kopf {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 1.6rem;
-  }
-  .weitere__kopf h2 { font-size: var(--step-2); }
-  .weitere__alle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--scn-red);
-  }
-  .weitere {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 1.2rem;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
-  }
-  .stand { margin-top: 1.8rem; text-align: right; font-size: 0.72rem; color: var(--text-muted); }
+  .stand { margin-top: 2.2rem; text-align: right; font-size: 0.72rem; color: var(--text-muted); }
 </style>
