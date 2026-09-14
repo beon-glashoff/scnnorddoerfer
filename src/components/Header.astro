@@ -98,22 +98,38 @@ const pfad = Astro.url.pathname;
     line-height: 1;
   }
 
-  /* Navigation sitzt rechtsbuendig am Ende der Zeile */
-  .kopf__rechts { display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; }
+  /* Navigation sitzt rechtsbuendig am Ende der Zeile und laeuft ueber die
+     volle Kopfhoehe - nur so kann die Markierung ganz oben am Rand sitzen. */
+  .kopf__rechts {
+    display: flex;
+    align-self: stretch;
+    align-items: stretch;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
 
   .nav { display: none; }
-  .nav ul { display: flex; gap: clamp(1.1rem, 2.4vw, 2.1rem); list-style: none; margin: 0; padding: 0; }
+  .nav ul {
+    display: flex;
+    height: 100%;
+    gap: clamp(1.1rem, 2.4vw, 2.1rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav li { display: flex; }
   .nav a {
+    display: flex;
+    align-items: center;
     text-decoration: none;
     font-size: 0.86rem;
     font-weight: 600;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    padding-block: 0.6em;
     position: relative;
     white-space: nowrap;
   }
-  /* Markierung sitzt als Overline ueber dem Menuepunkt */
+  /* Markierung sitzt als Overline ganz oben am Bildschirmrand */
   .nav a::before {
     content: '';
     position: absolute;
@@ -128,6 +144,7 @@ const pfad = Astro.url.pathname;
   .nav a[aria-current='page']::before { transform: scaleX(1); }
 
   .burger {
+    align-self: center;
     display: inline-grid;
     place-items: center;
     width: 44px; height: 44px;
