@@ -88,24 +88,28 @@ export const sparten: Sparte[] = [
         'bis zum Punktspiel der Herren und Damen.',
       abschnitte: [
         {
-          titel: 'Fußball ist unser Leben',
+          titel: 'Jeder Jahrgang zählt',
           absaetze: [
-            'Das wusste schon die Nationalmannschaft 1974 in ihrem Evergreen. Der SC Norddörfer und seine Fußballsparte leben diese Hymne jeden Tag.',
-            'Neben der nötigen Portion Fußballverrücktheit dürfen weitere Tugenden nicht fehlen: Fleiß, Zuverlässigkeit, Respekt, Toleranz, Teamgeist, Siegeswille – und ganz wichtig, der Spaß.',
+            'Die Herren treten in der Kreisklasse A an, die Damen in der Frauen-Kreisklasse. Dazu kommen vier Jugendmannschaften und die Jüngsten in der G-Jugend, die noch ohne Tabelle und Punkte spielen.',
+            'Dass jeder Jahrgang eine Mannschaft hat, ist auf einer Insel nicht selbstverständlich. Wird ein Jahrgang zu dünn, legen wir zusammen: Unsere A-Jugend besteht heute zu großen Teilen aus B-Jugendlichen. Hauptsache, sie stehen auf dem Platz.',
+            'Und manchmal fehlt eben doch eine Mannschaft. Die F-Jugend pausiert gerade, bis sich eine Trainerin oder ein Trainer findet – wer Lust hat, ist herzlich eingeladen.',
+          ],
+        },
+        {
+          titel: 'Worauf es uns ankommt',
+          absaetze: [
+            'Neben der nötigen Portion Fußballverrücktheit zählen bei uns Fleiß, Zuverlässigkeit, Respekt, Toleranz, Teamgeist und Siegeswille.',
+            'Und ganz wichtig: der Spaß. Wer mitspielen will, kann das bei uns – unabhängig davon, wie gut er oder sie schon ist.',
           ],
         },
         {
           titel: 'Wo wir spielen',
           absaetze: [
-            'Trainiert wird draußen auf dem Sportplatz am Norderweg. Seit 2023 sorgt die neue Flutlichtanlage dafür, dass auch in der dunklen Jahreszeit auf eigenem Platz gespielt wird – Heimspiele der Herren und Damen inklusive.',
-            'Bei schlechtem Wetter und im Winter zieht das Training in die Norddörfer Halle um.',
+            'Trainiert wird draußen auf dem Sportplatz am Norderweg. Bis 2023 mussten wir in der dunklen Jahreszeit auf Nachbarplätze ausweichen – seit die Flutlichtanlage steht, finden Training und Heimspiele auf eigenem Platz statt. Möglich wurde sie durch das Engagement des Präsidiums und zahlreiche Spenden.',
+            'Bei schlechtem Wetter und im Winter zieht das Training in die Norddörfer Halle um. Beides liegt an derselben Adresse, einmal quer über den Parkplatz.',
           ],
         },
       ],
-      zitat: {
-        text: 'Es gibt nur einen Ball. Wenn der Gegner ihn hat, muss man sich fragen: Warum? Und was muss man tun? Ihn sich wiederholen!',
-        quelle: 'Giovanni Trapattoni',
-      },
     },
   },
   {

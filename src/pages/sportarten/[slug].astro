@@ -124,9 +124,21 @@ const bild = kopfBilder[sparte.slug];
         <aside class="inhalt__spalte">
           <div class="kasten">
             <h2><Icon name="tabler:calendar" aria-hidden="true" />Trainingszeiten</h2>
-            <ul class="zeiten">
-              {sparte.zeiten.map((z) => <li>{z}</li>)}
-            </ul>
+            {sparte.slug === 'fussball' ? (
+              <>
+                <p class="kasten__text">
+                  Jede Mannschaft trainiert zu eigenen Zeiten – von der G-Jugend bis zu den Herren.
+                </p>
+                <a class="kasten__link" href="#mannschaften">
+                  Zu den Mannschaften
+                  <Icon name="tabler:arrow-down" aria-hidden="true" />
+                </a>
+              </>
+            ) : (
+              <ul class="zeiten">
+                {sparte.zeiten.map((z) => <li>{z}</li>)}
+              </ul>
+            )}
             <p class="kasten__fuss">{sparte.ort}</p>
           </div>
 
@@ -159,7 +171,7 @@ const bild = kopfBilder[sparte.slug];
     </div>
 
     {sparte.slug === 'fussball' && (
-      <section class="section section--sand teams">
+      <section class="section section--sand teams" id="mannschaften">
         <div class="container">
           <div class="teams__kopf">
             <h2>Unsere Mannschaften</h2>
@@ -467,6 +479,19 @@ const bild = kopfBilder[sparte.slug];
     font-size: 0.82rem;
     color: var(--text-muted);
   }
+  .kasten__text { font-size: 0.93rem; margin-bottom: 0.9rem; }
+  .kasten__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--akzent-text);
+  }
+  .kasten__link:hover { text-decoration: underline; text-underline-offset: 4px; }
 
   .haken li { display: flex; gap: 0.5rem; font-size: 0.95rem; }
   .haken [data-icon] { color: var(--akzent-text); flex: none; margin-top: 0.2rem; }
