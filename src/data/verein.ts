@@ -8,8 +8,16 @@
  * der volle Vereinsname nur im Impressum und in den Kontaktdaten.
  */
 
+/**
+ * Stand des letzten inhaltlichen Abgleichs mit dem Verein.
+ * Wird auf der Seite bei den Trainingszeiten ausgewiesen – bitte bei jeder
+ * Aktualisierung des Uebungsplans mitziehen.
+ */
+export const standDerDaten = 'September 2026';
+
 export const verein = {
   kurzname: 'SC Norddörfer',
+  gegruendet: 1963,
   vollname: 'Sport-Club Norddörfer Sylt e.V.',
   claim: 'Eine Insel, ein Verein!',
   strasse: 'Norderweg 4',
@@ -169,21 +177,22 @@ export const sparten: Sparte[] = [
 ];
 
 /** Fußballmannschaften – die größte und belebteste Sparte. */
+/** Absteigend sortiert: von den Herren bis zu den G-Junioren. */
 export const mannschaften = [
-  { name: 'G-Junioren', zeiten: ['Do 16:30 – 17:30'], trainer: 'Robert Schröder' },
-  { name: 'F-Junioren', zeiten: [], trainer: null, sucht: true },
-  { name: 'E-Junioren', zeiten: ['Di 17:30 – 19:00', 'Do 17:30 – 19:00'], trainer: 'Chris Jaeckstet' },
-  { name: 'D-Junioren', zeiten: ['Mi 17:00 – 18:30', 'Fr 15:00 – 16:30'], trainer: 'Max Neumann' },
-  { name: 'C-Junioren', zeiten: ['Mi 17:30 – 19:00', 'Fr 17:30 – 19:00'], trainer: 'Kevin Tillmann' },
-  { name: 'A-Jugend', zeiten: ['Mo 19:00 – 20:30', 'Mi 19:00 – 20:30'], trainer: 'Maximilian Brachtendorf' },
   { name: 'Herren', zeiten: ['Di 19:00 – 20:30', 'Do 19:00 – 20:30'], trainer: 'Nick Erdmann' },
   { name: 'Damen', zeiten: ['Mi 18:30 – 20:00'], trainer: 'Marko Schneider-Pauly' },
+  { name: 'A-Jugend', zeiten: ['Mo 19:00 – 20:30', 'Mi 19:00 – 20:30'], trainer: 'Maximilian Brachtendorf' },
+  { name: 'C-Junioren', zeiten: ['Mi 17:30 – 19:00', 'Fr 17:30 – 19:00'], trainer: 'Kevin Tillmann' },
+  { name: 'D-Junioren', zeiten: ['Mi 17:00 – 18:30', 'Fr 15:00 – 16:30'], trainer: 'Max Neumann' },
+  { name: 'E-Junioren', zeiten: ['Di 17:30 – 19:00', 'Do 17:30 – 19:00'], trainer: 'Chris Jaeckstet' },
+  { name: 'F-Junioren', zeiten: [], trainer: null, sucht: true },
+  { name: 'G-Junioren', zeiten: ['Do 16:30 – 17:30'], trainer: 'Robert Schröder' },
 ];
 
 /** Wochenplan – gespiegelt aus SCN_Uebungsangebote_Hallenbelegung.csv */
 export const wochenplan = [
   { tag: 'Montag', eintraege: [
-    { zeit: '15:00 – 18:00', was: 'Tanzen · drei Gruppen', ort: 'Halle', slug: 'tanzen' },
+    { zeit: '15:00 – 18:00', was: 'Tanzen · drei Gruppen', ort: 'Halle', slug: 'tanzen', einheiten: 3 },
     { zeit: '18:30 – 19:30', was: 'Fit for Fun', ort: 'Halle', slug: 'fit-for-fun' },
     { zeit: '19:00 – 20:30', was: 'Fußball · A-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: 'ab 19:00', was: 'Dart', ort: 'Vereinsheim', slug: 'dart' },
@@ -215,6 +224,15 @@ export const wochenplan = [
     { zeit: '17:30 – 19:00', was: 'Fußball · C-Junioren', ort: 'Platz', slug: 'fussball' },
   ]},
 ];
+
+/**
+ * Anzahl der Trainings- und Kurseinheiten pro Woche, abgeleitet aus dem Wochenplan.
+ * Gebuendelte Eintraege (z. B. die drei Tanzgruppen) zaehlen ueber `einheiten`.
+ */
+export const einheitenProWoche = wochenplan.reduce(
+  (summe, tag) => summe + tag.eintraege.reduce((t, e) => t + ('einheiten' in e ? e.einheiten : 1), 0),
+  0,
+);
 
 /** Monatliche Mitgliedsbeiträge, Einzug vierteljährlich per Lastschrift. */
 export const beitraege = [

@@ -11,26 +11,22 @@ const pfad = Astro.url.pathname;
   <div class="kopf__inner container">
     <a href="/" class="marke" aria-label={`${verein.kurzname} – zur Startseite`}>
       <img src="/wappen-scn.png" alt="" width="52" height="50" />
-      <span class="marke__text">
-        <strong>SC Norddörfer</strong>
-        <small>{verein.claim}</small>
-      </span>
+      <span class="marke__text">SC Norddörfer</span>
     </a>
 
-    <nav class="nav" aria-label="Hauptnavigation">
-      <ul>
-        {navigation.map((eintrag) => (
-          <li>
-            <a href={eintrag.href} aria-current={pfad.startsWith(eintrag.href) ? 'page' : undefined}>
-              {eintrag.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <div class="kopf__rechts">
+      <nav class="nav" aria-label="Hauptnavigation">
+        <ul>
+          {navigation.map((eintrag) => (
+            <li>
+              <a href={eintrag.href} aria-current={pfad.startsWith(eintrag.href) ? 'page' : undefined}>
+                {eintrag.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-    <div class="kopf__aktionen">
-      <a class="btn btn--gold kopf__cta" href="/mitglied-werden/">Mitglied werden</a>
       <button type="button" class="burger" aria-expanded="false" aria-controls="mobilnav" data-burger>
         <Icon name="tabler:menu-2" aria-hidden="true" />
         <span class="visually-hidden">Menü öffnen</span>
@@ -43,7 +39,6 @@ const pfad = Astro.url.pathname;
       {navigation.map((eintrag) => (
         <li><a href={eintrag.href}>{eintrag.label}</a></li>
       ))}
-      <li><a class="btn btn--gold" href="/mitglied-werden/">Mitglied werden</a></li>
     </ul>
   </div>
   <div class="band band--full" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -81,25 +76,21 @@ const pfad = Astro.url.pathname;
 
   .marke { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
   .marke img { width: 44px; height: auto; }
-  .marke__text { display: grid; line-height: 1.1; }
-  .marke__text strong {
+  .marke__text {
     font-family: var(--font-display);
     font-weight: 400;
     text-transform: uppercase;
     font-size: 1.28rem;
     letter-spacing: 0.01em;
     white-space: nowrap;
-  }
-  .marke__text small {
-    font-size: 0.66rem;
-    text-transform: uppercase;
-    letter-spacing: 0.17em;
-    color: var(--scn-gold);
-    white-space: nowrap;
+    line-height: 1;
   }
 
+  /* Navigation sitzt rechtsbuendig am Ende der Zeile */
+  .kopf__rechts { display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; }
+
   .nav { display: none; }
-  .nav ul { display: flex; gap: clamp(1rem, 2.2vw, 1.9rem); list-style: none; margin: 0; padding: 0; }
+  .nav ul { display: flex; gap: clamp(1.1rem, 2.4vw, 2.1rem); list-style: none; margin: 0; padding: 0; }
   .nav a {
     text-decoration: none;
     font-size: 0.86rem;
@@ -122,9 +113,6 @@ const pfad = Astro.url.pathname;
   }
   .nav a:hover::after,
   .nav a[aria-current='page']::after { transform: scaleX(1); }
-
-  .kopf__aktionen { display: flex; align-items: center; gap: 0.75rem; }
-  .kopf__cta { display: none; padding: 0.7em 1.2em; }
 
   .burger {
     display: inline-grid;
@@ -149,17 +137,11 @@ const pfad = Astro.url.pathname;
     font-size: 1.5rem;
     border-bottom: 1px solid var(--line-dark);
   }
-  .mobilnav .btn { margin-top: 1rem; border-bottom: 0; justify-content: center; }
 
-  /* Die Wortmarke braucht neben fuenf Navigationspunkten spuerbar Platz –
-     der Umschaltpunkt liegt deshalb bewusst spaet. */
-  @media (min-width: 68rem) {
+  @media (min-width: 60rem) {
     .nav { display: block; }
     .burger { display: none; }
     .marke img { width: 52px; }
-  }
-  @media (min-width: 82rem) {
-    .kopf__cta { display: inline-flex; }
   }
 </style>
 

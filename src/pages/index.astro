@@ -8,15 +8,21 @@ import Wochenplan from '../components/Wochenplan.astro';
 import Sportstaetten from '../components/Sportstaetten.astro';
 import MitgliedBand from '../components/MitgliedBand.astro';
 import NewsTeaser from '../components/NewsTeaser.astro';
+
+/**
+ * Schalter fuer das Zahlenband unter dem Held.
+ * Auf `true` setzen, um es wieder einzublenden.
+ */
+const zeigeZahlenband = false;
 ---
 
 <BaseLayout
   title="Sportverein auf Sylt"
-  description="Acht Sportarten, sieben Fußballmannschaften, eine Halle hinterm Deich. Der SC Norddörfer in Wenningstedt auf Sylt – komm einfach zum Training vorbei."
+  description="Acht Sportarten, sieben Fußballmannschaften. Der SC Norddörfer in Wenningstedt auf Sylt – komm einfach zum Training vorbei, ganz ohne Anmeldung."
   transparentHeader
 >
   <Hero />
-  <FaktenBand />
+  {zeigeZahlenband && <FaktenBand />}
   <FussballSektion />
   <SpartenGrid />
   <Wochenplan />

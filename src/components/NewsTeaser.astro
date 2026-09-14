@@ -1,5 +1,12 @@
 ---
-import { Icon } from 'astro-icon/components';
+/**
+ * Nachrichten-Feed von DeinSylt.
+ * Embed-Code: ../../01_Assets/08_Sonstiges/DeinSylt_News_Widget_Embed.html
+ *
+ * Das Widget laedt ein Skript von dein-sylt.online nach und baut damit eine
+ * Verbindung zu einem fremden Server auf. Das muss vor dem Launch in der
+ * Datenschutzerklaerung stehen.
+ */
 ---
 
 <section class="section section--sand news">
@@ -14,36 +21,38 @@ import { Icon } from 'astro-icon/components';
       </div>
     </div>
 
-    {/*
-      Platzhalter. Das DeinSylt-Widget laedt ein Skript von einem fremden Server und
-      wird erst eingebunden, wenn die Datenschutzerklaerung steht.
-      Embed-Code: 01_Assets/08_Sonstiges/DeinSylt_News_Widget_Embed.html
-    */}
-    <div class="news__platzhalter">
-      <Icon name="tabler:news" aria-hidden="true" />
-      <p><strong>Hier kommt der DeinSylt-Feed hin.</strong></p>
-      <p class="klein">
-        Wird eingebunden, sobald die Datenschutzerklärung steht – das Widget lädt ein
-        Skript von dein-sylt.online nach.
-      </p>
+    <div class="news__feed">
+      <div
+        id="sylt-news-widget"
+        data-query="SC Norddörfer"
+        data-limit="14"
+        data-border-color="#e3dcd0"
+        data-link-color="#005ba7"
+        data-button-color="#e30613"
+        data-powered-color="#55636e"
+      >
+      </div>
     </div>
   </div>
 </section>
 
+<script is:inline src="https://www.dein-sylt.online/js/sylt-widget.js"></script>
+
 <style>
   .news__kopf { margin-bottom: 2rem; }
 
-  .news__platzhalter {
-    display: grid;
-    justify-items: center;
-    text-align: center;
-    gap: 0.35rem;
-    padding: clamp(2.5rem, 6vw, 4.5rem) 1.5rem;
-    border: 2px dashed rgba(11, 23, 32, 0.22);
-    border-radius: var(--radius-lg);
-    color: var(--text-muted);
+  /* Das Widget bringt eigene Stile mit. Hier nur der Rahmen, damit es sich
+     in die Seitenbreite einpasst und auf schmalen Schirmen nicht ausbricht. */
+  .news__feed { max-width: 100%; }
+  .news__feed :global(img) { max-width: 100%; height: auto; }
+
+  /* Die globale Regel setzt alle h1-h4 in Anton und Versalien. Fuer
+     Nachrichtenzeilen ist das zu laut - im Widget deshalb zuruecknehmen. */
+  .news__feed :global(h3) {
+    font-family: var(--font-text);
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.3;
   }
-  .news__platzhalter [data-icon] { font-size: 2.4rem; color: var(--scn-blue); margin-bottom: 0.5rem; }
-  .news__platzhalter p { margin: 0; }
-  .klein { font-size: 0.87rem; max-width: 46ch; }
 </style>

@@ -1,6 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { wochenplan } from '../data/verein';
+import { wochenplan, standDerDaten } from '../data/verein';
 ---
 
 <section class="section" id="trainingszeiten">
@@ -13,7 +12,6 @@ import { wochenplan } from '../data/verein';
           Montag bis Freitag ist bei uns etwas los. Such dir raus, was passt, und komm vorbei.
         </p>
       </div>
-      <a class="btn btn--blue" href="/trainingszeiten/">Kompletter Plan</a>
     </div>
 
     <div class="plan reveal">
@@ -35,11 +33,7 @@ import { wochenplan } from '../data/verein';
       ))}
     </div>
 
-    <p class="plan__fuss">
-      <Icon name="tabler:info-circle" aria-hidden="true" />
-      Fußball findet draußen auf dem Sportplatz statt, bei schlechtem Wetter in der Halle.
-      Spieltage am Wochenende stehen nicht im Plan – die Termine hängen an der Saison.
-    </p>
+    <p class="plan__stand">Stand: {standDerDaten}</p>
   </div>
 </section>
 
@@ -109,13 +103,9 @@ import { wochenplan } from '../data/verein';
   .ort--platz { background: var(--scn-red); }
   .ort--vereinsheim { background: var(--ink); }
 
-  .plan__fuss {
-    display: flex;
-    gap: 0.6rem;
-    margin-top: 1.6rem;
-    font-size: 0.88rem;
+  .plan__stand {
+    margin-top: 1.1rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
-    max-width: 78ch;
   }
-  .plan__fuss [data-icon] { flex: none; font-size: 1.15rem; color: var(--scn-blue); }
 </style>

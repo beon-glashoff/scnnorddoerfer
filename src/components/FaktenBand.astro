@@ -1,11 +1,12 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { einheitenProWoche, verein } from '../data/verein';
 
 const fakten = [
   { icon: 'tabler:ball-football', zahl: '8', text: 'Sportarten unter einem Dach' },
   { icon: 'tabler:users-group', zahl: '7', text: 'Fußballmannschaften' },
-  { icon: 'tabler:map-pin', zahl: '1', text: 'Adresse für Halle, Platz und Vereinsheim' },
-  { icon: 'tabler:ticket', zahl: 'ab 8 €', text: 'Mitgliedsbeitrag im Monat' },
+  { icon: 'tabler:calendar', zahl: String(einheitenProWoche), text: 'Trainings und Kurse pro Woche' },
+  { icon: 'tabler:flag', zahl: String(verein.gegruendet), text: 'gegründet' },
 ];
 ---
 
@@ -54,6 +55,7 @@ const fakten = [
     font-size: clamp(2.1rem, 4.5vw, 3.1rem);
     line-height: 1;
     margin: 0.35rem 0 0.4rem;
+    font-variant-numeric: tabular-nums;
   }
   .fakt__text {
     margin: 0;

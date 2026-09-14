@@ -17,19 +17,14 @@ import heroBild from '../assets/fotos/hero-team.jpg';
   <div class="held__schleier" aria-hidden="true"></div>
 
   <div class="container held__inhalt">
-    <p class="held__ort">
-      <Icon name="tabler:map-pin" aria-hidden="true" />
-      Wenningstedt · Sylt
-    </p>
-
     <h1 class="held__titel">
       <span>Eine Insel,</span>
       <span class="held__akzent">ein Verein.</span>
     </h1>
 
     <p class="held__text">
-      Acht Sportarten, sieben Fußballmannschaften und eine Halle direkt hinterm Deich.
-      Komm einfach vorbei – beim SC Norddörfer kannst du in jedes Training reinschnuppern,
+      Acht Sportarten, sieben Fußballmannschaften. Das ist der SC Norddörfer in Wenningstedt
+      auf Sylt. Komm einfach vorbei – bei uns kannst du in jedes Training reinschnuppern,
       ganz ohne Anmeldung.
     </p>
 
@@ -38,7 +33,6 @@ import heroBild from '../assets/fotos/hero-team.jpg';
         Sportarten entdecken
         <Icon name="tabler:arrow-down" aria-hidden="true" />
       </a>
-      <a class="btn btn--ghost" href="/mitglied-werden/">Mitglied werden</a>
     </div>
   </div>
 
@@ -78,19 +72,6 @@ import heroBild from '../assets/fotos/hero-team.jpg';
       linear-gradient(to right, rgba(11, 23, 32, 0.88) 0%, rgba(11, 23, 32, 0.45) 38%, rgba(11, 23, 32, 0) 68%);
   }
 
-  .held__ort {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.19em;
-    text-transform: uppercase;
-    color: var(--scn-gold);
-    margin-bottom: 1.1rem;
-  }
-  .held__ort [data-icon] { font-size: 1.15rem; }
-
   .held__titel {
     font-size: var(--step-5);
     line-height: 0.86;
@@ -102,7 +83,7 @@ import heroBild from '../assets/fotos/hero-team.jpg';
   .held__akzent { color: var(--scn-gold); }
 
   .held__text {
-    max-width: 46ch;
+    max-width: 52ch;
     font-size: var(--step-1);
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.9);
@@ -134,7 +115,7 @@ import heroBild from '../assets/fotos/hero-team.jpg';
   }
   @media (max-width: 48rem) {
     .held__weiter { display: none; }
-    /* Hochkant steht der Text staerker im Motiv – Schleier kraeftiger ziehen */
+    /* Hochkant steht der Text staerker im Motiv - Schleier kraeftiger ziehen */
     .held__schleier {
       background:
         linear-gradient(to top, rgba(11, 23, 32, 0.97) 0%, rgba(11, 23, 32, 0.82) 38%, rgba(11, 23, 32, 0.3) 72%, rgba(11, 23, 32, 0.1) 100%);
