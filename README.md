@@ -86,6 +86,29 @@ Quelle der Daten: `../01_Assets/07_MDs/03_Abgleich_Lieferung_Tom.md` und
 - Voller Vereinsname **Sport-Club Norddörfer Sylt e.V.** nur im Impressum und in den Kontaktdaten
 - Claim: **Eine Insel, ein Verein!**
 
+## fussball.de
+
+Die Fußballseite verlinkt je Mannschaft auf Tabelle und Spielplan bei fussball.de.
+Die Adressen werden in `src/data/verein.ts` aus drei Teilen zusammengesetzt:
+`fussballDeSaison`, dem Pfad und der Team-ID der jeweiligen Mannschaft.
+
+**Zum Saisonwechsel** muss `fussballDeSaison` hochgezählt werden. Die Team-IDs der
+Jugendmannschaften ändern sich dabei häufig mit – sie stehen auf der
+[Vereinsseite bei fussball.de](https://www.fussball.de/verein/sc-norddoerfer-schleswig-holstein/-/id/00ES8GN8JC000094VV0AG08LVUPGND5I).
+
+G- und F-Jugend haben keinen Eintrag: Die G-Jugend spielt keinen Ligabetrieb,
+die F-Jugend pausiert.
+
+### Widget für die nächsten Spiele
+
+fussball.de bietet offizielle Widgets an, unter anderem für Tabelle, Kader sowie
+letzte und nächste Spiele. Der Einbettungscode wird auf fussball.de erzeugt
+(Benutzermenü → „Inhalte verwalten" → „Deine Widgets") und dabei **fest auf eine
+Domain registriert**. Das Widget lässt sich also erst erzeugen, wenn
+sc-norddoerfer.de steht, und braucht ein Konto mit Zugriff auf den Verein.
+
+Der Platz dafür ist auf der Fußballseite bereits angelegt.
+
 ## Offene Punkte
 
 - Der DeinSylt-Newsfeed ist auf der Startseite nur als Platzhalter angelegt. Der

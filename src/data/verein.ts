@@ -436,16 +436,138 @@ export const sparten: Sparte[] = [
 ];
 
 /** Fußballmannschaften – die größte und belebteste Sparte. */
+/**
+ * Saison-Kuerzel fuer die Links zu fussball.de.
+ * Die Team-IDs dort sind saisonbezogen – zum Saisonwechsel muessen Kuerzel
+ * und gegebenenfalls die IDs auf der Vereinsseite neu abgeholt werden:
+ * https://www.fussball.de/verein/sc-norddoerfer-schleswig-holstein/-/id/00ES8GN8JC000094VV0AG08LVUPGND5I
+ */
+export const fussballDeSaison = '2627';
+
+export const fussballDeVerein =
+  'https://www.fussball.de/verein/sc-norddoerfer-schleswig-holstein/-/id/00ES8GN8JC000094VV0AG08LVUPGND5I';
+
+/** Baut die Adresse der Mannschaftsseite auf fussball.de. */
+export function fussballDeLink(pfad: string, teamId: string) {
+  return `https://www.fussball.de/mannschaft/${pfad}/-/saison/${fussballDeSaison}/team-id/${teamId}`;
+}
+
+export type Mannschaft = {
+  name: string;
+  /** Jahrgaenge oder Altersspanne */
+  jahrgang: string;
+  zeiten: string[];
+  /** Kurzform fuer die Uebersicht auf der Startseite */
+  zeitenKurz: string[];
+  trainer: string | null;
+  telefon?: string;
+  /** Liga laut fussball.de */
+  liga?: string;
+  /** Pfad- und ID-Teil der fussball.de-Adresse */
+  fussballDe?: { pfad: string; teamId: string };
+  /** Mannschaft pausiert und sucht eine Trainerin oder einen Trainer */
+  sucht?: boolean;
+  /** Spielt keinen Ligabetrieb, steht daher nicht auf fussball.de */
+  ohneLiga?: boolean;
+};
+
 /** Absteigend sortiert: von den Herren bis zur G-Jugend. */
-export const mannschaften = [
-  { name: 'Herren', zeiten: ['Di 19:00 – 20:30', 'Do 19:00 – 20:30'], trainer: 'Nick Erdmann' },
-  { name: 'Damen', zeiten: ['Mi 18:30 – 20:00'], trainer: 'Marko Schneider-Pauly' },
-  { name: 'A-Jugend', zeiten: ['Mo 19:00 – 20:30', 'Mi 19:00 – 20:30'], trainer: 'Maximilian Brachtendorf' },
-  { name: 'C-Jugend', zeiten: ['Mi 17:30 – 19:00', 'Fr 17:30 – 19:00'], trainer: 'Kevin Tillmann' },
-  { name: 'D-Jugend', zeiten: ['Mi 17:00 – 18:30', 'Fr 15:00 – 16:30'], trainer: 'Max Neumann' },
-  { name: 'E-Jugend', zeiten: ['Di 17:30 – 19:00', 'Do 17:30 – 19:00'], trainer: 'Chris Jaeckstet' },
-  { name: 'F-Jugend', zeiten: [], trainer: null, sucht: true },
-  { name: 'G-Jugend', zeiten: ['Do 16:30 – 17:30'], trainer: 'Robert Schröder' },
+export const mannschaften: Mannschaft[] = [
+  {
+    name: 'Herren',
+    jahrgang: '2005 und älter',
+    zeiten: ['Dienstag, 19:00 – 20:30 Uhr', 'Donnerstag, 19:00 – 20:30 Uhr'],
+    zeitenKurz: ['Di 19:00 – 20:30', 'Do 19:00 – 20:30'],
+    trainer: 'Nick Erdmann',
+    telefon: '0176 43450045',
+    liga: 'Kreisklasse A 1',
+    fussballDe: {
+      pfad: 'sc-norddoerfer-sc-norddoerfer-schleswig-holstein',
+      teamId: '01OPEIVMMO000000VV0AG80NVU94JLT0',
+    },
+  },
+  {
+    name: 'Damen',
+    jahrgang: '2007 und älter',
+    zeiten: ['Mittwoch, 18:30 – 20:00 Uhr'],
+    zeitenKurz: ['Mi 18:30 – 20:00'],
+    trainer: 'Marko Schneider-Pauly',
+    telefon: '0172 4195559',
+    liga: 'Frauen KKA N-W (NF), 7er',
+    fussballDe: {
+      pfad: 'sc-norddoerfer-7er-sc-norddoerfer-schleswig-holstein',
+      teamId: '031A82P5FC000000VS5489BSVU0ORN69',
+    },
+  },
+  {
+    name: 'A-Jugend',
+    jahrgang: 'A- und B-Jahrgänge, zusammengelegt',
+    zeiten: ['Montag, 19:00 – 20:30 Uhr', 'Mittwoch, 19:00 – 20:30 Uhr'],
+    zeitenKurz: ['Mo 19:00 – 20:30', 'Mi 19:00 – 20:30'],
+    trainer: 'Maximilian Brachtendorf',
+    telefon: '0151 20095586',
+    liga: 'Kreisliga Vorrunde SL-FL, 9er',
+    fussballDe: {
+      pfad: 'sc-norddoerfer-9er-sc-norddoerfer-schleswig-holstein',
+      teamId: '031ASDH9HK000000VS5489BSVU0ORN69',
+    },
+  },
+  {
+    name: 'C-Jugend',
+    jahrgang: '2010 und 2011',
+    zeiten: ['Mittwoch, 17:30 – 19:00 Uhr', 'Freitag, 17:30 – 19:00 Uhr'],
+    zeitenKurz: ['Mi 17:30 – 19:00', 'Fr 17:30 – 19:00'],
+    trainer: 'Kevin Tillmann',
+    telefon: '0179 6887516',
+    liga: 'Kreisliga Vorrunde C-Junioren NF 1',
+    fussballDe: {
+      pfad: 'sc-norddoerfer-sc-norddoerfer-schleswig-holstein',
+      teamId: '02PVSUB3O0000000VS5489B2VTB2M2VN',
+    },
+  },
+  {
+    name: 'D-Jugend',
+    jahrgang: '2012 und 2013',
+    zeiten: ['Mittwoch, 17:00 – 18:30 Uhr', 'Freitag, 15:00 – 16:30 Uhr'],
+    zeitenKurz: ['Mi 17:00 – 18:30', 'Fr 15:00 – 16:30'],
+    trainer: 'Max Neumann',
+    telefon: '0152 08772534',
+    liga: 'KKA D-Junioren Quali Staffel 2',
+    fussballDe: {
+      pfad: 'sc-norddoerfer-sc-norddoerfer-schleswig-holstein',
+      teamId: '02IKA5K69K000000VS5489B2VVQ9C6A6',
+    },
+  },
+  {
+    name: 'E-Jugend',
+    jahrgang: '2014 und 2015',
+    zeiten: ['Dienstag, 17:30 – 19:00 Uhr', 'Donnerstag, 17:30 – 19:00 Uhr'],
+    zeitenKurz: ['Di 17:30 – 19:00', 'Do 17:30 – 19:00'],
+    trainer: 'Chris Jaeckstet',
+    telefon: '0176 82492829',
+    liga: 'E-Junioren Quali Staffel 1',
+    fussballDe: {
+      pfad: 'sc-norddoerfer-sc-norddoerfer-schleswig-holstein',
+      teamId: '02B6OAD260000000VS5489B1VULH2T74',
+    },
+  },
+  {
+    name: 'F-Jugend',
+    jahrgang: '2016 und 2017',
+    zeiten: [],
+    zeitenKurz: [],
+    trainer: null,
+    sucht: true,
+  },
+  {
+    name: 'G-Jugend',
+    jahrgang: '2018 und jünger',
+    zeiten: ['Donnerstag, 16:30 – 17:30 Uhr'],
+    zeitenKurz: ['Do 16:30 – 17:30'],
+    trainer: 'Robert Schröder',
+    telefon: '0152 54874305',
+    ohneLiga: true,
+  },
 ];
 
 /** Wochenplan – gespiegelt aus SCN_Uebungsangebote_Hallenbelegung.csv */

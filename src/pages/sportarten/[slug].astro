@@ -2,7 +2,14 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { sparten, mannschaften, standDerDaten, type Sparte } from '../../data/verein';
+import {
+  sparten,
+  mannschaften,
+  standDerDaten,
+  fussballDeLink,
+  fussballDeVerein,
+  type Sparte,
+} from '../../data/verein';
 import fussballKopf from '../../assets/fotos/fussball-duell.jpg';
 
 export function getStaticPaths() {
@@ -149,9 +156,6 @@ const bild = kopfBilder[sparte.slug];
         </aside>
       </div>
 
-      <div class="container">
-        <p class="stand">Stand: {standDerDaten}</p>
-      </div>
     </div>
 
     {sparte.slug === 'fussball' && (
@@ -159,30 +163,103 @@ const bild = kopfBilder[sparte.slug];
         <div class="container">
           <div class="teams__kopf">
             <h2>Unsere Mannschaften</h2>
-            <p>Von den Herren bis zur G-Jugend – such dir dein Team.</p>
+            <p>Von den Herren bis zur G-Jugend – klapp dein Team auf.</p>
           </div>
-          <ul class="teams__liste">
+
+          <div class="akkordeon">
             {mannschaften.map((m) => (
-              <li class:list={['team', m.sucht && 'team--sucht']}>
-                <span class="team__name">{m.name}</span>
-                {m.sucht ? (
-                  <span class="team__hinweis">
-                    <Icon name="tabler:alert-triangle" aria-hidden="true" />
-                    Pausiert – wir suchen eine:n Trainer:in
+              <details class:list={['team', m.sucht && 'team--sucht']} name="mannschaft">
+                <summary>
+                  <span class="team__name">{m.name}</span>
+                  <span class="team__meta">
+                    {m.sucht ? 'Trainer:in gesucht' : (m.liga ?? 'Kein Ligabetrieb')}
                   </span>
-                ) : (
-                  <>
-                    <span class="team__zeiten">{m.zeiten.join(' · ')}</span>
-                    <span class="team__trainer">{m.trainer}</span>
-                  </>
-                )}
-              </li>
+                  <Icon class="team__pfeil" name="tabler:chevron-down" aria-hidden="true" />
+                </summary>
+
+                <div class="team__inhalt">
+                  {m.sucht ? (
+                    <div class="team__sucht">
+                      <p>
+                        Die F-Jugend pausiert gerade, weil uns eine Trainerin oder ein Trainer fehlt.
+                        Wer Lust hat, die Jahrgänge {m.jahrgang} wieder auf den Platz zu bringen,
+                        meldet sich am besten direkt beim Verein.
+                      </p>
+                      <a class="btn btn--gold" href="/mitmachen/">Trainer:in werden</a>
+                    </div>
+                  ) : (
+                    <div class="team__daten">
+                      <div>
+                        <h3>Training</h3>
+                        <ul>{m.zeiten.map((z) => <li>{z}</li>)}</ul>
+                        <p class="team__ort">Sportplatz, bei schlechtem Wetter in der Halle</p>
+                      </div>
+
+                      <div>
+                        <h3>Jahrgänge</h3>
+                        <p>{m.jahrgang}</p>
+                      </div>
+
+                      <div>
+                        <h3>Trainer</h3>
+                        <p>{m.trainer}</p>
+                        {m.telefon && (
+                          <a class="team__tel" href={`tel:${m.telefon.replace(/\s/g, '')}`}>
+                            <Icon name="tabler:phone" aria-hidden="true" />
+                            {m.telefon}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {m.fussballDe && (
+                    <a
+                      class="team__tabelle"
+                      href={fussballDeLink(m.fussballDe.pfad, m.fussballDe.teamId)}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <Icon name="tabler:table" aria-hidden="true" />
+                      <span>Tabelle und Spielplan auf fussball.de</span>
+                      <Icon name="tabler:external-link" aria-hidden="true" />
+                    </a>
+                  )}
+
+                  {m.ohneLiga && (
+                    <p class="team__ohneLiga">
+                      Die G-Jugend spielt noch keinen Ligabetrieb – hier geht es ums Kicken, nicht um Punkte.
+                    </p>
+                  )}
+                </div>
+              </details>
             ))}
-          </ul>
+          </div>
+
           <p class="teams__fuss">
             <Icon name="tabler:info-circle" aria-hidden="true" />
-            Spieltage am Wochenende stehen nicht im Plan – die Termine hängen an der Saison.
+            <span>
+              Spieltage am Wochenende stehen nicht im Trainingsplan – die Termine hängen an der
+              Saison. Alle Mannschaften auf einen Blick gibt es auf der{' '}
+              <a href={fussballDeVerein} target="_blank" rel="noopener">Vereinsseite bei fussball.de</a>.
+            </span>
           </p>
+
+          {/*
+            Platz fuer das fussball.de-Widget "Naechste Spiele".
+            Der Einbettungscode muss auf fussball.de unter
+            "Inhalte verwalten" -> "Deine Widgets" erzeugt und dabei fest auf
+            die Domain sc-norddoerfer.de registriert werden. Erst danach
+            liefert das Widget Inhalte aus.
+          */}
+          <div class="widget-platz">
+            <Icon name="tabler:calendar-event" aria-hidden="true" />
+            <p><strong>Hier kommen die nächsten Spiele hin.</strong></p>
+            <p class="klein">
+              Das Spielplan-Widget von fussball.de wird auf eine feste Domain registriert.
+              Sobald sc-norddoerfer.de live ist, erzeugen wir den Code und setzen ihn hier ein.
+            </p>
+          </div>
         </div>
       </section>
     )}
@@ -424,45 +501,119 @@ const bild = kopfBilder[sparte.slug];
   .teams__kopf h2 { font-size: var(--step-3); margin-bottom: 0.5rem; }
   .teams__kopf p { color: var(--text-muted); margin: 0; }
 
-  .teams__liste { list-style: none; margin: 0; padding: 0; }
-  .team {
-    display: grid;
-    gap: 0.2rem 1.5rem;
+  .akkordeon { border-top: 1px solid var(--line); }
+
+  .team { border-bottom: 1px solid var(--line); background: transparent; }
+  .team summary {
+    display: flex;
     align-items: baseline;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--line);
+    gap: 1rem;
+    padding: 1.05rem 0.2rem;
+    cursor: pointer;
+    list-style: none;
   }
-  .team:first-child { border-top: 1px solid var(--line); }
-  @media (min-width: 46rem) {
-    .team { grid-template-columns: 12rem 1fr auto; }
-  }
+  .team summary::-webkit-details-marker { display: none; }
+  .team summary:hover .team__name { color: var(--scn-red); }
 
   .team__name {
     font-family: var(--font-display);
     text-transform: uppercase;
     font-size: 1.4rem;
     letter-spacing: 0.01em;
+    transition: color 0.18s ease;
   }
-  .team__zeiten { font-size: 0.9rem; font-variant-numeric: tabular-nums; color: var(--text-muted); }
-  .team__trainer { font-size: 0.85rem; color: var(--text-muted); }
-  .team__hinweis {
+  .team__meta { flex: 1; font-size: 0.86rem; color: var(--text-muted); }
+  .team__pfeil {
+    flex: none;
+    align-self: center;
+    font-size: 1.3rem;
+    color: var(--scn-red);
+    transition: transform 0.25s ease;
+  }
+  .team[open] .team__pfeil { transform: rotate(180deg); }
+  .team[open] .team__name { color: var(--scn-red); }
+
+  .team--sucht .team__name { color: var(--scn-red); }
+  .team--sucht .team__meta { color: var(--scn-red); font-weight: 700; }
+
+  .team__inhalt { padding: 0.3rem 0.2rem 1.7rem; }
+
+  .team__daten { display: grid; gap: 1.4rem; margin-bottom: 1.3rem; }
+  @media (min-width: 46rem) { .team__daten { grid-template-columns: repeat(3, 1fr); } }
+
+  .team__daten h3 {
+    font-family: var(--font-text);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+  .team__abstand { margin-top: 1rem; }
+  .team__daten ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; }
+  .team__daten li, .team__daten p { font-size: 0.97rem; font-weight: 600; margin: 0; }
+  .team__ort { margin-top: 0.5rem !important; font-weight: 400 !important; font-size: 0.85rem !important; color: var(--text-muted); }
+
+  .team__tel {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.85rem;
+    margin-top: 0.35rem;
     font-weight: 700;
+    text-decoration: none;
     color: var(--scn-red);
   }
-  .team--sucht .team__name { color: var(--scn-red); }
+  .team__tel:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  .team__sucht { margin-bottom: 1.3rem; display: grid; gap: 1rem; justify-items: start; }
+  .team__sucht p { max-width: 62ch; }
+
+  .team__tabelle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7em 1.1em;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+  .team__tabelle:hover { border-color: var(--scn-red); transform: translateY(-1px); }
+  .team__tabelle [data-icon]:first-child { color: var(--scn-red); font-size: 1.1rem; }
+  .team__tabelle [data-icon]:last-child { font-size: 0.95rem; color: var(--text-muted); }
+
+  .team__ohneLiga { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
 
   .teams__fuss {
     display: flex;
     gap: 0.6rem;
-    margin-top: 1.4rem;
+    margin-top: 1.6rem;
     font-size: 0.87rem;
     color: var(--text-muted);
+    max-width: 82ch;
   }
   .teams__fuss [data-icon] { flex: none; font-size: 1.1rem; color: var(--scn-blue); }
+  .teams__fuss a { color: var(--scn-blue); }
 
-  .stand { margin-top: 2.2rem; text-align: right; font-size: 0.72rem; color: var(--text-muted); }
+  .widget-platz {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 0.35rem;
+    margin-top: 2.2rem;
+    padding: clamp(2rem, 5vw, 3.2rem) 1.5rem;
+    border: 2px dashed rgba(11, 23, 32, 0.22);
+    border-radius: var(--radius-lg);
+    color: var(--text-muted);
+  }
+  .widget-platz [data-icon] { font-size: 2.2rem; color: var(--scn-blue); margin-bottom: 0.4rem; }
+  .widget-platz p { margin: 0; }
+  .widget-platz .klein { font-size: 0.87rem; max-width: 52ch; }
+
+
+  .stand { margin-block: 1.6rem; text-align: right; font-size: 0.72rem; color: var(--text-muted); }
 </style>
