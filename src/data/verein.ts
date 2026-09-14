@@ -81,6 +81,32 @@ export const sparten: Sparte[] = [
     telefon: '0176 43450045',
     textVorhanden: true,
     fotoVorhanden: true,
+    detail: {
+      intro:
+        'Sieben Mannschaften, fünf Trainingstage in der Woche und ein Platz mit Flutlicht: Fußball ist ' +
+        'die größte und belebteste Sparte beim SC Norddörfer – vom ersten Ballgefühl in der G-Jugend ' +
+        'bis zum Punktspiel der Herren und Damen.',
+      abschnitte: [
+        {
+          titel: 'Fußball ist unser Leben',
+          absaetze: [
+            'Das wusste schon die Nationalmannschaft 1974 in ihrem Evergreen. Der SC Norddörfer und seine Fußballsparte leben diese Hymne jeden Tag.',
+            'Neben der nötigen Portion Fußballverrücktheit dürfen weitere Tugenden nicht fehlen: Fleiß, Zuverlässigkeit, Respekt, Toleranz, Teamgeist, Siegeswille – und ganz wichtig, der Spaß.',
+          ],
+        },
+        {
+          titel: 'Wo wir spielen',
+          absaetze: [
+            'Trainiert wird draußen auf dem Sportplatz am Norderweg. Seit 2023 sorgt die neue Flutlichtanlage dafür, dass auch in der dunklen Jahreszeit auf eigenem Platz gespielt wird – Heimspiele der Herren und Damen inklusive.',
+            'Bei schlechtem Wetter und im Winter zieht das Training in die Norddörfer Halle um.',
+          ],
+        },
+      ],
+      zitat: {
+        text: 'Es gibt nur einen Ball. Wenn der Gegner ihn hat, muss man sich fragen: Warum? Und was muss man tun? Ihn sich wiederholen!',
+        quelle: 'Giovanni Trapattoni',
+      },
+    },
   },
   {
     slug: 'eltern-kind-turnen',
@@ -96,6 +122,33 @@ export const sparten: Sparte[] = [
     telefon: '0151 21291761',
     textVorhanden: true,
     fotoVorhanden: true,
+    detail: {
+      intro:
+        'Jede Woche heißt es bei uns für die Lütten: einmal richtig auspowern. Spielerisch werden dabei ' +
+        'Bewegung und Koordination gefördert – und Eltern und Großeltern sind mittendrin statt nur dabei.',
+      abschnitte: [
+        {
+          titel: 'Was passiert in der Stunde?',
+          absaetze: [
+            'Annika baut jede Menge Möglichkeiten zum Toben, Spielen und Ausprobieren auf. Reckstangen, Ringe, Bälle, Matten und viele weitere Gelegenheiten zum Klettern und Balancieren warten darauf, erobert zu werden.',
+            'Die richtige Musik und gemeinsames Singen dürfen dabei natürlich nicht fehlen.',
+          ],
+        },
+        {
+          titel: 'Komm einfach vorbei',
+          absaetze: [
+            'Wenn auch Du Lust hast, mit anderen Kindern bei uns zu spielen, dann komm doch dienstags in die Norddörfer Halle. Deine Eltern und Großeltern sind ebenso herzlich willkommen.',
+          ],
+        },
+      ],
+      mitbringen: ['Gute Laune', 'Lust auf Bewegung', 'Sportkleidung', 'Deine Eltern oder Großeltern'],
+      hinweis: {
+        titel: 'Eltern bleiben dabei',
+        text:
+          'Die Eltern bleiben während der Einheit in der Halle und tragen die Verantwortung für ihr Kind. ' +
+          'Sie unterstützen beim Sprung vom Trampolin, beim Balancieren und – ganz wichtig – beim Auf- und Abbau.',
+      },
+    },
   },
   {
     slug: 'tanzen',
@@ -115,6 +168,43 @@ export const sparten: Sparte[] = [
     telefon: '0151 11606718',
     textVorhanden: true,
     fotoVorhanden: false,
+    detail: {
+      intro:
+        'Montagnachmittag gehört die Halle den Tänzerinnen und Tänzern. In drei Gruppen, nach Alter ' +
+        'sortiert, geht es vom ersten spielerischen Bewegen bis zum zeitgenössischen Tanz.',
+      abschnitte: [
+        {
+          titel: 'Kreativer Kindertanz, 5 bis 7 Jahre',
+          absaetze: [
+            'Der kreative Kindertanz ist die Basis für alle weiteren Tanzarten – für klassisches Ballett ebenso wie für Modern Dance, zeitgenössischen Tanz oder Hip-Hop. Hier werden Kinder mit viel Phantasie spielerisch an den Tanz und seine vielfältigen Bewegungsmöglichkeiten herangeführt.',
+            'Körperbewusstsein, Beweglichkeit, Kraft, Koordination und Rhythmik werden vermittelt – vor allem aber der Spaß an der Bewegung zur Musik. Tanztechnische Übungen und Elemente aus dem klassischen Tanz und dem Modern Dance fließen altersgerecht in den Stundenablauf ein.',
+          ],
+        },
+        {
+          titel: 'Contemporary Dance, 8 bis 15 Jahre',
+          absaetze: [
+            'Der zeitgenössische Tanz eignet sich hervorragend für Kinder und Jugendliche. Festgelegte Tanzübungen im Stand, am Boden und in der Fortbewegung schulen Koordination und Rhythmusgefühl und fördern gleichzeitig gesunden Muskelaufbau und Beweglichkeit.',
+            'Kleine Improvisationen schärfen die Wahrnehmung von Raum und Musik und regen die Kreativität an. Getanzt wird zu den unterschiedlichsten Musikrichtungen, von Klassik bis Pop, und Elemente aus vielen Tanzrichtungen fließen in den Unterricht ein.',
+          ],
+        },
+      ],
+      mitbringen: [
+        'Gute Laune und Lust auf Tanz',
+        'Sportkleidung',
+        'Turnschuhe reichen für den Anfang',
+        'Bei regelmäßiger Teilnahme lohnen sich Ballettschläppchen',
+      ],
+      hinweis: {
+        titel: 'Ohne Eltern in der Halle',
+        text:
+          'Der Unterricht findet ohne Begleitung der Eltern statt – selbstverständlich dürfen sie gerne ' +
+          'in den Umkleidekabinen warten. Eine regelmäßige Teilnahme ist von Vorteil, um Fortschritte zu erzielen.',
+      },
+      zitat: {
+        text: 'Großartige Tänzer sind nicht wegen ihrer Technik großartig, sie sind großartig wegen ihrer Leidenschaft.',
+        quelle: 'Martha Graham',
+      },
+    },
   },
   {
     slug: 'fit-for-fun',
@@ -130,6 +220,32 @@ export const sparten: Sparte[] = [
     telefon: '0170 3804070',
     textVorhanden: true,
     fotoVorhanden: false,
+    detail: {
+      intro:
+        'Bei Fit for Fun erwartet dich ein umfangreiches Sportangebot. Wir trainieren Haltung und Bewegung, ' +
+        'kräftigen und dehnen die Muskulatur und arbeiten an Gleichgewicht und Sturzprophylaxe.',
+      abschnitte: [
+        {
+          titel: 'Für wen ist das?',
+          absaetze: [
+            'Wir sind eine bunt gemischte Gruppe ab 30 Jahren bis unbegrenzt – denn Bewegung trotz(t) Alter. Aber auch Jüngere sind herzlich willkommen.',
+          ],
+        },
+        {
+          titel: 'Was bieten wir an?',
+          absaetze: [
+            'Ein abwechslungsreiches Training mit Fitnesscircle, Stabitraining, Atmung, Koordination, Ausdauer, Dance, Muskelaufbau und -erhaltung, Spiraldynamik und Entspannung – und vielem mehr.',
+            'Kommt einfach vorbei und macht mit, wir freuen uns auf euch.',
+          ],
+        },
+      ],
+      mitbringen: [
+        'Spaß und Freude an der Bewegung',
+        'Sportliche, bequeme Kleidung',
+        'Turn- oder Gymnastikschuhe',
+        'Handtuch und etwas zu trinken',
+      ],
+    },
   },
   {
     slug: 'zumba-mobility',
@@ -144,6 +260,38 @@ export const sparten: Sparte[] = [
     ansprechpartner: 'Kerrin',
     textVorhanden: true,
     fotoVorhanden: false,
+    detail: {
+      intro:
+        'Mittwochabend wird in der Halle getanzt und gedehnt: Kerrin kombiniert Zumba® mit CIRCL Mobility™. ' +
+        'Wie sich die Stunde aufteilt, kann dabei von Woche zu Woche variieren.',
+      abschnitte: [
+        {
+          titel: 'Was ist Zumba®?',
+          absaetze: [
+            'Zumba® ist ein energiegeladenes Tanz-Fitness-Programm, das mit lateinamerikanischen und internationalen Rhythmen Ausdauer, Koordination und Spaß am Bewegen fördert. Es ist für alle Altersgruppen und Fitnesslevel geeignet.',
+          ],
+        },
+        {
+          titel: 'Was ist CIRCL Mobility™?',
+          absaetze: [
+            'CIRCL Mobility™ ist ein von Zumba® entwickeltes Programm, das auf der wissenschaftlichen Grundlage der funktionellen Bewegung basiert. Es verbessert Beweglichkeit und Flexibilität des Körpers durch gezielte Mobilitäts-, Dehn- und Atemübungen.',
+          ],
+        },
+        {
+          titel: 'Zusammen ergibt das …',
+          absaetze: [
+            'Beide Formate vereint ein umfassendes Training: auspowern, Stress abbauen, Spaß haben und gleichzeitig Beweglichkeit, Balance und Körpergefühl verbessern.',
+            'So fördern sie Gesundheit, Fitness und das Gemeinschaftsgefühl im Verein.',
+          ],
+        },
+      ],
+      mitbringen: [
+        'Gute Laune',
+        'Sportschuhe',
+        'Etwas zu trinken',
+        'Auf Wunsch die eigene Matte – für alle anderen liegen Matten bereit',
+      ],
+    },
   },
   {
     slug: 'taekwondo',
@@ -202,6 +350,47 @@ export const sparten: Sparte[] = [
     telefon: '0176 47863543',
     textVorhanden: true,
     fotoVorhanden: false,
+    detail: {
+      intro:
+        'Muay Thai ist eine traditionelle Kampfkunst aus Thailand. Sie wird auch die Kunst der acht ' +
+        'Gliedmaßen genannt, weil Fäuste, Ellbogen, Knie und Schienbeine zum Einsatz kommen.',
+      abschnitte: [
+        {
+          titel: 'Worum geht es?',
+          absaetze: [
+            'Neben Technik und Kondition spielen Respekt, Disziplin und Selbstbeherrschung eine wichtige Rolle. Ein faires Miteinander steht bei uns an erster Stelle.',
+            'Vorkenntnisse sind nicht erforderlich.',
+          ],
+        },
+        {
+          titel: 'Was bieten wir an?',
+          absaetze: [
+            'Wir vermitteln die Grundlagen und Techniken des Muay Thai: Punches, Kicks, Knie- und Ellbogentechniken, Clinching und Sweeps.',
+            'Trainiert wird unter anderem an Pratzen und Boxsäcken sowie mit Partnerübungen und Technikdrills. Dazu gehören Kondition, Kraft, Koordination und kontrolliertes Sparring.',
+          ],
+        },
+        {
+          titel: 'Ausrüstung',
+          absaetze: [
+            'Für regelmäßiges Training werden Handbandagen, Boxhandschuhe ab 10 oz und Schienbeinschoner benötigt.',
+            'Für den Einstieg müsst ihr nichts anschaffen: Einige Handschuhe und Schienbeinschoner können ausgeliehen werden.',
+          ],
+        },
+      ],
+      mitbringen: [
+        'Sportsachen',
+        'Eine eigene Wasserflasche',
+        'Spaß am Training',
+        'Trainiert wird barfuß',
+      ],
+      hinweis: {
+        titel: 'Ab 12 Jahren nur mit Zustimmung',
+        text:
+          'Regulär kann jeder ab 15 Jahren mitmachen. Jugendliche ab 12 Jahren können nach vorheriger ' +
+          'Absprache und mit schriftlicher Zustimmung der Eltern teilnehmen – oder in Begleitung einer ' +
+          'erwachsenen Person.',
+      },
+    },
   },
   {
     slug: 'dart',
@@ -217,6 +406,32 @@ export const sparten: Sparte[] = [
     telefon: '0151 50412257',
     textVorhanden: true,
     fotoVorhanden: false,
+    detail: {
+      intro:
+        'Seit über 20 Jahren gehören die Blinddarters fest zur Sylter Dart-Szene. Etwa zwölf Mitglieder ' +
+        'treffen sich regelmäßig zum Training im gemütlichen Vereinsheim am Sam-Beese-Sportpark.',
+      abschnitte: [
+        {
+          titel: 'Zwei Mannschaften in der Inselliga',
+          absaetze: [
+            'Wir spielen mit zwei Mannschaften in der Dart Inselliga Sylt. Zu dieser gehören 13 Mannschaften, die ihre Ligaspiele zwischen Ende Oktober und etwa Mitte Mai absolvieren.',
+          ],
+        },
+        {
+          titel: 'Eine Deutsche Meisterschaft auf Sylt',
+          absaetze: [
+            'Zu den Highlights der Blinddarter-Geschichte gehört die Ausrichtung der Deutschen Meisterschaft: Gemeinsam mit dem Schleswig-Holsteinischen Dartverband wurde sie in der Norddörfer Halle ausgetragen, mit über 200 Dartern aus ganz Deutschland.',
+          ],
+        },
+        {
+          titel: 'Das Vereinsheim ist auch unser Werk',
+          absaetze: [
+            'Die heutige Form und Größe des Vereinsheims ist zu einem guten Teil den Blinddarters zu verdanken. In Eigenarbeit haben sie die Fläche auf fast das Doppelte erweitert.',
+            'So entstand nicht nur das eigene Reich mit optimalen Bedingungen für Training und Heimspiele, sondern auch die Möglichkeit, größere Gesellschaften im Vereinsheim zu feiern.',
+          ],
+        },
+      ],
+    },
   },
 ];
 

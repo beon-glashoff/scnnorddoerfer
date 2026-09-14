@@ -3,8 +3,8 @@ import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SpartenKarte from '../../components/SpartenKarte.astro';
-import { sparten, standDerDaten, type Sparte } from '../../data/verein';
-import fussballBild from '../../assets/fotos/fussball-schuss.jpg';
+import { sparten, mannschaften, standDerDaten, type Sparte } from '../../data/verein';
+import fussballKopf from '../../assets/fotos/fussball-duell.jpg';
 
 export function getStaticPaths() {
   return sparten.map((sparte) => ({
@@ -17,8 +17,8 @@ interface Props { sparte: Sparte }
 const { sparte } = Astro.props;
 
 // Nur fuer die Sparten, zu denen es schon Bildmaterial gibt.
-const bilder: Record<string, ImageMetadata> = { fussball: fussballBild };
-const bild = bilder[sparte.slug];
+const kopfBilder: Record<string, ImageMetadata> = { fussball: fussballKopf };
+const bild = kopfBilder[sparte.slug];
 
 const weitere = sparten.filter((s) => s.slug !== sparte.slug).slice(0, 3);
 ---
@@ -151,6 +151,39 @@ const weitere = sparten.filter((s) => s.slug !== sparte.slug).slice(0, 3);
         </aside>
       </div>
     </div>
+
+    {sparte.slug === 'fussball' && (
+      <section class="section section--sand teams">
+        <div class="container">
+          <div class="teams__kopf">
+            <h2>Unsere Mannschaften</h2>
+            <p>Von den Herren bis zur G-Jugend – such dir dein Team.</p>
+          </div>
+          <ul class="teams__liste">
+            {mannschaften.map((m) => (
+              <li class:list={['team', m.sucht && 'team--sucht']}>
+                <span class="team__name">{m.name}</span>
+                {m.sucht ? (
+                  <span class="team__hinweis">
+                    <Icon name="tabler:alert-triangle" aria-hidden="true" />
+                    Pausiert – wir suchen eine:n Trainer:in
+                  </span>
+                ) : (
+                  <>
+                    <span class="team__zeiten">{m.zeiten.join(' · ')}</span>
+                    <span class="team__trainer">{m.trainer}</span>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+          <p class="teams__fuss">
+            <Icon name="tabler:info-circle" aria-hidden="true" />
+            Spieltage am Wochenende stehen nicht im Plan – die Termine hängen an der Saison.
+          </p>
+        </div>
+      </section>
+    )}
 
     <!-- Schnuppern -->
     <section class="schnuppern">
@@ -399,6 +432,51 @@ const weitere = sparten.filter((s) => s.slug !== sparte.slug).slice(0, 3);
   @media (min-width: 62rem) { .schnuppern__inhalt { grid-template-columns: 1.4fr 1fr; } }
   .schnuppern h2 { font-size: var(--step-2); margin-bottom: 0.7rem; }
   .schnuppern p { color: rgba(255, 255, 255, 0.88); max-width: 56ch; margin: 0; }
+
+  /* ---------- Mannschaften (nur Fussball) ---------- */
+  .teams__kopf { margin-bottom: 1.8rem; }
+  .teams__kopf h2 { font-size: var(--step-3); margin-bottom: 0.5rem; }
+  .teams__kopf p { color: var(--text-muted); margin: 0; }
+
+  .teams__liste { list-style: none; margin: 0; padding: 0; }
+  .team {
+    display: grid;
+    gap: 0.2rem 1.5rem;
+    align-items: baseline;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .team:first-child { border-top: 1px solid var(--line); }
+  @media (min-width: 46rem) {
+    .team { grid-template-columns: 12rem 1fr auto; }
+  }
+
+  .team__name {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    letter-spacing: 0.01em;
+  }
+  .team__zeiten { font-size: 0.9rem; font-variant-numeric: tabular-nums; color: var(--text-muted); }
+  .team__trainer { font-size: 0.85rem; color: var(--text-muted); }
+  .team__hinweis {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--scn-red);
+  }
+  .team--sucht .team__name { color: var(--scn-red); }
+
+  .teams__fuss {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+    font-size: 0.87rem;
+    color: var(--text-muted);
+  }
+  .teams__fuss [data-icon] { flex: none; font-size: 1.1rem; color: var(--scn-blue); }
 
   /* ---------- Weitere ---------- */
   .weitere__kopf {
