@@ -88,16 +88,18 @@ const pfad = Astro.url.pathname;
     text-transform: uppercase;
     font-size: 1.28rem;
     letter-spacing: 0.01em;
+    white-space: nowrap;
   }
   .marke__text small {
     font-size: 0.66rem;
     text-transform: uppercase;
     letter-spacing: 0.17em;
     color: var(--scn-gold);
+    white-space: nowrap;
   }
 
   .nav { display: none; }
-  .nav ul { display: flex; gap: 1.9rem; list-style: none; margin: 0; padding: 0; }
+  .nav ul { display: flex; gap: clamp(1rem, 2.2vw, 1.9rem); list-style: none; margin: 0; padding: 0; }
   .nav a {
     text-decoration: none;
     font-size: 0.86rem;
@@ -149,11 +151,15 @@ const pfad = Astro.url.pathname;
   }
   .mobilnav .btn { margin-top: 1rem; border-bottom: 0; justify-content: center; }
 
-  @media (min-width: 62rem) {
+  /* Die Wortmarke braucht neben fuenf Navigationspunkten spuerbar Platz –
+     der Umschaltpunkt liegt deshalb bewusst spaet. */
+  @media (min-width: 68rem) {
     .nav { display: block; }
     .burger { display: none; }
-    .kopf__cta { display: inline-flex; }
     .marke img { width: 52px; }
+  }
+  @media (min-width: 82rem) {
+    .kopf__cta { display: inline-flex; }
   }
 </style>
 
