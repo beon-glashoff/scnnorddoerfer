@@ -8,12 +8,6 @@ import Wochenplan from '../components/Wochenplan.astro';
 import Sportstaetten from '../components/Sportstaetten.astro';
 import MitgliedBand from '../components/MitgliedBand.astro';
 import NewsTeaser from '../components/NewsTeaser.astro';
-
-/**
- * Schalter fuer das Zahlenband unter dem Held.
- * Auf `true` setzen, um es wieder einzublenden.
- */
-const zeigeZahlenband = false;
 ---
 
 <BaseLayout
@@ -22,7 +16,7 @@ const zeigeZahlenband = false;
   transparentHeader
 >
   <Hero />
-  {zeigeZahlenband && <FaktenBand />}
+  <FaktenBand />
   <FussballSektion />
   <SpartenGrid />
   <Wochenplan />
