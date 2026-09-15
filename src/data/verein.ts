@@ -28,6 +28,8 @@ export const verein = {
   email: 'info@sc-norddoerfer.de',
   instagram: 'https://www.instagram.com/scnorddoerfersylt/',
   facebook: 'https://www.facebook.com/scnorddoerferofficial',
+  /** Vereinshymne bei Spotify */
+  spotify: 'https://open.spotify.com/track/6uIOR1rqQxMgXqsy7PKqEO',
   vereinsregister: 'VR 194 NI, Amtsgericht Niebüll',
 } as const;
 
