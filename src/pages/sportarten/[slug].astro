@@ -301,6 +301,12 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
 
     <Galerie titel={`${sparte.name} in Bildern`} bilder={galerie} sparte={sparte.name} />
 
+    <div class="stand-leiste">
+      <div class="container">
+        <p class="stand">Stand: {standDerDaten}</p>
+      </div>
+    </div>
+
     <!-- Schnuppern -->
     <section class="schnuppern">
       <div class="container schnuppern__inhalt">
@@ -319,9 +325,6 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
       </div>
     </section>
 
-    <div class="container">
-      <p class="stand">Stand: {standDerDaten}</p>
-    </div>
   </article>
 </BaseLayout>
 
@@ -555,5 +558,7 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
   .schnuppern h2 { font-size: var(--step-2); margin-bottom: 0.7rem; }
   .schnuppern p { color: rgba(255, 255, 255, 0.88); max-width: 56ch; margin: 0; }
 
-  .stand { margin-block: 1.6rem; text-align: right; font-size: 0.72rem; color: var(--text-muted); }
+  /* Schliesst optisch an die Galerie darueber an */
+  .stand-leiste { background: var(--sand); }
+  .stand { margin: 0; padding-bottom: 1.6rem; text-align: right; font-size: 0.72rem; color: var(--text-muted); }
 </style>
