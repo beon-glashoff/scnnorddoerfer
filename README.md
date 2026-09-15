@@ -105,11 +105,11 @@ die F-Jugend pausiert.
 nicht als Live-Feed. Daraus speisen sich zwei Dinge:
 
 - der Abschnitt „Nächste Heimspiele" unten auf der Fußballseite
-- das goldene Band über der Navigation auf der Startseite
+- den goldenen Kasten in der Fußballsektion auf der Startseite
 
 Vergangene Partien verschwinden von selbst – beim Bauen der Seite und zusätzlich
 im Browser, damit die Liste auch zwischen zwei Builds stimmt. Ist die Liste
-abgelaufen, blendet sich das Band aus und der Abschnitt verweist auf fussball.de.
+abgelaufen, blendet sich der Kasten aus und der Abschnitt verweist auf fussball.de.
 
 **Die Liste muss von Hand nachgezogen werden.** Wie das geht, steht im Kopf von
 `spiele.ts`. Spätestens wenn die letzte Partie gespielt ist, sollte jemand ran.

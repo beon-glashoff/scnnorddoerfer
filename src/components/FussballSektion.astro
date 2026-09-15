@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import { mannschaften } from '../data/verein';
+import NaechstesHeimspiel from './NaechstesHeimspiel.astro';
 import huddle from '../assets/fotos/fussball-huddle.jpg';
 import abendlicht from '../assets/fotos/fussball-abendlicht.jpg';
 import jugend from '../assets/fotos/fussball-jugend.jpg';
@@ -51,6 +52,8 @@ import jugend from '../assets/fotos/fussball-jugend.jpg';
             </li>
           ))}
         </ul>
+
+        <NaechstesHeimspiel />
 
         <div class="cluster teams__aktionen">
           <a class="btn btn--gold" href="/sportarten/fussball/">Zur Fußballsparte</a>

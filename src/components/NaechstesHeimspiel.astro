@@ -1,0 +1,109 @@
+---
+import { Icon } from 'astro-icon/components';
+import { kommendeHeimspiele, heimspiele, spielTag, spielZeit } from '../data/spiele';
+
+const naechstes = kommendeHeimspiele()[0];
+---
+
+{naechstes && (
+  <aside class="naechstes" data-naechstes>
+    <p class="naechstes__label">
+      <Icon name="tabler:ball-football" aria-hidden="true" />
+      Nächstes Heimspiel
+    </p>
+    <p class="naechstes__termin" data-naechstes-termin>
+      {spielTag(naechstes)} · {spielZeit(naechstes)}
+    </p>
+    <p class="naechstes__paarung" data-naechstes-paarung>
+      <strong>{naechstes.mannschaft}</strong> gegen {naechstes.gegner}
+    </p>
+    <a class="naechstes__link" href="/sportarten/fussball/#heimspiele">
+      Alle Spiele auf unserem Platz
+      <Icon name="tabler:arrow-right" aria-hidden="true" />
+    </a>
+  </aside>
+)}
+
+{/* Die Partien noch einmal fuer den Browser, damit der Kasten auch ohne
+    neuen Build auf die naechste anstehende Begegnung springt. */}
+<script is:inline set:html={`window.__scnHeimspiele=${JSON.stringify(
+  heimspiele.map((s) => ({ a: s.anstoss, m: s.mannschaft, g: s.gegner })),
+)};`} />
+
+<script>
+  type Kurz = { a: string; m: string; g: string };
+  const alle: Kurz[] = (window as unknown as { __scnHeimspiele?: Kurz[] }).__scnHeimspiele ?? [];
+  const kasten = document.querySelector<HTMLElement>('[data-naechstes]');
+  const termin = document.querySelector<HTMLElement>('[data-naechstes-termin]');
+  const paarung = document.querySelector<HTMLElement>('[data-naechstes-paarung]');
+
+  if (kasten && termin && paarung) {
+    const jetzt = Date.now();
+    const naechstes = alle
+      .filter((s) => new Date(s.a).getTime() >= jetzt)
+      .sort((x, y) => x.a.localeCompare(y.a))[0];
+
+    if (!naechstes) {
+      kasten.hidden = true;
+    } else {
+      const d = new Date(naechstes.a);
+      const tag = new Intl.DateTimeFormat('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }).format(d);
+      const zeit = new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' }).format(d);
+      termin.textContent = `${tag} · ${zeit} Uhr`;
+      paarung.innerHTML = '';
+      const m = document.createElement('strong');
+      m.textContent = naechstes.m;
+      paarung.append(m, ` gegen ${naechstes.g}`);
+    }
+  }
+</script>
+
+<style>
+  .naechstes {
+    background: var(--scn-gold);
+    color: var(--ink);
+    border-radius: var(--radius-lg);
+    padding: 1.2rem 1.4rem 1.3rem;
+    margin-bottom: 2rem;
+  }
+
+  .naechstes__label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.75;
+  }
+  .naechstes__label [data-icon] { font-size: 1.05rem; opacity: 0.9; }
+
+  .naechstes__termin {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.35rem;
+  }
+
+  .naechstes__paarung { font-size: 0.98rem; margin-bottom: 0.9rem; }
+  .naechstes__paarung strong { font-weight: 700; }
+
+  .naechstes__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .naechstes__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .naechstes__link [data-icon] { transition: transform 0.2s ease; }
+  .naechstes__link:hover [data-icon] { transform: translateX(3px); }
+</style>
