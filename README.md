@@ -120,10 +120,15 @@ Der Platz dafür ist auf der Fußballseite bereits angelegt.
 /verein/                 Vereinstext, Vorstand, Sportstätten
 /verein/anreise/         Zug, Bus, Auto, Parken
 /kontakt/                Anschrift und alle Ansprechpartner
+/mitmachen/              Ehrenamt, gesuchte F-Jugend-Trainer:in
+/faq/                    Häufige Fragen
+/bandenwerbung/          Werbetafeln am Sportplatz
+/impressum/              Pflichtangaben
+/datenschutz/            Datenschutzerklärung
 ```
 
-Noch nicht gebaut, in der Fußzeile aber schon verlinkt:
-`/mitmachen/`, `/faq/`, `/bandenwerbung/`, `/impressum/`, `/datenschutz/`.
+Insgesamt 20 Seiten. `npm run pruefen` geht nach dem Build alle internen
+Verweise durch und meldet, wenn einer ins Leere zeigt.
 
 ### Der Spartenseiten-Typ
 
@@ -147,10 +152,19 @@ für die übrigen Sparten erscheint ein Platzhalter.
 
 ## Offene Punkte
 
-- Der DeinSylt-Newsfeed ist auf der Startseite nur als Platzhalter angelegt. Der
-  Embed-Code liegt in `../01_Assets/08_Sonstiges/DeinSylt_News_Widget_Embed.html`
-  und wird eingebunden, sobald die Datenschutzerklärung steht.
-- Für sechs der acht Sparten fehlt noch eigenes Bildmaterial. Solange greifen die
-  Karten auf ein gestreiftes Farbfeld in der jeweiligen Wappenfarbe zurück.
-- Unterseiten (Sparten, Verein, Trainingszeiten, Mitglied werden, Kontakt, FAQ)
-  sind noch nicht gebaut – die Navigation verweist bereits darauf.
+- **Die Datenschutzerklärung ist ein Entwurf.** Sie beschreibt den technischen Stand
+  der Seite korrekt – im Browser nachgeprüft: keine Cookies, keine Analysewerkzeuge,
+  Schriften lokal, ein einziger externer Dienst (DeinSylt). Vor dem Livegang gehört
+  sie trotzdem einmal juristisch geprüft. Beim Wechsel des Hostings von Cloudflare
+  zu Strato muss der Abschnitt „Hosting" angepasst werden.
+- Der **Text für die Ehrenamt-Seite** stammt von uns. Tom hat die Rubrik abgesegnet,
+  aber keinen eigenen Text geliefert – die vier Felder sind plausibel, aber nicht
+  vom Verein bestätigt.
+- Im **FAQ** fehlen Kündigungsfrist der Mitgliedschaft und Fälligkeit des ersten
+  Beitrags. Beides steht in der Satzung, die uns nur als unlesbarer Scan vorliegt.
+- Für sechs der acht Sparten fehlt eigenes Bildmaterial. Solange greifen Kopf,
+  Karte und Galerie auf ein gestreiftes Farbfeld in der Wappenfarbe zurück.
+- Die **Mannschaftsfotos** auf der Fußballseite sind Spielszenen aus dem jeweiligen
+  Spiel, keine gestellten Mannschaftsfotos.
+- Für **Vorstand und Ansprechpartner** fehlen die Porträtfotos.
+- Das **fussball.de-Widget** für die nächsten Spiele braucht die finale Domain.
