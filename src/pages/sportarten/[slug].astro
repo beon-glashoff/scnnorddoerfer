@@ -163,13 +163,13 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
                   ) : (
                     <div class="team__spalten">
                       <div class="kasten">
-                        <h4><Icon name="tabler:calendar" aria-hidden="true" />Training</h4>
+                        <h4><span class="kasten__chip"><Icon name="tabler:calendar" aria-hidden="true" /></span>Training</h4>
                         <ul class="zeiten">{m.zeiten.map((z) => <li>{z}</li>)}</ul>
                         <p class="kasten__fuss">Jahrgänge: {m.jahrgang}</p>
                       </div>
 
                       <div class="kasten kasten--kontakt">
-                        <h4><Icon name="tabler:user-heart" aria-hidden="true" />Trainer</h4>
+                        <h4><span class="kasten__chip"><Icon name="tabler:user-heart" aria-hidden="true" /></span>Trainer</h4>
                         <p class="kontakt__name">{m.trainer}</p>
                         {m.telefon && (
                           <a class="kontakt__tel" href={`tel:${m.telefon.replace(/\s/g, '')}`}>
@@ -234,7 +234,7 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
 
             {sparte.detail?.hinweis && (
               <aside class="hinweis">
-                <Icon name="tabler:alert-circle" aria-hidden="true" />
+                <span class="hinweis__chip"><Icon name="tabler:info-circle" aria-hidden="true" /></span>
                 <div>
                   <h2>{sparte.detail.hinweis.titel}</h2>
                   <p>{sparte.detail.hinweis.text}</p>
@@ -245,14 +245,14 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
 
           <aside class="inhalt__spalte">
             <div class="kasten">
-              <h4><Icon name="tabler:calendar" aria-hidden="true" />Trainingszeiten</h4>
+              <h4><span class="kasten__chip"><Icon name="tabler:calendar" aria-hidden="true" /></span>Trainingszeiten</h4>
               <ul class="zeiten">{sparte.zeiten.map((z) => <li>{z}</li>)}</ul>
               <p class="kasten__fuss">{sparte.ort}</p>
             </div>
 
             {sparte.detail?.mitbringen && (
               <div class="kasten">
-                <h4><Icon name="tabler:backpack" aria-hidden="true" />Was bringe ich mit?</h4>
+                <h4><span class="kasten__chip"><Icon name="tabler:backpack" aria-hidden="true" /></span>Was bringe ich mit?</h4>
                 <ul class="haken">
                   {sparte.detail.mitbringen.map((m) => (
                     <li><Icon name="tabler:check" aria-hidden="true" />{m}</li>
@@ -262,7 +262,7 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
             )}
 
             <div class="kasten kasten--kontakt">
-              <h4><Icon name="tabler:user-heart" aria-hidden="true" />Dein Kontakt</h4>
+              <h4><span class="kasten__chip"><Icon name="tabler:user-heart" aria-hidden="true" /></span>Dein Kontakt</h4>
               <p class="kontakt__name">{sparte.ansprechpartner}</p>
               {sparte.telefon ? (
                 <a class="kontakt__tel" href={`tel:${sparte.telefon.replace(/\s/g, '')}`}>
@@ -411,24 +411,52 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
   }
   .zitat cite { font-style: normal; font-size: 0.85rem; color: var(--text-muted); }
 
+  /* Hinweis ohne farbige Kante: der Kasten selbst traegt den Akzent
+     ueber das Zeichen und eine feine Umrandung. */
   .hinweis {
-    display: flex; gap: 1rem; margin-top: 2.6rem; padding: 1.3rem 1.4rem;
-    background: var(--sand); border-radius: var(--radius-lg); border-left: 4px solid var(--akzent);
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.6rem;
+    padding: 1.4rem 1.5rem;
+    background: var(--sand);
+    border-radius: var(--radius-lg);
   }
-  .hinweis [data-icon] { color: var(--akzent-text); font-size: 1.4rem; flex: none; }
+  .hinweis__chip {
+    display: grid;
+    place-items: center;
+    width: 42px; height: 42px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--akzent);
+    color: #fff;
+    font-size: 1.3rem;
+  }
+  .sparte--gold .hinweis__chip { color: var(--ink); }
   .hinweis h2 { font-size: 1.3rem; margin-bottom: 0.35rem; }
-  .hinweis p { font-size: 0.95rem; margin: 0; }
+  .hinweis p { font-size: 0.95rem; margin: 0; max-width: 58ch; }
 
   .inhalt__spalte { display: grid; gap: 1.1rem; align-content: start; }
 
   /* ---------- Kaesten (Seitenspalte und Mannschaften) ---------- */
   .kasten { padding: 1.3rem 1.4rem 1.5rem; background: var(--sand); border-radius: var(--radius-lg); }
   .kasten h4 {
-    display: flex; align-items: center; gap: 0.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
     font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
-    font-size: 1.25rem; line-height: 1; margin: 0 0 0.9rem;
+    font-size: 1.25rem; line-height: 1; margin: 0 0 1rem;
   }
-  .kasten h4 [data-icon] { color: var(--akzent-text); font-size: 1.2rem; }
+  /* Gleiches Zeichen wie im Hinweiskasten: farbiger Kreis in der Spartenfarbe */
+  .kasten__chip {
+    display: grid;
+    place-items: center;
+    width: 32px; height: 32px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--akzent);
+    color: #fff;
+    font-size: 1rem;
+  }
+  .sparte--gold .kasten__chip { color: var(--ink); }
+  .kasten--kontakt .kasten__chip { background: var(--scn-gold); color: var(--ink); }
 
   .zeiten, .haken { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
   .zeiten li {
@@ -442,7 +470,6 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
   .haken [data-icon] { color: var(--akzent-text); flex: none; margin-top: 0.2rem; }
 
   .kasten--kontakt { background: var(--ink); color: var(--text-on-dark); }
-  .kasten--kontakt h4 [data-icon] { color: var(--scn-gold); }
   .kontakt__name { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.6rem; }
   .kontakt__tel {
     display: inline-flex; align-items: center; gap: 0.45rem;

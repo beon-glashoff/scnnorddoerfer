@@ -206,10 +206,6 @@ export const sparten: Sparte[] = [
           'Der Unterricht findet ohne Begleitung der Eltern statt – selbstverständlich dürfen sie gerne ' +
           'in den Umkleidekabinen warten. Eine regelmäßige Teilnahme ist von Vorteil, um Fortschritte zu erzielen.',
       },
-      zitat: {
-        text: 'Großartige Tänzer sind nicht wegen ihrer Technik großartig, sie sind großartig wegen ihrer Leidenschaft.',
-        quelle: 'Martha Graham',
-      },
     },
   },
   {
