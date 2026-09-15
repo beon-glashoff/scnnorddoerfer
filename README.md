@@ -109,6 +109,42 @@ sc-norddoerfer.de steht, und braucht ein Konto mit Zugriff auf den Verein.
 
 Der Platz dafür ist auf der Fußballseite bereits angelegt.
 
+## Seitenstruktur
+
+```
+/                        Startseite
+/sportarten/             Übersicht aller acht Sparten
+/sportarten/<slug>/      Spartenseite (ein Typ für alle)
+/trainingszeiten/        Wochenplan
+/mitglied-werden/        Ablauf, Beiträge, Anmeldeformular
+/verein/                 Vereinstext, Vorstand, Sportstätten
+/verein/anreise/         Zug, Bus, Auto, Parken
+/kontakt/                Anschrift und alle Ansprechpartner
+```
+
+Noch nicht gebaut, in der Fußzeile aber schon verlinkt:
+`/mitmachen/`, `/faq/`, `/bandenwerbung/`, `/impressum/`, `/datenschutz/`.
+
+### Der Spartenseiten-Typ
+
+Alle Sparten laufen über `src/pages/sportarten/[slug].astro`. Der Aufbau ist
+überall gleich: Kopf, Eckdatenleiste, Inhalt, Galerie, Schnupper-Abschnitt.
+
+Zwei Abweichungen gibt es:
+
+- **Fußball** zeigt statt des Fließtexts die acht Mannschaften, jede mit eigenem
+  Foto, Trainingszeiten, Trainerkontakt und dem Link zu fussball.de. Darüber
+  liegen Sprungmarken, damit die Seite trotz ihrer Länge bedienbar bleibt.
+- Sparten ohne eigene Fotos zeigen im Kopf und in der Galerie ein gestreiftes
+  Farbfeld in ihrer Wappenfarbe statt eines Fremdbildes.
+
+### Galerie
+
+`src/components/Galerie.astro` ist eine waagerechte Spur mit Scroll-Einrasten –
+ohne JavaScript, auf dem Telefon wischbar. Die Bilder je Sparte stehen in
+`[slug].astro` in der Zuordnung `galerien`. Bisher ist nur Fußball befüllt;
+für die übrigen Sparten erscheint ein Platzhalter.
+
 ## Offene Punkte
 
 - Der DeinSylt-Newsfeed ist auf der Startseite nur als Platzhalter angelegt. Der
