@@ -17,7 +17,7 @@ const karte = `https://www.google.com/maps/search/?api=1&query=${encodeURICompon
   <SeitenKopf
     eyebrow="So findest du uns"
     titel="Anreise"
-    lead="Sportplatz, Vereinsheim und Sporthalle liegen alle an einer Adresse in Wenningstedt-Braderup. Einmal ankommen, alles erreicht."
+    lead={`Sportplatz, Vereinsheim und Sporthalle befinden sich im ${verein.strasse} in ${verein.plz} ${verein.ort}. Einmal ankommen, alles erreicht.`}
     pfad={[{ href: '/verein/', label: 'Verein' }]}
   />
 
@@ -74,15 +74,7 @@ const karte = `https://www.google.com/maps/search/?api=1&query=${encodeURICompon
           Fußball wird draußen auf dem Platz gespielt und bei schlechtem Wetter in der Halle,
           Dart im Vereinsheim. Turnen, Tanzen und Kampfsport finden in der Halle statt.
         </p>
-        <p class="ort__adresse">
-          <Icon name="tabler:map-pin" aria-hidden="true" />
-          <span>
-            <span class="ort__label">Unsere Adresse</span>
-            {verein.strasse}<br />{verein.plz} {verein.ort}
-          </span>
-        </p>
-
-        <div class="cluster">
+        <div class="cluster ort__aktionen">
           <a class="btn btn--blue" href={karte} target="_blank" rel="noopener">
             <Icon name="tabler:map-2" aria-hidden="true" />
             Route planen
@@ -138,26 +130,6 @@ const karte = `https://www.google.com/maps/search/?api=1&query=${encodeURICompon
   .ort__text .band { margin-bottom: 1.3rem; }
   .ort__text h2 { font-size: var(--step-3); margin-bottom: 1rem; }
   .ort__text p { font-size: 1.02rem; line-height: 1.7; max-width: 54ch; }
-  .ort__adresse {
-    display: flex;
-    gap: 0.7rem;
-    margin: 1.6rem 0 1.4rem;
-    padding: 1rem 1.2rem;
-    background: var(--paper);
-    border-radius: var(--radius-lg);
-    font-size: 1rem !important;
-    line-height: 1.6;
-    font-weight: 600;
-  }
-  .ort__adresse [data-icon] { flex: none; font-size: 1.3rem; color: var(--scn-red); margin-top: 0.15rem; }
-  .ort__label {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 0.2rem;
-  }
+  .ort__aktionen { margin-top: 1.6rem; }
   .ort__zweit { color: var(--ink); }
 </style>
