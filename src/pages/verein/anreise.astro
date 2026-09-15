@@ -21,20 +21,6 @@ const karte = `https://www.google.com/maps/search/?api=1&query=${encodeURICompon
     pfad={[{ href: '/verein/', label: 'Verein' }]}
   />
 
-  <section class="adresse">
-    <div class="container adresse__grid">
-      <div>
-        <p class="adresse__label">Unsere Adresse</p>
-        <p class="adresse__wert">
-          {verein.strasse}<br />{verein.plz} {verein.ort}
-        </p>
-      </div>
-      <a class="btn btn--gold" href={karte} target="_blank" rel="noopener">
-        <Icon name="tabler:map-2" aria-hidden="true" />
-        Route planen
-      </a>
-    </div>
-  </section>
 
   <section class="section">
     <div class="container wege">
@@ -88,31 +74,27 @@ const karte = `https://www.google.com/maps/search/?api=1&query=${encodeURICompon
           Fußball wird draußen auf dem Platz gespielt und bei schlechtem Wetter in der Halle,
           Dart im Vereinsheim. Turnen, Tanzen und Kampfsport finden in der Halle statt.
         </p>
-        <a class="btn btn--blue" href="/trainingszeiten/">Zu den Trainingszeiten</a>
+        <p class="ort__adresse">
+          <Icon name="tabler:map-pin" aria-hidden="true" />
+          <span>
+            <span class="ort__label">Unsere Adresse</span>
+            {verein.strasse}<br />{verein.plz} {verein.ort}
+          </span>
+        </p>
+
+        <div class="cluster">
+          <a class="btn btn--blue" href={karte} target="_blank" rel="noopener">
+            <Icon name="tabler:map-2" aria-hidden="true" />
+            Route planen
+          </a>
+          <a class="btn btn--ghost ort__zweit" href="/trainingszeiten/">Zu den Trainingszeiten</a>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .adresse { background: var(--ink); color: var(--text-on-dark); }
-  .adresse__grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem 2.5rem;
-    align-items: center;
-    justify-content: space-between;
-    padding-block: 1.6rem;
-  }
-  .adresse__label {
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: var(--scn-gold);
-    margin-bottom: 0.3rem;
-  }
-  .adresse__wert { font-size: 1.1rem; font-weight: 600; line-height: 1.5; margin: 0; }
 
   .wege { display: grid; gap: clamp(2rem, 5vw, 3.5rem); }
   @media (min-width: 56rem) { .wege { grid-template-columns: repeat(2, 1fr); } }
@@ -156,5 +138,26 @@ const karte = `https://www.google.com/maps/search/?api=1&query=${encodeURICompon
   .ort__text .band { margin-bottom: 1.3rem; }
   .ort__text h2 { font-size: var(--step-3); margin-bottom: 1rem; }
   .ort__text p { font-size: 1.02rem; line-height: 1.7; max-width: 54ch; }
-  .ort__text .btn { margin-top: 0.8rem; }
+  .ort__adresse {
+    display: flex;
+    gap: 0.7rem;
+    margin: 1.6rem 0 1.4rem;
+    padding: 1rem 1.2rem;
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+    font-size: 1rem !important;
+    line-height: 1.6;
+    font-weight: 600;
+  }
+  .ort__adresse [data-icon] { flex: none; font-size: 1.3rem; color: var(--scn-red); margin-top: 0.15rem; }
+  .ort__label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+  .ort__zweit { color: var(--ink); }
 </style>
