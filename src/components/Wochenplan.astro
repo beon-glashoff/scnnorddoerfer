@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { wochenplan, standDerDaten } from '../data/verein';
 
 interface Props {
@@ -6,9 +7,15 @@ interface Props {
   ohneKopf?: boolean;
 }
 const { ohneKopf = false } = Astro.props;
+
+const orte = [
+  { name: 'Halle', klasse: 'halle' },
+  { name: 'Platz', klasse: 'platz' },
+  { name: 'Vereinsheim', klasse: 'vereinsheim' },
+];
 ---
 
-<section class="section" id="trainingszeiten">
+<section class="section section--sand" id="trainingszeiten">
   <div class="container">
     {!ohneKopf && (
       <div class="plan__kopf reveal">
@@ -22,17 +29,26 @@ const { ohneKopf = false } = Astro.props;
       </div>
     )}
 
+    <ul class="legende">
+      {orte.map((o) => (
+        <li><span class:list={['punkt', `punkt--${o.klasse}`]} aria-hidden="true"></span>{o.name}</li>
+      ))}
+    </ul>
+
     <div class="plan reveal">
       {wochenplan.map((tag) => (
         <div class="tag">
           <h3 class="tag__name">{tag.tag}</h3>
-          <ul>
+          <ul class="tag__liste">
             {tag.eintraege.map((e) => (
               <li>
                 <a href={`/sportarten/${e.slug}/`}>
                   <span class="zeit">{e.zeit}</span>
                   <span class="was">{e.was}</span>
-                  <span class:list={['ort', `ort--${e.ort.toLowerCase()}`]}>{e.ort}</span>
+                  <span class:list={['ort', `ort--${e.ort.toLowerCase()}`]}>
+                    <span class="punkt" aria-hidden="true"></span>{e.ort}
+                  </span>
+                  <Icon class="pfeil" name="tabler:arrow-right" aria-hidden="true" />
                 </a>
               </li>
             ))}
@@ -56,60 +72,104 @@ const { ohneKopf = false } = Astro.props;
   }
   .plan__kopf h2 { font-size: var(--step-4); }
 
-  .plan {
-    display: grid;
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
+  /* ---------- Legende ---------- */
+  .legende {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
+    list-style: none;
+    margin: 0 0 1.4rem;
+    padding: 0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .legende li { display: flex; align-items: center; gap: 0.45rem; }
+
+  .punkt {
+    width: 9px;
+    height: 9px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--scn-blue);
+  }
+  .punkt--platz, .ort--platz .punkt { background: var(--scn-red); }
+  .punkt--vereinsheim, .ort--vereinsheim .punkt { background: var(--scn-gold-dark); }
+
+  /* ---------- Wochenraster ---------- */
+  .plan { display: grid; gap: 1rem; align-items: start; }
+  @media (min-width: 52rem) { .plan { grid-template-columns: repeat(5, 1fr); gap: 0.9rem; } }
+
+  .tag {
+    background: var(--paper);
     border-radius: var(--radius-lg);
     overflow: hidden;
+    box-shadow: 0 1px 2px rgba(11, 23, 32, 0.06);
   }
-  @media (min-width: 52rem) { .plan { grid-template-columns: repeat(5, 1fr); } }
-
-  .tag { background: var(--paper); padding: 1.15rem 1.15rem 1.4rem; }
 
   .tag__name {
-    font-size: 1.15rem;
-    padding-bottom: 0.7rem;
-    margin-bottom: 0.9rem;
-    border-bottom: 3px solid var(--scn-red);
-    letter-spacing: 0.02em;
+    background: var(--scn-gold);
+    color: var(--ink);
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    padding: 0.6rem 1rem;
+    margin: 0;
   }
 
-  .tag ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+  .tag__liste { list-style: none; margin: 0; padding: 0.3rem 0 0.4rem; }
+  .tag__liste li + li { border-top: 1px solid var(--line); }
+
   .tag a {
     display: grid;
-    gap: 0.15rem;
-    padding: 0.6rem 0.7rem;
+    grid-template-columns: 1fr auto;
+    gap: 0.1rem 0.5rem;
+    padding: 0.7rem 1rem;
     text-decoration: none;
-    border-radius: var(--radius);
-    background: var(--sand);
-    transition: background-color 0.18s ease;
+    color: inherit;
+    transition: background-color 0.16s ease;
   }
-  .tag a:hover { background: #ebe4d8; }
+  .tag a:hover { background: var(--sand); }
 
   .zeit {
+    grid-column: 1 / -1;
     font-size: 0.76rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.04em;
     color: var(--text-muted);
   }
-  .was { font-weight: 600; font-size: 0.92rem; line-height: 1.25; }
-  .ort {
-    justify-self: start;
-    margin-top: 0.2rem;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.16em 0.5em;
-    border-radius: 99px;
-    color: #fff;
-    background: var(--scn-blue);
+  .was {
+    grid-column: 1 / -1;
+    font-weight: 600;
+    font-size: 0.93rem;
+    line-height: 1.3;
+    text-wrap: balance;
   }
-  .ort--platz { background: var(--scn-red); }
-  .ort--vereinsheim { background: var(--ink); }
+
+  .ort {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .pfeil {
+    align-self: end;
+    justify-self: end;
+    font-size: 0.95rem;
+    color: var(--scn-red);
+    opacity: 0;
+    transform: translateX(-3px);
+    transition: opacity 0.16s ease, transform 0.16s ease;
+  }
+  .tag a:hover .pfeil { opacity: 1; transform: none; }
 
   .plan__stand {
     margin-top: 1.8rem;
