@@ -8,11 +8,6 @@ interface Props {
 }
 const { ohneKopf = false } = Astro.props;
 
-const orte = [
-  { name: 'Halle', klasse: 'halle' },
-  { name: 'Platz', klasse: 'platz' },
-  { name: 'Vereinsheim', klasse: 'vereinsheim' },
-];
 ---
 
 <section class="section section--sand" id="trainingszeiten">
@@ -29,11 +24,6 @@ const orte = [
       </div>
     )}
 
-    <ul class="legende">
-      {orte.map((o) => (
-        <li><span class:list={['punkt', `punkt--${o.klasse}`]} aria-hidden="true"></span>{o.name}</li>
-      ))}
-    </ul>
 
     <div class="plan reveal">
       {wochenplan.map((tag) => (
@@ -72,22 +62,8 @@ const orte = [
   }
   .plan__kopf h2 { font-size: var(--step-4); }
 
-  /* ---------- Legende ---------- */
-  .legende {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.4rem;
-    list-style: none;
-    margin: 0 0 1.4rem;
-    padding: 0;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-  .legende li { display: flex; align-items: center; gap: 0.45rem; }
 
+  /* Farbpunkt zeigt den Ort an */
   .punkt {
     width: 9px;
     height: 9px;
@@ -95,8 +71,8 @@ const orte = [
     border-radius: 50%;
     background: var(--scn-blue);
   }
-  .punkt--platz, .ort--platz .punkt { background: var(--scn-red); }
-  .punkt--vereinsheim, .ort--vereinsheim .punkt { background: var(--scn-gold-dark); }
+  .ort--platz .punkt { background: var(--scn-red); }
+  .ort--vereinsheim .punkt { background: var(--scn-gold-dark); }
 
   /* ---------- Wochenraster ---------- */
   .plan { display: grid; gap: 1rem; align-items: start; }
@@ -130,7 +106,17 @@ const orte = [
     color: inherit;
     transition: background-color 0.16s ease;
   }
-  .tag a:hover { background: var(--sand); }
+  /* Kontrastreicher Wechsel statt zarter Tönung – die Zeile setzt sich
+     beim Überfahren deutlich ab. */
+  .tag a:hover { background: var(--ink); }
+  .tag a:hover .was { color: #fff; }
+  .tag a:hover .zeit,
+  .tag a:hover .ort { color: rgba(255, 255, 255, 0.7); }
+  .tag a:hover .pfeil { color: var(--scn-gold); }
+  /* Punkte auf dunklem Grund etwas aufhellen, damit sie sichtbar bleiben */
+  .tag a:hover .punkt { background: color-mix(in srgb, var(--scn-blue) 65%, white); }
+  .tag a:hover .ort--platz .punkt { background: color-mix(in srgb, var(--scn-red) 75%, white); }
+  .tag a:hover .ort--vereinsheim .punkt { background: var(--scn-gold); }
 
   .zeit {
     grid-column: 1 / -1;
