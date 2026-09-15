@@ -44,32 +44,37 @@ const felder = [
   />
 
   {sucht && (
-    <section class="gesucht">
-      <div class="container gesucht__inhalt">
-        <figure class="gesucht__bild">
-          <Image src={teamBild} alt="Nachwuchsmannschaft des SC Norddörfer auf dem Platz" widths={[560, 900]} sizes="(min-width: 62rem) 45vw, 92vw" />
-        </figure>
-        <div class="gesucht__text">
-          <p class="eyebrow">Gerade ganz konkret</p>
-          <h2>Die {sucht.name} sucht<br />eine:n Trainer:in</h2>
-          <p>
-            Die Jahrgänge {sucht.jahrgang} pausieren, weil uns jemand fehlt, der das Training
-            übernimmt. Sobald sich eine Trainerin oder ein Trainer findet, geht es wieder los.
-          </p>
-          <p>
-            Du musst dafür keine Lizenz mitbringen. Wichtig ist, dass du Lust hast, mit Kindern
-            zu arbeiten – alles Weitere klären wir gemeinsam.
-          </p>
-          <a class="btn btn--gold" href={`tel:${verein.telefonHref}`}>
-            <Icon name="tabler:phone" aria-hidden="true" />
-            Melde dich: {verein.telefon}
-          </a>
+    <section class="section gesucht-sektion">
+      <div class="container">
+        <div class="gesucht">
+          <figure class="gesucht__bild">
+            <Image src={teamBild} alt="Nachwuchsmannschaft des SC Norddörfer auf dem Platz" widths={[560, 900]} sizes="(min-width: 62rem) 45vw, 92vw" />
+          </figure>
+          <div class="gesucht__text">
+            <p class="gesucht__eyebrow">
+              <Icon name="tabler:alert-triangle" aria-hidden="true" />
+              Gerade ganz konkret
+            </p>
+            <h2>Die {sucht.name} sucht<br />eine:n Trainer:in</h2>
+            <p>
+              Die Jahrgänge {sucht.jahrgang} pausieren, weil uns jemand fehlt, der das Training
+              übernimmt. Sobald sich eine Trainerin oder ein Trainer findet, geht es wieder los.
+            </p>
+            <p>
+              Du musst dafür keine Lizenz mitbringen. Wichtig ist, dass du Lust hast, mit Kindern
+              zu arbeiten – alles Weitere klären wir gemeinsam.
+            </p>
+            <a class="btn" href={`tel:${verein.telefonHref}`}>
+              <Icon name="tabler:phone" aria-hidden="true" />
+              Melde dich: {verein.telefon}
+            </a>
+          </div>
         </div>
       </div>
     </section>
   )}
 
-  <section class="section">
+  <section class="section section--sand">
     <div class="container">
       <div class="section-head felder__kopf">
         <p class="eyebrow">Wo Hilfe gebraucht wird</p>
@@ -117,20 +122,47 @@ const felder = [
 </BaseLayout>
 
 <style>
-  .gesucht { background: var(--scn-red); color: #fff; }
-  .gesucht__inhalt { display: grid; gap: 0; align-items: stretch; }
-  @media (min-width: 62rem) { .gesucht__inhalt { grid-template-columns: 1fr 1fr; } }
+  /* Der Hinweis auf die gesuchte Trainerin ist der wichtigste Inhalt der
+     Seite. Statt einer grossen roten Flaeche traegt ihn jetzt eine Karte
+     in Gold – Rot bleibt dem Knopf vorbehalten. */
+  .gesucht {
+    display: grid;
+    background: var(--scn-gold);
+    color: var(--ink);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  @media (min-width: 62rem) { .gesucht { grid-template-columns: 1fr 1fr; } }
 
   .gesucht__bild { margin: 0; }
-  .gesucht__bild :global(img) { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-  @media (min-width: 62rem) { .gesucht__bild :global(img) { aspect-ratio: auto; min-height: 100%; } }
+  .gesucht__bild :global(img) {
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  @media (min-width: 62rem) { .gesucht__bild :global(img) { aspect-ratio: auto; } }
 
-  .gesucht__text { padding: clamp(2rem, 5vw, 3.5rem) 0; }
-  @media (min-width: 62rem) { .gesucht__text { padding-left: clamp(2rem, 4vw, 3.5rem); } }
-  .gesucht__text .eyebrow { color: #fff; opacity: 0.8; }
-  .gesucht__text h2 { font-size: var(--step-3); margin: 0.7rem 0 1rem; }
-  .gesucht__text p { max-width: 48ch; color: rgba(255, 255, 255, 0.9); }
-  .gesucht__text .btn { margin-top: 0.8rem; }
+  .gesucht__text { padding: clamp(1.6rem, 4vw, 2.8rem); }
+
+  .gesucht__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .gesucht__eyebrow [data-icon] { font-size: 1.05rem; }
+
+  .gesucht__text h2 { font-size: var(--step-3); margin-bottom: 1rem; }
+  .gesucht__text p { max-width: 46ch; }
+  .gesucht__text .btn { margin-top: 0.6rem; }
+
 
   .felder__kopf { margin-bottom: 2.2rem; }
   .felder__kopf h2 { font-size: var(--step-3); }
