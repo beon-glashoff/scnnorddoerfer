@@ -282,7 +282,7 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
 
     {istFussball && <Heimspiele />}
 
-    <div class="stand-leiste">
+    <div class:list={['stand-leiste', istFussball && 'stand-leiste--dunkel']}>
       <div class="container">
         <p class="stand">Stand: {standDerDaten}</p>
       </div>
@@ -530,7 +530,10 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
   .schnuppern h2 { font-size: var(--step-2); margin-bottom: 0.7rem; }
   .schnuppern p { color: rgba(255, 255, 255, 0.88); max-width: 56ch; margin: 0; }
 
-  /* Schliesst optisch an die Galerie darueber an */
+  /* Schliesst optisch an den Abschnitt darueber an: auf den meisten Seiten
+     ist das die Galerie im Sandton, beim Fussball der dunkle Heimspielblock. */
   .stand-leiste { background: var(--sand); }
+  .stand-leiste--dunkel { background: var(--ink); }
   .stand { margin: 0; padding-bottom: 1.6rem; text-align: right; font-size: 0.72rem; color: var(--text-muted); }
+  .stand-leiste--dunkel .stand { color: var(--text-on-dark-muted); }
 </style>
