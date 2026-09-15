@@ -1,0 +1,169 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeitenKopf from '../components/SeitenKopf.astro';
+import { beitraege, verein } from '../data/verein';
+
+const schritte = [
+  {
+    icon: 'tabler:shoe',
+    titel: 'Erst ausprobieren',
+    text: 'Komm zur Trainingszeit vorbei und mach mit. Ohne Anmeldung, ohne Kosten, so oft du magst.',
+  },
+  {
+    icon: 'tabler:file-download',
+    titel: 'Formular ausfüllen',
+    text: 'Wenn du regelmäßig dabei bist, füllst du das Anmeldeformular aus – ausdrucken, ausfüllen, unterschreiben.',
+  },
+  {
+    icon: 'tabler:mail-forward',
+    titel: 'Abgeben',
+    text: 'Gib es bei deiner Trainerin oder deinem Trainer ab, wirf es in den Briefkasten am Vereinsheim oder schick es per Post. Fertig.',
+  },
+];
+---
+
+<BaseLayout
+  title="Mitglied werden"
+  description="Mitglied beim SC Norddörfer werden: erst reinschnuppern, dann anmelden. Beiträge ab 8 € im Monat, Anmeldeformular zum Download."
+>
+  <SeitenKopf
+    eyebrow="Mitmachen"
+    titel="Werde Teil der|SCN-Familie"
+    breadcrumb="Mitglied werden"
+    lead="Erst reinschnuppern, dann entscheiden. Eine Mitgliedschaft brauchst du erst, wenn du regelmäßig dabei bist."
+  />
+
+  <section class="section">
+    <div class="container">
+      <ol class="schritte">
+        {schritte.map((s, i) => (
+          <li>
+            <span class="schritt__nr">{i + 1}</span>
+            <Icon name={s.icon} aria-hidden="true" />
+            <h2>{s.titel}</h2>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container beitrag">
+      <div class="beitrag__text">
+        <div class="band" aria-hidden="true"><span></span><span></span><span></span></div>
+        <h2>Was kostet das?</h2>
+        <p class="lead">
+          Der Beitrag gilt für den ganzen Verein – egal, ob du eine Sportart machst oder drei.
+          Eingezogen wird vierteljährlich per Lastschrift.
+        </p>
+        <a class="btn" href="/dokumente/SCN-Anmeldeformular.pdf" download>
+          <Icon name="tabler:file-download" aria-hidden="true" />
+          Anmeldeformular herunterladen
+        </a>
+        <p class="beitrag__hinweis">PDF, Stand Juni 2024 – zum Ausdrucken und Ausfüllen.</p>
+      </div>
+
+      <div class="beitrag__tabelle">
+        <h3>Monatliche Beiträge</h3>
+        <ul>
+          {beitraege.map((b) => (
+            <li>
+              <span>{b.wer}</span>
+              <span class="preis">{b.preis}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container fragen">
+      <div class="section-head">
+        <p class="eyebrow">Noch Fragen?</p>
+        <h2>Sprich uns an</h2>
+        <p class="lead">
+          Bei Fragen zur Mitgliedschaft meldest du dich am besten direkt beim Verein –
+          oder bei der Ansprechperson deiner Sportart.
+        </p>
+      </div>
+      <div class="cluster">
+        <a class="btn btn--gold" href={`tel:${verein.telefonHref}`}>
+          <Icon name="tabler:phone" aria-hidden="true" />
+          {verein.telefon}
+        </a>
+        <a class="btn btn--ghost" href="/sportarten/">Zu den Sportarten</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .schritte {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+    counter-reset: schritt;
+  }
+  @media (min-width: 56rem) { .schritte { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; } }
+
+  .schritte li { position: relative; padding-top: 0.5rem; }
+  .schritt__nr {
+    display: grid;
+    place-items: center;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--scn-red);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .schritte [data-icon] { font-size: 1.8rem; color: var(--scn-blue); margin-bottom: 0.6rem; }
+  .schritte h2 { font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .schritte p { color: var(--text-muted); font-size: 0.97rem; margin: 0; }
+
+  .beitrag { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (min-width: 62rem) { .beitrag { grid-template-columns: 1.1fr 0.9fr; } }
+
+  .beitrag__text .band { margin-bottom: 1.4rem; }
+  .beitrag__text h2 { font-size: var(--step-3); margin-bottom: 1rem; }
+  .beitrag__text .lead { font-size: var(--step-1); color: var(--text-muted); max-width: 46ch; margin-bottom: 1.6rem; }
+  .beitrag__hinweis { margin-top: 0.9rem; font-size: 0.82rem; color: var(--text-muted); }
+
+  .beitrag__tabelle {
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.4rem, 3vw, 2.2rem);
+  }
+  .beitrag__tabelle h3 { font-size: 1.5rem; margin-bottom: 1.1rem; }
+  .beitrag__tabelle ul { list-style: none; margin: 0; padding: 0; }
+  .beitrag__tabelle li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.2rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+  .beitrag__tabelle li:last-child { border-bottom: 0; }
+  .preis {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .fragen {
+    display: grid;
+    gap: 1.8rem;
+    align-items: center;
+  }
+  @media (min-width: 62rem) { .fragen { grid-template-columns: 1.4fr 1fr; } }
+  .fragen h2 { font-size: var(--step-3); }
+</style>

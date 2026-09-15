@@ -1,0 +1,68 @@
+---
+/** Einheitlicher Kopf fuer alle Unterseiten ausserhalb der Sportarten. */
+interface Props {
+  eyebrow: string;
+  titel: string;
+  lead?: string;
+  /** Brotkrumen ohne Start und ohne die aktuelle Seite */
+  pfad?: { href: string; label: string }[];
+  /** Kurzform fuer die Brotkrumen, falls der Titel dafuer zu lang ist */
+  breadcrumb?: string;
+}
+const { eyebrow, titel, lead, pfad = [], breadcrumb } = Astro.props;
+const krume = breadcrumb ?? titel.replace(/\|/g, ' ');
+---
+
+<header class="seitenkopf">
+  <div class="container">
+    <nav class="brotkrumen" aria-label="Sie sind hier">
+      <ol>
+        <li><a href="/">Start</a></li>
+        {pfad.map((e) => <li><a href={e.href}>{e.label}</a></li>)}
+        <li aria-current="page">{krume}</li>
+      </ol>
+    </nav>
+
+    <div class="band" aria-hidden="true"><span></span><span></span><span></span></div>
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 set:html={titel.replace(/\|/g, '<br />')}></h1>
+    {lead && <p class="seitenkopf__lead">{lead}</p>}
+  </div>
+</header>
+
+<style>
+  .seitenkopf {
+    background: var(--ink);
+    color: var(--text-on-dark);
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2.8rem, 7vw, 5rem);
+  }
+
+  .brotkrumen { margin-bottom: 2rem; }
+  .brotkrumen ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-on-dark-muted);
+  }
+  .brotkrumen li + li::before { content: '›'; margin-right: 0.75rem; opacity: 0.6; }
+  .brotkrumen a { text-decoration: none; }
+  .brotkrumen a:hover { color: var(--scn-gold); }
+  .brotkrumen [aria-current='page'] { color: #fff; }
+
+  .band { margin-bottom: 1.5rem; }
+  .eyebrow { margin-bottom: 0.9rem; }
+  h1 { font-size: var(--step-4); margin-bottom: 1.1rem; }
+  .seitenkopf__lead {
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--text-on-dark-muted);
+    max-width: 58ch;
+  }
+</style>

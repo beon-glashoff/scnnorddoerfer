@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Galerie from '../../components/Galerie.astro';
 import {
   sparten,
   mannschaften,
@@ -10,7 +11,20 @@ import {
   fussballDeVerein,
   type Sparte,
 } from '../../data/verein';
+
 import fussballKopf from '../../assets/fotos/fussball-duell.jpg';
+import teamHerren from '../../assets/fotos/teams/herren.jpg';
+import teamDamen from '../../assets/fotos/teams/damen.jpg';
+import teamAJugend from '../../assets/fotos/teams/a-jugend.jpg';
+import teamCJugend from '../../assets/fotos/teams/c-jugend.jpg';
+import g1 from '../../assets/fotos/galerie-fussball/1.jpg';
+import g2 from '../../assets/fotos/galerie-fussball/2.jpg';
+import g3 from '../../assets/fotos/galerie-fussball/3.jpg';
+import g4 from '../../assets/fotos/galerie-fussball/4.jpg';
+import g5 from '../../assets/fotos/galerie-fussball/5.jpg';
+import g6 from '../../assets/fotos/galerie-fussball/6.jpg';
+import g7 from '../../assets/fotos/galerie-fussball/7.jpg';
+import g8 from '../../assets/fotos/galerie-fussball/8.jpg';
 
 export function getStaticPaths() {
   return sparten.map((sparte) => ({
@@ -21,11 +35,34 @@ export function getStaticPaths() {
 
 interface Props { sparte: Sparte }
 const { sparte } = Astro.props;
+const istFussball = sparte.slug === 'fussball';
 
-// Nur fuer die Sparten, zu denen es schon Bildmaterial gibt.
+// Bildmaterial – bisher nur fuer den Fussball vorhanden.
 const kopfBilder: Record<string, ImageMetadata> = { fussball: fussballKopf };
 const bild = kopfBilder[sparte.slug];
 
+const teamBilder: Record<string, ImageMetadata> = {
+  Herren: teamHerren,
+  Damen: teamDamen,
+  'A-Jugend': teamAJugend,
+  'C-Jugend': teamCJugend,
+};
+
+const galerien: Record<string, { bild: ImageMetadata; alt: string }[]> = {
+  fussball: [
+    { bild: g1, alt: 'Spieler der A-Jugend beim Torschuss' },
+    { bild: g2, alt: 'Zweikampf auf dem Sportplatz' },
+    { bild: g3, alt: 'Spielerin der Damenmannschaft am Ball' },
+    { bild: g4, alt: 'Nachwuchsspieler der C-Jugend' },
+    { bild: g5, alt: 'Spielerin im Abendlicht auf dem Platz' },
+    { bild: g6, alt: 'Die Mannschaft beim Warmmachen' },
+    { bild: g7, alt: 'Herrenspieler mit Ball' },
+    { bild: g8, alt: 'Spielszene der C-Jugend' },
+  ],
+};
+const galerie = galerien[sparte.slug] ?? [];
+
+const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae').replace(/[^a-z0-9]+/g, '-');
 ---
 
 <BaseLayout
@@ -81,142 +118,60 @@ const bild = kopfBilder[sparte.slug];
       </div>
     </section>
 
-    <!-- Inhalt -->
-    <div class="section">
-      <div class="container inhalt">
-        <div class="inhalt__text">
-          {sparte.detail ? (
-            sparte.detail.abschnitte.map((a) => (
-              <section class="block">
-                <h2>{a.titel}</h2>
-                {a.absaetze.map((t) => <p>{t}</p>)}
-              </section>
-            ))
-          ) : (
-            <section class="block">
-              <h2>Über {sparte.name}</h2>
-              <p>{sparte.kurz}</p>
-              <p class="nachtrag">
-                Eine ausführliche Beschreibung dieser Sparte folgt in Kürze.
-                Bis dahin meldest du dich am besten direkt bei {sparte.ansprechpartner}.
-              </p>
-            </section>
-          )}
-
-          {sparte.detail?.zitat && (
-            <blockquote class="zitat">
-              <p>{sparte.detail.zitat.text}</p>
-              <cite>{sparte.detail.zitat.quelle}</cite>
-            </blockquote>
-          )}
-
-          {sparte.detail?.hinweis && (
-            <aside class="hinweis">
-              <Icon name="tabler:alert-circle" aria-hidden="true" />
-              <div>
-                <h2>{sparte.detail.hinweis.titel}</h2>
-                <p>{sparte.detail.hinweis.text}</p>
-              </div>
-            </aside>
-          )}
-        </div>
-
-        <aside class="inhalt__spalte">
-          <div class="kasten">
-            <h2><Icon name="tabler:calendar" aria-hidden="true" />Trainingszeiten</h2>
-            {sparte.slug === 'fussball' ? (
-              <>
-                <p class="kasten__text">
-                  Jede Mannschaft trainiert zu eigenen Zeiten – von der G-Jugend bis zu den Herren.
-                </p>
-                <a class="kasten__link" href="#mannschaften">
-                  Zu den Mannschaften
-                  <Icon name="tabler:arrow-down" aria-hidden="true" />
-                </a>
-              </>
-            ) : (
-              <ul class="zeiten">
-                {sparte.zeiten.map((z) => <li>{z}</li>)}
-              </ul>
-            )}
-            <p class="kasten__fuss">{sparte.ort}</p>
-          </div>
-
-          {sparte.detail?.mitbringen && (
-            <div class="kasten">
-              <h2><Icon name="tabler:backpack" aria-hidden="true" />Was bringe ich mit?</h2>
-              <ul class="haken">
-                {sparte.detail.mitbringen.map((m) => (
-                  <li><Icon name="tabler:check" aria-hidden="true" />{m}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          <div class="kasten kasten--kontakt">
-            <h2><Icon name="tabler:user-heart" aria-hidden="true" />Dein Kontakt</h2>
-            <p class="kontakt__name">{sparte.ansprechpartner}</p>
-            {sparte.telefon ? (
-              <a class="kontakt__tel" href={`tel:${sparte.telefon.replace(/\s/g, '')}`}>
-                <Icon name="tabler:phone" aria-hidden="true" />
-                {sparte.telefon}
-              </a>
-            ) : (
-              <p class="kontakt__offen">Kontaktdaten folgen</p>
-            )}
-          </div>
-        </aside>
-      </div>
-
-    </div>
-
-    {sparte.slug === 'fussball' && (
-      <section class="section section--sand teams" id="mannschaften">
+    {istFussball ? (
+      <!-- Fussball: jede Mannschaft mit eigenem Bereich -->
+      <section class="section teams" id="mannschaften">
         <div class="container">
           <div class="teams__kopf">
             <h2>Unsere Mannschaften</h2>
-            <p>Von den Herren bis zur G-Jugend – klapp dein Team auf.</p>
+            <p>Acht Mannschaften von den Herren bis zur G-Jugend. Spring direkt zu deinem Team.</p>
           </div>
 
-          <div class="akkordeon">
+          <nav class="sprung" aria-label="Zu einer Mannschaft springen">
             {mannschaften.map((m) => (
-              <details class:list={['team', m.sucht && 'team--sucht']} name="mannschaft">
-                <summary>
-                  <span class="team__name">{m.name}</span>
-                  <span class="team__meta">
-                    {m.sucht ? 'Trainer:in gesucht' : (m.liga ?? 'Kein Ligabetrieb')}
-                  </span>
-                  <Icon class="team__pfeil" name="tabler:chevron-down" aria-hidden="true" />
-                </summary>
+              <a href={`#${ankerId(m.name)}`} class:list={[m.sucht && 'sprung--sucht']}>{m.name}</a>
+            ))}
+          </nav>
 
-                <div class="team__inhalt">
+          <div class="teamliste">
+            {mannschaften.map((m) => (
+              <article class:list={['team', m.sucht && 'team--sucht']} id={ankerId(m.name)}>
+                <figure class="team__bild">
+                  {teamBilder[m.name] ? (
+                    <Image src={teamBilder[m.name]} alt={`Die ${m.name} des SC Norddörfer`} widths={[420, 760]} sizes="(min-width: 60rem) 34vw, 92vw" loading="lazy" />
+                  ) : (
+                    <span class="team__muster" aria-hidden="true"></span>
+                  )}
+                </figure>
+
+                <div class="team__text">
+                  <h3>{m.name}</h3>
+                  <p class="team__liga">
+                    {m.sucht ? 'Pausiert – Trainer:in gesucht' : (m.liga ?? 'Kein Ligabetrieb')}
+                  </p>
+
                   {m.sucht ? (
                     <div class="team__sucht">
                       <p>
-                        Die F-Jugend pausiert gerade, weil uns eine Trainerin oder ein Trainer fehlt.
-                        Wer Lust hat, die Jahrgänge {m.jahrgang} wieder auf den Platz zu bringen,
-                        meldet sich am besten direkt beim Verein.
+                        Die F-Jugend pausiert, weil uns eine Trainerin oder ein Trainer fehlt. Wer
+                        Lust hat, die Jahrgänge {m.jahrgang} wieder auf den Platz zu bringen, meldet
+                        sich am besten direkt beim Verein.
                       </p>
                       <a class="btn btn--gold" href="/mitmachen/">Trainer:in werden</a>
                     </div>
                   ) : (
-                    <div class="team__daten">
-                      <div>
-                        <h3>Training</h3>
-                        <ul>{m.zeiten.map((z) => <li>{z}</li>)}</ul>
-                        <p class="team__ort">Sportplatz, bei schlechtem Wetter in der Halle</p>
+                    <div class="team__spalten">
+                      <div class="kasten">
+                        <h4><Icon name="tabler:calendar" aria-hidden="true" />Training</h4>
+                        <ul class="zeiten">{m.zeiten.map((z) => <li>{z}</li>)}</ul>
+                        <p class="kasten__fuss">Jahrgänge: {m.jahrgang}</p>
                       </div>
 
-                      <div>
-                        <h3>Jahrgänge</h3>
-                        <p>{m.jahrgang}</p>
-                      </div>
-
-                      <div>
-                        <h3>Trainer</h3>
-                        <p>{m.trainer}</p>
+                      <div class="kasten kasten--kontakt">
+                        <h4><Icon name="tabler:user-heart" aria-hidden="true" />Trainer</h4>
+                        <p class="kontakt__name">{m.trainer}</p>
                         {m.telefon && (
-                          <a class="team__tel" href={`tel:${m.telefon.replace(/\s/g, '')}`}>
+                          <a class="kontakt__tel" href={`tel:${m.telefon.replace(/\s/g, '')}`}>
                             <Icon name="tabler:phone" aria-hidden="true" />
                             {m.telefon}
                           </a>
@@ -244,7 +199,7 @@ const bild = kopfBilder[sparte.slug];
                     </p>
                   )}
                 </div>
-              </details>
+              </article>
             ))}
           </div>
 
@@ -258,11 +213,9 @@ const bild = kopfBilder[sparte.slug];
           </p>
 
           {/*
-            Platz fuer das fussball.de-Widget "Naechste Spiele".
-            Der Einbettungscode muss auf fussball.de unter
-            "Inhalte verwalten" -> "Deine Widgets" erzeugt und dabei fest auf
-            die Domain sc-norddoerfer.de registriert werden. Erst danach
-            liefert das Widget Inhalte aus.
+            Platz fuer das fussball.de-Widget "Naechste Spiele". Der Einbettungscode
+            wird auf fussball.de erzeugt ("Inhalte verwalten" -> "Deine Widgets")
+            und dabei fest auf die Domain sc-norddoerfer.de registriert.
           */}
           <div class="widget-platz">
             <Icon name="tabler:calendar-event" aria-hidden="true" />
@@ -274,7 +227,79 @@ const bild = kopfBilder[sparte.slug];
           </div>
         </div>
       </section>
+    ) : (
+      <!-- Alle anderen Sparten: Fliesstext mit Seitenspalte -->
+      <div class="section">
+        <div class="container inhalt">
+          <div class="inhalt__text">
+            {sparte.detail ? (
+              sparte.detail.abschnitte.map((a) => (
+                <section class="block">
+                  <h2>{a.titel}</h2>
+                  {a.absaetze.map((t) => <p>{t}</p>)}
+                </section>
+              ))
+            ) : (
+              <section class="block">
+                <h2>Über {sparte.name}</h2>
+                <p>{sparte.kurz}</p>
+              </section>
+            )}
+
+            {sparte.detail?.zitat && (
+              <blockquote class="zitat">
+                <p>{sparte.detail.zitat.text}</p>
+                <cite>{sparte.detail.zitat.quelle}</cite>
+              </blockquote>
+            )}
+
+            {sparte.detail?.hinweis && (
+              <aside class="hinweis">
+                <Icon name="tabler:alert-circle" aria-hidden="true" />
+                <div>
+                  <h2>{sparte.detail.hinweis.titel}</h2>
+                  <p>{sparte.detail.hinweis.text}</p>
+                </div>
+              </aside>
+            )}
+          </div>
+
+          <aside class="inhalt__spalte">
+            <div class="kasten">
+              <h4><Icon name="tabler:calendar" aria-hidden="true" />Trainingszeiten</h4>
+              <ul class="zeiten">{sparte.zeiten.map((z) => <li>{z}</li>)}</ul>
+              <p class="kasten__fuss">{sparte.ort}</p>
+            </div>
+
+            {sparte.detail?.mitbringen && (
+              <div class="kasten">
+                <h4><Icon name="tabler:backpack" aria-hidden="true" />Was bringe ich mit?</h4>
+                <ul class="haken">
+                  {sparte.detail.mitbringen.map((m) => (
+                    <li><Icon name="tabler:check" aria-hidden="true" />{m}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div class="kasten kasten--kontakt">
+              <h4><Icon name="tabler:user-heart" aria-hidden="true" />Dein Kontakt</h4>
+              <p class="kontakt__name">{sparte.ansprechpartner}</p>
+              {sparte.telefon ? (
+                <a class="kontakt__tel" href={`tel:${sparte.telefon.replace(/\s/g, '')}`}>
+                  <Icon name="tabler:phone" aria-hidden="true" />
+                  {sparte.telefon}
+                </a>
+              ) : (
+                <p class="kontakt__offen">Kontaktdaten folgen</p>
+              )}
+            </div>
+          </aside>
+        </div>
+      </div>
     )}
+
+    <Galerie titel={`${sparte.name} in Bildern`} bilder={galerie} sparte={sparte.name} />
 
     <!-- Schnuppern -->
     <section class="schnuppern">
@@ -294,6 +319,9 @@ const bild = kopfBilder[sparte.slug];
       </div>
     </section>
 
+    <div class="container">
+      <p class="stand">Stand: {standDerDaten}</p>
+    </div>
   </article>
 </BaseLayout>
 
@@ -316,33 +344,21 @@ const bild = kopfBilder[sparte.slug];
     position: absolute;
     inset: 0;
     background:
-      repeating-linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.1) 0 18px,
-        rgba(255, 255, 255, 0) 18px 36px
-      ),
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.1) 0 18px, rgba(255,255,255,0) 18px 36px),
       var(--akzent);
   }
   .kopf__schleier {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(11, 23, 32, 0.82), rgba(11, 23, 32, 0.45) 60%, rgba(11, 23, 32, 0.25));
+    background: linear-gradient(to right, rgba(11,23,32,0.82), rgba(11,23,32,0.45) 60%, rgba(11,23,32,0.25));
   }
-
   .kopf__inhalt { position: relative; }
 
   .brotkrumen { margin-bottom: 1.8rem; }
   .brotkrumen ol {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 0.75rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 600;
+    display: flex; flex-wrap: wrap; gap: 0.4rem 0.75rem;
+    list-style: none; margin: 0; padding: 0;
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
     color: rgba(255, 255, 255, 0.72);
   }
   .brotkrumen li + li::before { content: '›'; margin-right: 0.75rem; opacity: 0.6; }
@@ -351,8 +367,7 @@ const bild = kopfBilder[sparte.slug];
   .brotkrumen [aria-current='page'] { color: #fff; }
 
   .kopf__chip {
-    display: grid;
-    place-items: center;
+    display: grid; place-items: center;
     width: 62px; height: 62px;
     margin-bottom: 1.1rem;
     border-radius: 50%;
@@ -362,34 +377,24 @@ const bild = kopfBilder[sparte.slug];
   }
   .kopf h1 { font-size: var(--step-4); margin-bottom: 1rem; }
   .kopf__kurz {
-    font-size: var(--step-1);
-    line-height: 1.5;
-    max-width: 56ch;
+    font-size: var(--step-1); line-height: 1.5; max-width: 56ch;
     color: rgba(255, 255, 255, 0.92);
   }
 
   /* ---------- Eckdaten ---------- */
   .eckdaten { background: var(--ink); color: var(--text-on-dark); }
-  .eckdaten__grid {
-    display: grid;
-    gap: 1px;
-    padding-block: 0;
-  }
+  .eckdaten__grid { display: grid; gap: 1px; padding-block: 0; }
   @media (min-width: 40rem) { .eckdaten__grid { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 68rem) { .eckdaten__grid { grid-template-columns: repeat(4, 1fr); } }
 
   .eckdatum {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.8rem;
+    display: flex; align-items: flex-start; gap: 0.8rem;
     padding: 1.4rem clamp(0.5rem, 1.5vw, 1.4rem);
     position: relative;
   }
   .eckdatum + .eckdatum::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 1.2rem; bottom: 1.2rem;
-    width: 1px;
+    content: ''; position: absolute;
+    left: 0; top: 1.2rem; bottom: 1.2rem; width: 1px;
     background: var(--line-dark);
   }
   @media (max-width: 39.99rem) {
@@ -398,213 +403,126 @@ const bild = kopfBilder[sparte.slug];
   .eckdatum [data-icon] { color: var(--scn-gold); font-size: 1.35rem; flex: none; margin-top: 0.1rem; }
   .eckdatum dl { margin: 0; }
   .eckdatum dt {
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-on-dark-muted);
-    margin-bottom: 0.15rem;
+    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-on-dark-muted); margin-bottom: 0.15rem;
   }
   .eckdatum dd { margin: 0; font-weight: 600; font-size: 0.95rem; line-height: 1.35; }
 
-  /* ---------- Inhalt ---------- */
+  /* ---------- Fliesstext ---------- */
   .inhalt { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
   @media (min-width: 62rem) { .inhalt { grid-template-columns: minmax(0, 1fr) 21rem; } }
 
   .block { margin-bottom: 2.6rem; }
   .block:last-child { margin-bottom: 0; }
   .block h2 {
-    font-size: var(--step-2);
-    margin-bottom: 0.9rem;
-    padding-top: 1rem;
-    border-top: 3px solid var(--akzent);
-    display: inline-block;
+    font-size: var(--step-2); margin-bottom: 0.9rem; padding-top: 1rem;
+    border-top: 3px solid var(--akzent); display: inline-block;
   }
   .block p { font-size: 1.05rem; line-height: 1.7; max-width: 62ch; }
-  .nachtrag { color: var(--text-muted); font-size: 0.95rem; }
 
-  .zitat {
-    margin: 2.6rem 0;
-    padding: 1.6rem 0 1.6rem 1.6rem;
-    border-left: 4px solid var(--akzent);
-  }
+  .zitat { margin: 2.6rem 0; padding: 1.6rem 0 1.6rem 1.6rem; border-left: 4px solid var(--akzent); }
   .zitat p {
-    font-family: var(--font-display);
-    text-transform: uppercase;
-    font-size: var(--step-2);
-    line-height: 1.05;
-    margin-bottom: 0.7rem;
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: var(--step-2); line-height: 1.05; margin-bottom: 0.7rem;
   }
   .zitat cite { font-style: normal; font-size: 0.85rem; color: var(--text-muted); }
 
   .hinweis {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2.6rem;
-    padding: 1.3rem 1.4rem;
-    background: var(--sand);
-    border-radius: var(--radius-lg);
-    border-left: 4px solid var(--akzent);
+    display: flex; gap: 1rem; margin-top: 2.6rem; padding: 1.3rem 1.4rem;
+    background: var(--sand); border-radius: var(--radius-lg); border-left: 4px solid var(--akzent);
   }
   .hinweis [data-icon] { color: var(--akzent-text); font-size: 1.4rem; flex: none; }
   .hinweis h2 { font-size: 1.3rem; margin-bottom: 0.35rem; }
   .hinweis p { font-size: 0.95rem; margin: 0; }
 
-  /* ---------- Seitenspalte ---------- */
   .inhalt__spalte { display: grid; gap: 1.1rem; align-content: start; }
 
-  .kasten {
-    padding: 1.3rem 1.4rem 1.5rem;
-    background: var(--sand);
-    border-radius: var(--radius-lg);
+  /* ---------- Kaesten (Seitenspalte und Mannschaften) ---------- */
+  .kasten { padding: 1.3rem 1.4rem 1.5rem; background: var(--sand); border-radius: var(--radius-lg); }
+  .kasten h4 {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
+    font-size: 1.25rem; line-height: 1; margin: 0 0 0.9rem;
   }
-  .kasten h2 {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.25rem;
-    margin-bottom: 0.9rem;
-  }
-  .kasten h2 [data-icon] { color: var(--akzent-text); font-size: 1.2rem; }
+  .kasten h4 [data-icon] { color: var(--akzent-text); font-size: 1.2rem; }
 
   .zeiten, .haken { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
   .zeiten li {
-    font-size: 0.95rem;
-    font-weight: 600;
-    padding-bottom: 0.55rem;
-    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem; font-weight: 600;
+    padding-bottom: 0.55rem; border-bottom: 1px solid var(--line);
   }
   .zeiten li:last-child { border-bottom: 0; padding-bottom: 0; }
-  .kasten__fuss {
-    margin-top: 0.9rem;
-    font-size: 0.82rem;
-    color: var(--text-muted);
-  }
-  .kasten__text { font-size: 0.93rem; margin-bottom: 0.9rem; }
-  .kasten__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--akzent-text);
-  }
-  .kasten__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .kasten__fuss { margin-top: 0.9rem; font-size: 0.82rem; color: var(--text-muted); }
 
   .haken li { display: flex; gap: 0.5rem; font-size: 0.95rem; }
   .haken [data-icon] { color: var(--akzent-text); flex: none; margin-top: 0.2rem; }
 
   .kasten--kontakt { background: var(--ink); color: var(--text-on-dark); }
-  .kasten--kontakt h2 [data-icon] { color: var(--scn-gold); }
+  .kasten--kontakt h4 [data-icon] { color: var(--scn-gold); }
   .kontakt__name { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.6rem; }
   .kontakt__tel {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: var(--scn-gold);
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    font-weight: 700; text-decoration: none; color: var(--scn-gold);
   }
   .kontakt__tel:hover { text-decoration: underline; text-underline-offset: 4px; }
   .kontakt__offen { font-size: 0.9rem; color: var(--text-on-dark-muted); margin: 0; }
 
-  /* ---------- Schnuppern ---------- */
-  .schnuppern { background: var(--scn-blue); color: #fff; padding-block: clamp(2.5rem, 5vw, 4rem); }
-  .schnuppern__inhalt {
-    display: grid;
-    gap: 1.8rem;
-    align-items: center;
-  }
-  @media (min-width: 62rem) { .schnuppern__inhalt { grid-template-columns: 1.4fr 1fr; } }
-  .schnuppern h2 { font-size: var(--step-2); margin-bottom: 0.7rem; }
-  .schnuppern p { color: rgba(255, 255, 255, 0.88); max-width: 56ch; margin: 0; }
-
-  /* ---------- Mannschaften (nur Fussball) ---------- */
-  .teams__kopf { margin-bottom: 1.8rem; }
+  /* ---------- Mannschaften ---------- */
+  .teams__kopf { margin-bottom: 1.5rem; }
   .teams__kopf h2 { font-size: var(--step-3); margin-bottom: 0.5rem; }
   .teams__kopf p { color: var(--text-muted); margin: 0; }
 
-  .akkordeon { border-top: 1px solid var(--line); }
-
-  .team { border-bottom: 1px solid var(--line); background: transparent; }
-  .team summary {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    padding: 1.05rem 0.2rem;
-    cursor: pointer;
-    list-style: none;
+  .sprung {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--line);
   }
-  .team summary::-webkit-details-marker { display: none; }
-  .team summary:hover .team__name { color: var(--scn-red); }
-
-  .team__name {
-    font-family: var(--font-display);
-    text-transform: uppercase;
-    font-size: 1.4rem;
-    letter-spacing: 0.01em;
-    transition: color 0.18s ease;
+  .sprung a {
+    padding: 0.45em 0.95em;
+    background: var(--sand);
+    border-radius: 99px;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em;
+    text-decoration: none; color: inherit;
+    transition: background-color 0.18s ease, color 0.18s ease;
   }
-  .team__meta { flex: 1; font-size: 0.86rem; color: var(--text-muted); }
-  .team__pfeil {
-    flex: none;
-    align-self: center;
-    font-size: 1.3rem;
-    color: var(--scn-red);
-    transition: transform 0.25s ease;
+  .sprung a:hover { background: var(--scn-red); color: #fff; }
+  .sprung--sucht { color: var(--scn-red) !important; }
+  .sprung--sucht:hover { color: #fff !important; }
+
+  .teamliste { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
+
+  .team { display: grid; gap: 1.5rem; }
+  @media (min-width: 60rem) { .team { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 2.5rem; align-items: start; } }
+
+  .team__bild { margin: 0; border-radius: var(--radius-lg); overflow: hidden; position: relative; background: var(--scn-red); }
+  .team__bild :global(img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .team__muster {
+    display: block; width: 100%; aspect-ratio: 4 / 3;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.12) 0 16px, rgba(255,255,255,0) 16px 32px),
+      var(--scn-red);
   }
-  .team[open] .team__pfeil { transform: rotate(180deg); }
-  .team[open] .team__name { color: var(--scn-red); }
+  .team--sucht .team__bild, .team--sucht .team__muster { background-color: var(--ink); }
 
-  .team--sucht .team__name { color: var(--scn-red); }
-  .team--sucht .team__meta { color: var(--scn-red); font-weight: 700; }
-
-  .team__inhalt { padding: 0.3rem 0.2rem 1.7rem; }
-
-  .team__daten { display: grid; gap: 1.4rem; margin-bottom: 1.3rem; }
-  @media (min-width: 46rem) { .team__daten { grid-template-columns: repeat(3, 1fr); } }
-
-  .team__daten h3 {
-    font-family: var(--font-text);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 0.4rem;
+  .team__text h3 { font-size: var(--step-2); margin-bottom: 0.25rem; }
+  .team__liga {
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 1.2rem;
   }
-  .team__abstand { margin-top: 1rem; }
-  .team__daten ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; }
-  .team__daten li, .team__daten p { font-size: 0.97rem; font-weight: 600; margin: 0; }
-  .team__ort { margin-top: 0.5rem !important; font-weight: 400 !important; font-size: 0.85rem !important; color: var(--text-muted); }
+  .team--sucht .team__liga { color: var(--scn-red); }
 
-  .team__tel {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.35rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: var(--scn-red);
-  }
-  .team__tel:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .team__spalten { display: grid; gap: 1rem; margin-bottom: 1.2rem; }
+  @media (min-width: 40rem) { .team__spalten { grid-template-columns: 1.2fr 1fr; } }
 
-  .team__sucht { margin-bottom: 1.3rem; display: grid; gap: 1rem; justify-items: start; }
-  .team__sucht p { max-width: 62ch; }
+  .team__sucht { display: grid; gap: 1rem; justify-items: start; margin-bottom: 1.2rem; }
+  .team__sucht p { max-width: 56ch; }
 
   .team__tabelle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
+    display: inline-flex; align-items: center; gap: 0.55rem;
     padding: 0.7em 1.1em;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    font-size: 0.86rem;
-    font-weight: 600;
-    text-decoration: none;
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+    font-size: 0.86rem; font-weight: 600; text-decoration: none;
     transition: border-color 0.18s ease, transform 0.18s ease;
   }
   .team__tabelle:hover { border-color: var(--scn-red); transform: translateY(-1px); }
@@ -614,31 +532,28 @@ const bild = kopfBilder[sparte.slug];
   .team__ohneLiga { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
 
   .teams__fuss {
-    display: flex;
-    gap: 0.6rem;
-    margin-top: 1.6rem;
-    font-size: 0.87rem;
-    color: var(--text-muted);
-    max-width: 82ch;
+    display: flex; gap: 0.6rem; margin-top: clamp(2rem, 4vw, 3rem);
+    font-size: 0.87rem; color: var(--text-muted); max-width: 82ch;
   }
   .teams__fuss [data-icon] { flex: none; font-size: 1.1rem; color: var(--scn-blue); }
   .teams__fuss a { color: var(--scn-blue); }
 
   .widget-platz {
-    display: grid;
-    justify-items: center;
-    text-align: center;
-    gap: 0.35rem;
-    margin-top: 2.2rem;
-    padding: clamp(2rem, 5vw, 3.2rem) 1.5rem;
-    border: 2px dashed rgba(11, 23, 32, 0.22);
-    border-radius: var(--radius-lg);
+    display: grid; justify-items: center; text-align: center; gap: 0.35rem;
+    margin-top: 2rem; padding: clamp(2rem, 5vw, 3.2rem) 1.5rem;
+    border: 2px dashed rgba(11, 23, 32, 0.2); border-radius: var(--radius-lg);
     color: var(--text-muted);
   }
   .widget-platz [data-icon] { font-size: 2.2rem; color: var(--scn-blue); margin-bottom: 0.4rem; }
   .widget-platz p { margin: 0; }
   .widget-platz .klein { font-size: 0.87rem; max-width: 52ch; }
 
+  /* ---------- Schnuppern ---------- */
+  .schnuppern { background: var(--scn-blue); color: #fff; padding-block: clamp(2.5rem, 5vw, 4rem); }
+  .schnuppern__inhalt { display: grid; gap: 1.8rem; align-items: center; }
+  @media (min-width: 62rem) { .schnuppern__inhalt { grid-template-columns: 1.4fr 1fr; } }
+  .schnuppern h2 { font-size: var(--step-2); margin-bottom: 0.7rem; }
+  .schnuppern p { color: rgba(255, 255, 255, 0.88); max-width: 56ch; margin: 0; }
 
   .stand { margin-block: 1.6rem; text-align: right; font-size: 0.72rem; color: var(--text-muted); }
 </style>

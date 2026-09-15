@@ -1,0 +1,187 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeitenKopf from '../components/SeitenKopf.astro';
+import { verein, sparten } from '../data/verein';
+
+const adresse = `${verein.strasse}, ${verein.plz} ${verein.ort}`;
+const karte = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(adresse)}`;
+---
+
+<BaseLayout
+  title="Kontakt"
+  description="Kontakt zum SC Norddörfer in Wenningstedt auf Sylt: Anschrift, Telefon, E-Mail und die Ansprechpartner aller acht Sportarten."
+>
+  <SeitenKopf
+    eyebrow="Melde dich"
+    titel="Kontakt"
+    lead="Fragen zu einer Sportart? Wende dich direkt an die Ansprechperson. Für alles rund um den Verein erreichst du die Geschäftsführung."
+  />
+
+  <section class="section">
+    <div class="container kontakt">
+      <div class="kasten kasten--haupt">
+        <h2><Icon name="tabler:building-community" aria-hidden="true" />Der Verein</h2>
+        <address>
+          {verein.vollname}<br />
+          {verein.strasse}<br />
+          {verein.plz} {verein.ort}
+        </address>
+        <ul class="wege">
+          <li>
+            <Icon name="tabler:phone" aria-hidden="true" />
+            <a href={`tel:${verein.telefonHref}`}>{verein.telefon}</a>
+          </li>
+          <li>
+            <Icon name="tabler:mail" aria-hidden="true" />
+            <a href={`mailto:${verein.email}`}>{verein.email}</a>
+          </li>
+          <li>
+            <Icon name="tabler:map-2" aria-hidden="true" />
+            <a href={karte} target="_blank" rel="noopener">Auf der Karte ansehen</a>
+          </li>
+        </ul>
+        <p class="hinweis">
+          Sporthalle, Sportplatz und Vereinsheim liegen alle an dieser Adresse.
+          <a href="/verein/anreise/">So findest du uns</a>
+        </p>
+      </div>
+
+      <div class="kasten kasten--sozial">
+        <h2><Icon name="tabler:device-mobile" aria-hidden="true" />Social Media</h2>
+        <p>Spielberichte, Fotos und kurzfristige Absagen laufen bei uns über Instagram und Facebook.</p>
+        <div class="cluster">
+          <a class="btn btn--gold" href={verein.instagram} target="_blank" rel="noopener">
+            <Icon name="tabler:brand-instagram" aria-hidden="true" />
+            Instagram
+          </a>
+          <a class="btn btn--ghost" href={verein.facebook} target="_blank" rel="noopener">
+            <Icon name="tabler:brand-facebook" aria-hidden="true" />
+            Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <div class="section-head personen__kopf">
+        <p class="eyebrow">Ansprechpartner</p>
+        <h2>Direkt zur Sportart</h2>
+        <p class="lead">
+          Für Fragen zum Training, zu Terminen oder zum Schnuppern meldest du dich am besten
+          direkt bei der Ansprechperson deiner Sportart.
+        </p>
+      </div>
+
+      <ul class="personen">
+        {sparten.map((s) => (
+          <li class:list={['person', `person--${s.farbe}`]}>
+            <span class="person__chip"><Icon name={s.icon} aria-hidden="true" /></span>
+            <div class="person__text">
+              <a class="person__sparte" href={`/sportarten/${s.slug}/`}>{s.name}</a>
+              <span class="person__name">{s.ansprechpartner}</span>
+              {s.telefon ? (
+                <a class="person__tel" href={`tel:${s.telefon.replace(/\s/g, '')}`}>
+                  <Icon name="tabler:phone" aria-hidden="true" />
+                  {s.telefon}
+                </a>
+              ) : (
+                <span class="person__offen">Kontaktdaten folgen</span>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .kontakt { display: grid; gap: 1.2rem; }
+  @media (min-width: 60rem) { .kontakt { grid-template-columns: 1.15fr 0.85fr; } }
+
+  .kasten { padding: clamp(1.4rem, 3vw, 2.2rem); border-radius: var(--radius-lg); }
+  .kasten--haupt { background: var(--ink); color: var(--text-on-dark); }
+  .kasten--sozial { background: var(--scn-blue); color: #fff; align-content: start; display: grid; gap: 1.2rem; }
+
+  .kasten h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.1rem;
+  }
+  .kasten h2 [data-icon] { color: var(--scn-gold); font-size: 1.4rem; }
+  .kasten--sozial h2 { margin-bottom: 0; }
+  .kasten--sozial p { margin: 0; color: rgba(255, 255, 255, 0.88); max-width: 42ch; }
+
+  address { font-style: normal; line-height: 1.7; color: var(--text-on-dark-muted); margin-bottom: 1.2rem; }
+
+  .wege { list-style: none; margin: 0 0 1.2rem; padding: 0; display: grid; gap: 0.65rem; }
+  .wege li { display: flex; align-items: center; gap: 0.6rem; }
+  .wege [data-icon] { color: var(--scn-gold); font-size: 1.15rem; flex: none; }
+  .wege a { font-weight: 600; text-decoration: none; }
+  .wege a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  .hinweis { font-size: 0.87rem; color: var(--text-on-dark-muted); margin: 0; }
+  .hinweis a { color: var(--scn-gold); }
+
+  .personen__kopf { margin-bottom: 2rem; }
+
+  .personen {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  }
+
+  .person {
+    --akzent: var(--scn-red);
+    --akzent-text: var(--akzent);
+    display: flex;
+    gap: 0.9rem;
+    padding: 1.1rem 1.2rem;
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+  }
+  .person--blau { --akzent: var(--scn-blue); }
+  .person--gold { --akzent: var(--scn-gold); --akzent-text: var(--scn-gold-dark); }
+
+  .person__chip {
+    display: grid;
+    place-items: center;
+    width: 42px; height: 42px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--akzent);
+    color: #fff;
+    font-size: 1.3rem;
+  }
+  .person--gold .person__chip { color: var(--ink); }
+
+  .person__text { display: grid; gap: 0.15rem; }
+  .person__sparte {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.15rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .person__sparte:hover { color: var(--akzent-text); }
+  .person__name { font-size: 0.93rem; }
+  .person__tel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--akzent-text);
+  }
+  .person__tel:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .person__offen { font-size: 0.85rem; color: var(--text-muted); }
+</style>

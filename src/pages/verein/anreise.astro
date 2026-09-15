@@ -1,0 +1,160 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeitenKopf from '../../components/SeitenKopf.astro';
+import { verein } from '../../data/verein';
+import platz from '../../assets/fotos/sportstaette-fussballplatz_tag.jpg';
+
+const adresse = `${verein.strasse}, ${verein.plz} ${verein.ort}`;
+const karte = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(adresse)}`;
+---
+
+<BaseLayout
+  title="Anreise"
+  description="So kommst du zum SC Norddörfer: mit Zug und Bus bis zur Haltestelle Norddörfer Schule oder mit dem Auto – Parkplätze sind ausreichend vorhanden."
+>
+  <SeitenKopf
+    eyebrow="So findest du uns"
+    titel="Anreise"
+    lead="Sporthalle, Sportplatz und Vereinsheim liegen alle an einer Adresse in Wenningstedt. Einmal ankommen, alles erreicht."
+    pfad={[{ href: '/verein/', label: 'Verein' }]}
+  />
+
+  <section class="adresse">
+    <div class="container adresse__grid">
+      <div>
+        <p class="adresse__label">Unsere Adresse</p>
+        <p class="adresse__wert">
+          {verein.strasse}<br />{verein.plz} {verein.ort}
+        </p>
+      </div>
+      <a class="btn btn--gold" href={karte} target="_blank" rel="noopener">
+        <Icon name="tabler:map-2" aria-hidden="true" />
+        Route planen
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container wege">
+      <article class="weg">
+        <span class="weg__nr"><Icon name="tabler:train" aria-hidden="true" /></span>
+        <h2>Mit Zug und Bus</h2>
+        <p>
+          Mit dem Personenzug bis <strong>Westerland (Sylt)</strong>. Vom Bahnhof geht es direkt
+          weiter mit dem Linienbus der SVG Richtung <strong>List</strong>.
+        </p>
+        <p>
+          Aussteigen an der Haltestelle <strong>Norddörfer Schule</strong> – von dort sind es
+          rund 200 Meter zu Fuß bis zu Halle, Platz und Vereinsheim.
+        </p>
+        <p class="weg__linien">
+          <Icon name="tabler:bus" aria-hidden="true" />
+          <span>Die Haltestelle wird von den Linien 1, 3 und 3a bedient.</span>
+        </p>
+      </article>
+
+      <article class="weg">
+        <span class="weg__nr"><Icon name="tabler:car" aria-hidden="true" /></span>
+        <h2>Mit dem Auto</h2>
+        <p>
+          Auf die Insel kommt das Auto über den <strong>Autozug</strong> ab Niebüll oder über
+          die <strong>Fähre</strong> ab Rømø nach List.
+        </p>
+        <p>
+          Von Westerland aus sind es rund zehn Minuten bis nach Wenningstedt.
+          <strong>Parkplätze sind bei uns ausreichend vorhanden</strong> – auch zu Trainingszeiten
+          und bei Heimspielen.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container ort">
+      <figure class="ort__bild">
+        <Image src={platz} alt="Der Sportplatz des SC Norddörfer am Norderweg" widths={[600, 1000]} sizes="(min-width: 60rem) 48vw, 92vw" />
+      </figure>
+      <div class="ort__text">
+        <div class="band" aria-hidden="true"><span></span><span></span><span></span></div>
+        <h2>Alles an einem Ort</h2>
+        <p>
+          Die <strong>Norddörfer Halle</strong> steht bei der Norddörfer Schule, direkt daneben
+          liegen der <strong>Sportplatz</strong> mit Flutlicht und das <strong>Vereinsheim</strong>.
+          Du musst also nicht überlegen, wo dein Training stattfindet – es ist immer dieselbe Adresse.
+        </p>
+        <p>
+          Turnen, Tanzen und Kampfsport finden in der Halle statt, Fußball draußen auf dem Platz
+          und bei schlechtem Wetter ebenfalls in der Halle. Dart wird im Vereinsheim gespielt.
+        </p>
+        <a class="btn btn--blue" href="/trainingszeiten/">Zu den Trainingszeiten</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .adresse { background: var(--ink); color: var(--text-on-dark); }
+  .adresse__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2.5rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1.6rem;
+  }
+  .adresse__label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--scn-gold);
+    margin-bottom: 0.3rem;
+  }
+  .adresse__wert { font-size: 1.1rem; font-weight: 600; line-height: 1.5; margin: 0; }
+
+  .wege { display: grid; gap: clamp(2rem, 5vw, 3.5rem); }
+  @media (min-width: 56rem) { .wege { grid-template-columns: repeat(2, 1fr); } }
+
+  .weg__nr {
+    display: grid;
+    place-items: center;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--scn-blue);
+    color: #fff;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+  }
+  .weg h2 {
+    font-size: var(--step-2);
+    margin-bottom: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 3px solid var(--scn-blue);
+    display: inline-block;
+  }
+  .weg p { font-size: 1.02rem; line-height: 1.7; max-width: 52ch; }
+
+  .weg__linien {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+    padding: 0.85rem 1rem;
+    background: var(--sand);
+    border-radius: var(--radius);
+    font-size: 0.92rem !important;
+  }
+  .weg__linien [data-icon] { flex: none; font-size: 1.2rem; color: var(--scn-blue); }
+
+  .ort { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+  @media (min-width: 60rem) { .ort { grid-template-columns: 1fr 1fr; } }
+
+  .ort__bild { margin: 0; border-radius: var(--radius-lg); overflow: hidden; }
+  .ort__bild :global(img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+  .ort__text .band { margin-bottom: 1.3rem; }
+  .ort__text h2 { font-size: var(--step-3); margin-bottom: 1rem; }
+  .ort__text p { font-size: 1.02rem; line-height: 1.7; max-width: 54ch; }
+  .ort__text .btn { margin-top: 0.8rem; }
+</style>

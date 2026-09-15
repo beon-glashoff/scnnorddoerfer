@@ -619,6 +619,20 @@ export const einheitenProWoche = wochenplan.reduce(
   0,
 );
 
+/** Vorstand des Vereins, Stand September 2026. */
+export const vorstand = [
+  { funktion: 'Gleichberechtigte Vorsitzende, Gemeinde Kampen', name: 'Steffi Böhm' },
+  { funktion: 'Gleichberechtigter Vorsitzender, Gemeinde Wenningstedt-Braderup', name: 'Kai Müller' },
+  { funktion: 'Geschäftsführender Vorsitzender', name: 'Tom Langmaack' },
+  { funktion: 'Erste Schatzmeisterin', name: 'Nicole Lüdrichsen' },
+  { funktion: 'Zweiter Schatzmeister', name: 'Torge Britchin' },
+  { funktion: 'Jugendwart', name: 'Moritz Piossek' },
+  { funktion: 'Schriftführerin', name: 'Rebecca Reckert-Diedenhofen' },
+  { funktion: 'Pressewart', name: 'Tom Langmaack' },
+  { funktion: '1. Beisitzer', name: 'Marko Schneider-Pauly' },
+  { funktion: '2. Beisitzer', name: 'Nick Erdmann' },
+];
+
 /** Monatliche Mitgliedsbeiträge, Einzug vierteljährlich per Lastschrift. */
 export const beitraege = [
   { wer: 'Kinder, Schüler, Studenten, Azubis', preis: '10,00 €' },

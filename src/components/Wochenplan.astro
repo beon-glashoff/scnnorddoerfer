@@ -1,18 +1,26 @@
 ---
 import { wochenplan, standDerDaten } from '../data/verein';
+
+interface Props {
+  /** Auf der eigenen Unterseite uebernimmt der Seitenkopf die Ueberschrift. */
+  ohneKopf?: boolean;
+}
+const { ohneKopf = false } = Astro.props;
 ---
 
 <section class="section" id="trainingszeiten">
   <div class="container">
-    <div class="plan__kopf reveal">
-      <div class="section-head">
-        <p class="eyebrow">Trainingszeiten</p>
-        <h2>Die Woche<br />beim SCN</h2>
-        <p class="lead">
-          Montag bis Freitag ist bei uns etwas los. Such dir raus, was passt, und komm vorbei.
-        </p>
+    {!ohneKopf && (
+      <div class="plan__kopf reveal">
+        <div class="section-head">
+          <p class="eyebrow">Trainingszeiten</p>
+          <h2>Die Woche<br />beim SCN</h2>
+          <p class="lead">
+            Montag bis Freitag ist bei uns etwas los. Such dir raus, was passt, und komm vorbei.
+          </p>
+        </div>
       </div>
-    </div>
+    )}
 
     <div class="plan reveal">
       {wochenplan.map((tag) => (

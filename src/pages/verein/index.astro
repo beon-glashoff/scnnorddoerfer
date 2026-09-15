@@ -1,0 +1,152 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeitenKopf from '../../components/SeitenKopf.astro';
+import Sportstaetten from '../../components/Sportstaetten.astro';
+import { verein, vorstand, sparten, einheitenProWoche } from '../../data/verein';
+---
+
+<BaseLayout
+  title="Der Verein"
+  description="Der SC Norddörfer in Wenningstedt auf Sylt: gegründet 1963, acht Sportarten, ein Vorstand aus zwei Gemeinden. Alles über den Verein."
+>
+  <SeitenKopf
+    eyebrow="Über uns"
+    titel="Eine Insel,|ein Verein"
+    breadcrumb="Verein"
+    lead="Zwischen der offenen Nordsee und dem Wattenmeer, im Angesicht des Leuchtturms: Wir vereinen familiäre Atmosphäre und Ehrgeiz unter einem Dach."
+  />
+
+  <section class="section">
+    <div class="container ueber">
+      <div class="ueber__text">
+        <h2>Seit {verein.gegruendet} auf Sylt</h2>
+        <p>
+          Der SC Norddörfer ist der Sportverein der Norddörfer – getragen von den Gemeinden
+          Wenningstedt-Braderup und Kampen. Was {verein.gegruendet} begann, ist heute ein Verein mit
+          acht Sportarten und {einheitenProWoche} Trainings und Kursen in der Woche.
+        </p>
+        <p>
+          Vom Eltern-Kind-Turnen für die Zweijährigen bis zu Fit for Fun ohne Altersgrenze nach
+          oben ist für jede Lebensphase etwas dabei. Wenn du auf der Suche nach einem gut
+          strukturierten und vielfältigen Verein bist, wenn du die Herausforderung suchst und
+          deinen Teil zu unserer Sportclubfamilie beitragen willst: Komm vorbei.
+        </p>
+        <p>
+          Und weil wir auf einer Insel sind, gilt bei uns: Wer mitmachen will, kann mitmachen.
+          Wird ein Jahrgang zu dünn, legen wir zusammen. Fehlt eine Trainerin, fragen wir herum.
+          Der Verein lebt davon, dass alle anpacken.
+        </p>
+      </div>
+
+      <aside class="ueber__karten">
+        <a class="karte" href="/verein/anreise/">
+          <Icon name="tabler:map-pin" aria-hidden="true" />
+          <h3>Anreise</h3>
+          <p>Halle, Sportplatz und Vereinsheim liegen alle am Norderweg 4.</p>
+        </a>
+        <a class="karte" href="/dokumente/SCN-Satzung.pdf" download>
+          <Icon name="tabler:file-text" aria-hidden="true" />
+          <h3>Satzung</h3>
+          <p>Die Vereinssatzung als PDF zum Nachlesen.</p>
+        </a>
+        <a class="karte" href="/sportarten/">
+          <Icon name="tabler:ball-football" aria-hidden="true" />
+          <h3>{sparten.length} Sportarten</h3>
+          <p>Von Fußball über Tanzen bis Muay Thai.</p>
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--sand" id="vorstand">
+    <div class="container">
+      <div class="section-head vorstand__kopf">
+        <p class="eyebrow">Der Vorstand</p>
+        <h2>Wer den Verein führt</h2>
+        <p class="lead">
+          Der Vorstand arbeitet ehrenamtlich. Zwei gleichberechtigte Vorsitzende vertreten die
+          Gemeinden Kampen und Wenningstedt-Braderup.
+        </p>
+      </div>
+
+      <ul class="vorstand">
+        {vorstand.map((v) => (
+          <li>
+            <span class="vorstand__funktion">{v.funktion}</span>
+            <span class="vorstand__name">{v.name}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="vorstand__fuss">
+        <Icon name="tabler:camera" aria-hidden="true" />
+        <span>Porträtfotos folgen, sobald die Aufnahmen gemacht sind.</span>
+      </p>
+    </div>
+  </section>
+
+  <Sportstaetten />
+</BaseLayout>
+
+<style>
+  .ueber { display: grid; gap: clamp(2.2rem, 5vw, 4rem); }
+  @media (min-width: 64rem) { .ueber { grid-template-columns: minmax(0, 1fr) 20rem; } }
+
+  .ueber__text h2 {
+    font-size: var(--step-3);
+    margin-bottom: 1.1rem;
+    padding-top: 1rem;
+    border-top: 3px solid var(--scn-red);
+    display: inline-block;
+  }
+  .ueber__text p { font-size: 1.05rem; line-height: 1.7; max-width: 64ch; }
+
+  .ueber__karten { display: grid; gap: 0.9rem; align-content: start; }
+  .karte {
+    display: block;
+    padding: 1.2rem 1.3rem;
+    background: var(--sand);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .karte:hover { transform: translateY(-3px); box-shadow: 0 14px 26px -16px rgba(11, 23, 32, 0.4); }
+  .karte [data-icon] { font-size: 1.5rem; color: var(--scn-red); }
+  .karte h3 { font-size: 1.35rem; margin: 0.4rem 0 0.3rem; }
+  .karte p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+
+  .vorstand__kopf { margin-bottom: 2rem; }
+
+  .vorstand {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border-block: 1px solid var(--line);
+  }
+  @media (min-width: 52rem) { .vorstand { grid-template-columns: repeat(2, 1fr); } }
+
+  .vorstand li { background: var(--sand); padding: 0.95rem 0.2rem; display: grid; gap: 0.15rem; }
+  @media (min-width: 52rem) { .vorstand li { padding-inline: 0 1.5rem; } }
+
+  .vorstand__funktion {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+  .vorstand__name { font-size: 1.05rem; font-weight: 600; }
+
+  .vorstand__fuss {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+    font-size: 0.87rem;
+    color: var(--text-muted);
+  }
+  .vorstand__fuss [data-icon] { flex: none; font-size: 1.1rem; color: var(--scn-blue); }
+</style>

@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  titel: string;
+  bilder: { bild: ImageMetadata; alt: string }[];
+  /** Name der Sparte fuer den Platzhaltertext */
+  sparte: string;
+}
+const { titel, bilder, sparte } = Astro.props;
+---
+
+<section class="section section--sand galerie">
+  <div class="container">
+    <div class="galerie__kopf">
+      <h2>{titel}</h2>
+      {bilder.length > 0 && <p class="galerie__hinweis">Zum Blättern wischen oder scrollen.</p>}
+    </div>
+
+    {bilder.length > 0 ? (
+      <ul class="spur">
+        {bilder.map((b) => (
+          <li>
+            <Image src={b.bild} alt={b.alt} widths={[420, 760]} sizes="(min-width: 60rem) 32vw, 78vw" loading="lazy" />
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div class="platz">
+        <Icon name="tabler:photo" aria-hidden="true" />
+        <p><strong>Hier kommen Fotos vom {sparte} hin.</strong></p>
+        <p class="klein">Die Aufnahmen sind beauftragt und werden nachgereicht.</p>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .galerie__kopf {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem 1.5rem;
+    margin-bottom: 1.4rem;
+  }
+  .galerie__kopf h2 { font-size: var(--step-2); }
+  .galerie__hinweis { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
+
+  /* Waagerechte Spur mit Einrasten – braucht kein JavaScript. */
+  .spur {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0.8rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(78vw, 30rem);
+    gap: 0.9rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .spur li { scroll-snap-align: start; }
+  .spur :global(img) {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+
+  .platz {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 0.3rem;
+    padding: clamp(2rem, 5vw, 3.2rem) 1.5rem;
+    border: 2px dashed rgba(11, 23, 32, 0.2);
+    border-radius: var(--radius-lg);
+    color: var(--text-muted);
+  }
+  .platz [data-icon] { font-size: 2.1rem; color: var(--scn-blue); margin-bottom: 0.4rem; }
+  .platz p { margin: 0; }
+  .platz .klein { font-size: 0.87rem; }
+</style>

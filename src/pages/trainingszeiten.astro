@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeitenKopf from '../components/SeitenKopf.astro';
+import Wochenplan from '../components/Wochenplan.astro';
+import { einheitenProWoche } from '../data/verein';
+---
+
+<BaseLayout
+  title="Trainingszeiten"
+  description="Alle Trainingszeiten des SC Norddörfer auf einen Blick – Montag bis Freitag, acht Sportarten in Halle, auf dem Sportplatz und im Vereinsheim."
+>
+  <SeitenKopf
+    eyebrow="Die Woche beim SCN"
+    titel="Trainings-|zeiten"
+    breadcrumb="Trainingszeiten"
+    lead={`${einheitenProWoche} Trainings und Kurse von Montag bis Freitag. Such dir raus, was passt, und komm vorbei – eine Anmeldung brauchst du nicht.`}
+  />
+  <Wochenplan ohneKopf />
+</BaseLayout>
