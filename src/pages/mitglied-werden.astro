@@ -49,7 +49,7 @@ const schritte = [
     </div>
   </section>
 
-  <section class="section section--sand">
+  <section class="section beitrag-sektion">
     <div class="container beitrag">
       <div class="beitrag__text">
         <div class="band" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -58,7 +58,7 @@ const schritte = [
           Der Beitrag gilt für den ganzen Verein – egal, ob du eine Sportart machst oder drei.
           Eingezogen wird vierteljährlich per Lastschrift.
         </p>
-        <a class="btn" href="/dokumente/SCN-Anmeldeformular.pdf" download>
+        <a class="btn btn--gold" href="/dokumente/SCN-Anmeldeformular.pdf" download>
           <Icon name="tabler:file-download" aria-hidden="true" />
           Anmeldeformular herunterladen
         </a>
@@ -127,20 +127,30 @@ const schritte = [
   .schritte h2 { font-size: 1.6rem; margin-bottom: 0.5rem; }
   .schritte p { color: var(--text-muted); font-size: 0.97rem; margin: 0; }
 
+  .beitrag-sektion { background: var(--scn-blue); color: #fff; }
+
   .beitrag { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
   @media (min-width: 62rem) { .beitrag { grid-template-columns: 1.1fr 0.9fr; } }
 
   .beitrag__text .band { margin-bottom: 1.4rem; }
   .beitrag__text h2 { font-size: var(--step-3); margin-bottom: 1rem; }
-  .beitrag__text .lead { font-size: var(--step-1); color: var(--text-muted); max-width: 46ch; margin-bottom: 1.6rem; }
-  .beitrag__hinweis { margin-top: 0.9rem; font-size: 0.82rem; color: var(--text-muted); }
+  .beitrag__text .lead {
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.86);
+    max-width: 46ch;
+    margin-bottom: 1.6rem;
+  }
+  .beitrag__hinweis { margin-top: 0.9rem; font-size: 0.82rem; color: rgba(255, 255, 255, 0.72); }
 
   .beitrag__tabelle {
-    background: var(--paper);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: var(--radius-lg);
     padding: clamp(1.4rem, 3vw, 2.2rem);
+    backdrop-filter: blur(2px);
   }
-  .beitrag__tabelle h3 { font-size: 1.5rem; margin-bottom: 1.1rem; }
+  .beitrag__tabelle h3 { font-size: 1.5rem; margin-bottom: 1.1rem; color: var(--scn-gold); }
   .beitrag__tabelle ul { list-style: none; margin: 0; padding: 0; }
   .beitrag__tabelle li {
     display: flex;
@@ -148,7 +158,7 @@ const schritte = [
     align-items: baseline;
     gap: 1.2rem;
     padding: 0.75rem 0;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
     font-size: 0.95rem;
   }
   .beitrag__tabelle li:last-child { border-bottom: 0; }
