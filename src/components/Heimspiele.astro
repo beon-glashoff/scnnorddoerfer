@@ -1,0 +1,161 @@
+---
+import { Icon } from 'astro-icon/components';
+import { kommendeHeimspiele, heimspieleStand, spielTag, spielZeit, spielMonat } from '../data/spiele';
+import { fussballDeVerein } from '../data/verein';
+
+const spiele = kommendeHeimspiele();
+
+// Nach Monat buendeln, damit die Liste Struktur bekommt
+const monate: { name: string; spiele: typeof spiele }[] = [];
+for (const s of spiele) {
+  const name = spielMonat(s);
+  const letzter = monate[monate.length - 1];
+  if (letzter && letzter.name === name) letzter.spiele.push(s);
+  else monate.push({ name, spiele: [s] });
+}
+---
+
+<section class="section section--dark heimspiele" id="heimspiele">
+  <div class="container">
+    <div class="heimspiele__kopf">
+      <div class="section-head">
+        <p class="eyebrow">Aktuelles</p>
+        <h2>Nächste Heimspiele</h2>
+        <p class="lead">
+          Alle Partien, die bei uns am Norderweg angepfiffen werden – von der E-Jugend
+          bis zu den Herren. Zuschauen kostet nichts.
+        </p>
+      </div>
+      <div class="band" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+
+    {spiele.length > 0 ? (
+      <div class="monate" data-heimspiele>
+        {monate.map((m) => (
+          <section class="monat" data-monat>
+            <h3>{m.name}</h3>
+            <ul>
+              {m.spiele.map((s) => (
+                <li class="spiel" data-anstoss={s.anstoss}>
+                  <span class="spiel__tag">{spielTag(s)}</span>
+                  <span class="spiel__zeit">{spielZeit(s)}</span>
+                  <span class="spiel__paarung">
+                    <strong>{s.mannschaft}</strong>
+                    <span class="spiel__gegen">gegen</span>
+                    {s.gegner}
+                  </span>
+                  <span class="spiel__wettbewerb">{s.wettbewerb}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    ) : null}
+
+    <p class="heimspiele__leer" data-leer hidden>
+      Aktuell stehen keine Heimspiele mehr an. Die Termine der neuen Runde findest du auf der
+      <a href={fussballDeVerein} target="_blank" rel="noopener">Vereinsseite bei fussball.de</a>.
+    </p>
+
+    <p class="heimspiele__fuss">
+      <Icon name="tabler:info-circle" aria-hidden="true" />
+      <span>
+        Angaben ohne Gewähr, Stand {heimspieleStand}. Kurzfristige Änderungen und die
+        Auswärtsspiele stehen auf der{' '}
+        <a href={fussballDeVerein} target="_blank" rel="noopener">Vereinsseite bei fussball.de</a>.
+      </span>
+    </p>
+  </div>
+</section>
+
+<script>
+  /**
+   * Blendet Partien aus, die inzwischen gespielt sind. Der Build filtert
+   * bereits, aber zwischen zwei Builds wuerde die Liste sonst veralten.
+   */
+  const jetzt = Date.now();
+  let offen = 0;
+
+  for (const eintrag of document.querySelectorAll<HTMLElement>('[data-anstoss]')) {
+    const zeitpunkt = new Date(eintrag.dataset.anstoss ?? '').getTime();
+    if (Number.isFinite(zeitpunkt) && zeitpunkt < jetzt) eintrag.hidden = true;
+    else offen += 1;
+  }
+
+  for (const monat of document.querySelectorAll<HTMLElement>('[data-monat]')) {
+    const sichtbar = [...monat.querySelectorAll<HTMLElement>('[data-anstoss]')].some((e) => !e.hidden);
+    monat.hidden = !sichtbar;
+  }
+
+  const liste = document.querySelector<HTMLElement>('[data-heimspiele]');
+  const leer = document.querySelector<HTMLElement>('[data-leer]');
+  if (offen === 0) {
+    if (liste) liste.hidden = true;
+    if (leer) leer.hidden = false;
+  }
+</script>
+
+<style>
+  .heimspiele__kopf { display: grid; gap: 1.4rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .heimspiele__kopf h2 { font-size: var(--step-3); }
+
+  .monate { display: grid; gap: 2.2rem; }
+
+  .monat h3 {
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    color: var(--scn-gold);
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.3rem;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .monat ul { list-style: none; margin: 0; padding: 0; }
+
+  .spiel {
+    display: grid;
+    gap: 0.15rem 1.2rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--line-dark);
+    align-items: baseline;
+  }
+  .spiel:last-child { border-bottom: 0; }
+  @media (min-width: 46rem) {
+    .spiel { grid-template-columns: 7rem 6rem minmax(0, 1fr) auto; }
+  }
+
+  .spiel__tag {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .spiel__zeit {
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-on-dark-muted);
+  }
+  .spiel__paarung { font-size: 1rem; }
+  .spiel__paarung strong { color: var(--scn-gold); font-weight: 700; }
+  .spiel__gegen { color: var(--text-on-dark-muted); margin-inline: 0.3em; }
+  .spiel__wettbewerb {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-on-dark-muted);
+  }
+
+  .heimspiele__leer { max-width: 60ch; color: var(--text-on-dark-muted); }
+  .heimspiele__leer a, .heimspiele__fuss a { color: var(--scn-gold); }
+
+  .heimspiele__fuss {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.8rem;
+    font-size: 0.85rem;
+    color: var(--text-on-dark-muted);
+    max-width: 78ch;
+  }
+  .heimspiele__fuss [data-icon] { flex: none; font-size: 1.1rem; color: var(--scn-gold); }
+</style>

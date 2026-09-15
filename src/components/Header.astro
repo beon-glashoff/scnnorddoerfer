@@ -1,13 +1,20 @@
 ---
 import { Icon } from 'astro-icon/components';
+import SpieltagBand from './SpieltagBand.astro';
 import { navigation, verein } from '../data/verein';
 
-interface Props { transparent?: boolean }
-const { transparent = false } = Astro.props;
+interface Props {
+  transparent?: boolean;
+  /** Hinweis auf das naechste Heimspiel ueber der Navigation */
+  spielband?: boolean;
+}
+const { transparent = false, spielband = false } = Astro.props;
 const pfad = Astro.url.pathname;
 ---
 
 <header class:list={['kopf', transparent && 'kopf--transparent']} data-kopf>
+  {spielband && <SpieltagBand />}
+
   <div class="kopf__inner container">
     <a href="/" class="marke" aria-label={`${verein.kurzname} – zur Startseite`}>
       <img src="/wappen-scn.png" alt="" width="52" height="50" />

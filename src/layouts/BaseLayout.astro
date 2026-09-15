@@ -11,9 +11,11 @@ interface Props {
   description: string;
   /** Header liegt transparent über einem Bild (Startseite) */
   transparentHeader?: boolean;
+  /** Hinweis auf das nächste Heimspiel über der Navigation */
+  spielband?: boolean;
 }
 
-const { title, description, transparentHeader = false } = Astro.props;
+const { title, description, transparentHeader = false, spielband = false } = Astro.props;
 const fullTitle = `${title} | ${verein.kurzname}`;
 ---
 
@@ -36,7 +38,7 @@ const fullTitle = `${title} | ${verein.kurzname}`;
   </head>
   <body>
     <a href="#inhalt" class="skip">Zum Inhalt springen</a>
-    <Header transparent={transparentHeader} />
+    <Header transparent={transparentHeader} spielband={spielband} />
     <main id="inhalt">
       <slot />
     </main>

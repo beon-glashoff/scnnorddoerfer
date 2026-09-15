@@ -1,0 +1,97 @@
+---
+import { Icon } from 'astro-icon/components';
+import { kommendeHeimspiele, heimspiele, spielTag, spielZeit } from '../data/spiele';
+
+const naechstes = kommendeHeimspiele()[0];
+---
+
+{naechstes && (
+  <a class="band-spiel" href="/sportarten/fussball/#heimspiele" data-spielband>
+    <span class="band-spiel__inhalt">
+      <Icon name="tabler:ball-football" aria-hidden="true" />
+      <span class="band-spiel__text">
+        <strong>Nächstes Heimspiel:</strong>
+        <span data-spielband-text>
+          {spielTag(naechstes)}, {spielZeit(naechstes)} · {naechstes.mannschaft} gegen {naechstes.gegner}
+        </span>
+      </span>
+      <span class="band-spiel__mehr">
+        Alle Spiele auf unserem Platz
+        <Icon name="tabler:arrow-right" aria-hidden="true" />
+      </span>
+    </span>
+  </a>
+)}
+
+{/* Die Partien noch einmal fuer den Browser, damit das Band auch ohne
+    neuen Build auf die naechste anstehende Begegnung springt. */}
+<script is:inline set:html={`window.__scnHeimspiele=${JSON.stringify(
+  heimspiele.map((s) => ({ a: s.anstoss, m: s.mannschaft, g: s.gegner })),
+)};`} />
+
+<script>
+  type Kurz = { a: string; m: string; g: string };
+  const alle: Kurz[] = (window as unknown as { __scnHeimspiele?: Kurz[] }).__scnHeimspiele ?? [];
+  const band = document.querySelector<HTMLElement>('[data-spielband]');
+  const text = document.querySelector<HTMLElement>('[data-spielband-text]');
+
+  if (band && text) {
+    const jetzt = Date.now();
+    const naechstes = alle
+      .filter((s) => new Date(s.a).getTime() >= jetzt)
+      .sort((x, y) => x.a.localeCompare(y.a))[0];
+
+    if (!naechstes) {
+      band.hidden = true;
+    } else {
+      const d = new Date(naechstes.a);
+      const tag = new Intl.DateTimeFormat('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }).format(d);
+      const zeit = new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' }).format(d);
+      text.textContent = `${tag}, ${zeit} Uhr · ${naechstes.m} gegen ${naechstes.g}`;
+    }
+  }
+</script>
+
+<style>
+  .band-spiel {
+    display: block;
+    background: var(--scn-gold);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.86rem;
+  }
+  .band-spiel:hover { background: var(--scn-gold-dark); }
+
+  .band-spiel__inhalt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.85rem;
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding: 0.55rem var(--gutter);
+  }
+  .band-spiel [data-icon] { flex: none; font-size: 1.15rem; }
+
+  .band-spiel__text { display: flex; flex-wrap: wrap; gap: 0.1rem 0.45rem; }
+  .band-spiel__text strong { font-weight: 700; }
+
+  .band-spiel__mehr {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: auto;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .band-spiel:hover .band-spiel__mehr [data-icon] { transform: translateX(3px); }
+  .band-spiel__mehr [data-icon] { font-size: 0.95rem; transition: transform 0.2s ease; }
+
+  @media (max-width: 52rem) {
+    .band-spiel__mehr { margin-left: 0; }
+  }
+</style>
