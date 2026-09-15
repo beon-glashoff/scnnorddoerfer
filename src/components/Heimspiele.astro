@@ -121,7 +121,10 @@ for (const s of spiele) {
   }
   .spiel:last-child { border-bottom: 0; }
   @media (min-width: 46rem) {
-    .spiel { grid-template-columns: 7rem 6rem minmax(0, 1fr) auto; }
+    /* Die letzte Spalte bekommt eine Mindestbreite, damit "Kreisklasse A"
+       auch bei schmalerem Fenster in einer Zeile bleibt. */
+    .spiel { grid-template-columns: 7rem 6rem minmax(0, 1fr) minmax(7.5rem, auto); }
+    .spiel__wettbewerb { white-space: nowrap; }
   }
 
   .spiel__tag {
