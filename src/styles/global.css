@@ -209,3 +209,35 @@ p:last-child { margin-bottom: 0; }
     to { opacity: 1; transform: none; }
   }
 }
+
+/* ---------- Rechtstexte (Impressum, Datenschutz) ---------- */
+.rechtstext { max-width: 68ch; }
+.rechtstext h2 {
+  font-size: var(--step-2);
+  margin: 2.6rem 0 0.9rem;
+  padding-top: 1rem;
+  border-top: 3px solid var(--scn-red);
+  display: inline-block;
+}
+.rechtstext h2:first-child { margin-top: 0; }
+.rechtstext h3 {
+  font-family: var(--font-text);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  margin: 1.6rem 0 0.4rem;
+}
+.rechtstext p,
+.rechtstext li { font-size: 1rem; line-height: 1.7; }
+.rechtstext ul { padding-left: 1.2rem; display: grid; gap: 0.35rem; margin: 0 0 1em; }
+.rechtstext address { font-style: normal; line-height: 1.7; margin-bottom: 1em; }
+.rechtstext a { color: var(--scn-blue); }
+.rechtstext .stand-zeile {
+  margin-top: 2.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}

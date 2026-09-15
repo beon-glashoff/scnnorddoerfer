@@ -1,0 +1,154 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeitenKopf from '../components/SeitenKopf.astro';
+import { verein } from '../data/verein';
+import platzBild from '../assets/fotos/sportstaette-fussballplatz_abend.jpg';
+
+const plaetze = [
+  {
+    preis: '450 €',
+    lage: 'Zum Sportplatz hin',
+    text: 'Die Seite, auf die man zuläuft, wenn man zum Sportplatz kommt. Beste Sichtbarkeit für Zuschauer, Mannschaften und Gäste.',
+    stark: true,
+  },
+  {
+    preis: '250 €',
+    lage: 'Zum Schulhof hin',
+    text: 'Die gegenüberliegende Seite Richtung Schulhof. Weniger im Blickfeld, dafür günstiger.',
+    stark: false,
+  },
+];
+
+const konditionen = [
+  { icon: 'tabler:calendar-repeat', titel: 'Laufzeit', text: 'Die Miete wird jährlich abgerechnet. Der Vertrag verlängert sich jeweils um ein weiteres Jahr, wenn er nicht drei Monate vor Ablauf gekündigt wird.' },
+  { icon: 'tabler:brush', titel: 'Tafel und Beschriftung', text: 'Die Werbetafel wird blanko vom Verein gestellt. Die Kosten für die Beschriftung trägt der Mieter.' },
+  { icon: 'tabler:tools', titel: 'Pflege und Wartung', text: 'Um Pflege und Wartung der Tafel kümmert sich der Verein. Für Beschädigung, Vandalismus oder höhere Gewalt haftet der SC Norddörfer nicht.' },
+  { icon: 'tabler:receipt', titel: 'Abrechnung', text: 'Alle Preise verstehen sich zuzüglich der gesetzlichen Mehrwertsteuer. Der Verein stellt eine jährliche Rechnung.' },
+];
+---
+
+<BaseLayout
+  title="Bandenwerbung"
+  description="Werbetafel am Sportplatz des SC Norddörfer auf Sylt: zwei Positionen, 250 € oder 450 € Jahresmiete zuzüglich Mehrwertsteuer."
+>
+  <SeitenKopf
+    eyebrow="Für Unternehmen"
+    titel="Bandenwerbung|am Sportplatz"
+    lead="Zeig Flagge, wo auf Sylt Fußball gespielt wird. Mit einer Werbetafel am Sportplatz unterstützt du gleichzeitig den Vereinssport in den Norddörfern."
+    breadcrumb="Bandenwerbung"
+  />
+
+  <section class="bild">
+    <Image src={platzBild} alt="Der Sportplatz des SC Norddörfer unter Flutlicht" widths={[900, 1400, 1920]} sizes="100vw" />
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head preise__kopf">
+        <p class="eyebrow">Zwei Positionen</p>
+        <h2>Was eine Bande kostet</h2>
+        <p class="lead">
+          Der Unterschied liegt nicht in der Größe, sondern in der Lage am Platz.
+        </p>
+      </div>
+
+      <ul class="preise">
+        {plaetze.map((p) => (
+          <li class:list={['preis', p.stark && 'preis--stark']}>
+            <p class="preis__zahl">{p.preis}</p>
+            <p class="preis__einheit">im Jahr, zzgl. MwSt.</p>
+            <h3>{p.lage}</h3>
+            <p class="preis__text">{p.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
+      <div class="section-head kond__kopf">
+        <p class="eyebrow">Die Konditionen</p>
+        <h2>Gut zu wissen</h2>
+      </div>
+      <ul class="konditionen">
+        {konditionen.map((k) => (
+          <li>
+            <Icon name={k.icon} aria-hidden="true" />
+            <div>
+              <h3>{k.titel}</h3>
+              <p>{k.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container anfrage">
+      <div class="section-head">
+        <p class="eyebrow">Interesse?</p>
+        <h2>Sprich uns an</h2>
+        <p class="lead">
+          Melde dich bei der Geschäftsführung – wir schauen gemeinsam, welcher Platz frei ist,
+          und schicken dir den Vertrag zu.
+        </p>
+      </div>
+      <div class="cluster">
+        <a class="btn btn--gold" href={`tel:${verein.telefonHref}`}>
+          <Icon name="tabler:phone" aria-hidden="true" />
+          {verein.telefon}
+        </a>
+        <a class="btn btn--ghost" href={`mailto:${verein.email}?subject=Anfrage%20Bandenwerbung`}>
+          <Icon name="tabler:mail" aria-hidden="true" />
+          Anfrage schreiben
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .bild :global(img) { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; display: block; }
+
+  .preise__kopf, .kond__kopf { margin-bottom: 2rem; }
+  .preise__kopf h2, .kond__kopf h2 { font-size: var(--step-3); }
+
+  .preise { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.2rem; }
+  @media (min-width: 52rem) { .preise { grid-template-columns: repeat(2, 1fr); } }
+
+  .preis {
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+  .preis--stark { background: var(--scn-red); color: #fff; border-color: transparent; }
+
+  .preis__zahl { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 4.5rem); line-height: 1; margin: 0; }
+  .preis__einheit {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin: 0.3rem 0 1.2rem;
+  }
+  .preis--stark .preis__einheit { color: rgba(255, 255, 255, 0.75); }
+  .preis h3 { font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .preis__text { margin: 0; color: var(--text-muted); max-width: 44ch; }
+  .preis--stark .preis__text { color: rgba(255, 255, 255, 0.9); }
+
+  .konditionen { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.6rem; }
+  @media (min-width: 52rem) { .konditionen { grid-template-columns: repeat(2, 1fr); gap: 2rem; } }
+  .konditionen li { display: flex; gap: 0.9rem; }
+  .konditionen [data-icon] { flex: none; font-size: 1.5rem; color: var(--scn-blue); margin-top: 0.1rem; }
+  .konditionen h3 { font-size: 1.3rem; margin-bottom: 0.3rem; }
+  .konditionen p { margin: 0; font-size: 0.95rem; color: var(--text-muted); }
+
+  .anfrage { display: grid; gap: 1.8rem; align-items: center; }
+  @media (min-width: 62rem) { .anfrage { grid-template-columns: 1.4fr 1fr; } }
+  .anfrage h2 { font-size: var(--step-3); }
+</style>

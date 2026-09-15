@@ -1,0 +1,173 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeitenKopf from '../components/SeitenKopf.astro';
+import { verein, beitraege, einheitenProWoche, sparten } from '../data/verein';
+
+const fragen = [
+  {
+    frage: 'Kann ich einfach zum Training kommen?',
+    antwort: [
+      'Ja. Bei allen Trainings und Kursen kannst du ohne Anmeldung vorbeikommen, auch als Nichtmitglied. Komm zur Trainingszeit vorbei und mach mit.',
+      'Wenn du vorher Fragen hast, melde dich bei der Ansprechperson der Sportart – die Nummern stehen auf den Spartenseiten.',
+    ],
+  },
+  {
+    frage: 'Ab wann muss ich Mitglied werden?',
+    antwort: [
+      'Eine Mitgliedschaft wird erst nötig, wenn du regelmäßig dabei bist. Ausprobieren kostet nichts.',
+    ],
+  },
+  {
+    frage: 'Was kostet die Mitgliedschaft?',
+    antwort: [
+      'Der Beitrag gilt für den ganzen Verein – egal, ob du eine Sportart machst oder drei. Eingezogen wird vierteljährlich per Lastschrift.',
+    ],
+    liste: beitraege.map((b) => `${b.wer}: ${b.preis} im Monat`),
+  },
+  {
+    frage: 'Wie melde ich mich an?',
+    antwort: [
+      'Über das Anmeldeformular: ausdrucken, ausfüllen, unterschreiben. Abgeben kannst du es bei deiner Trainerin oder deinem Trainer, im Briefkasten am Vereinsheim oder per Post an den Verein.',
+      'Eine Online-Anmeldung gibt es derzeit nicht.',
+    ],
+  },
+  {
+    frage: 'Was muss ich mitbringen?',
+    antwort: [
+      'Das hängt von der Sportart ab. Auf jeder Spartenseite steht, was du brauchst – meistens reichen Sportsachen und etwas zu trinken.',
+      'Bei Muay Thai kannst du Handschuhe und Schienbeinschoner für den Einstieg ausleihen, beim Zumba liegen Matten bereit.',
+    ],
+  },
+  {
+    frage: 'Ab welchem Alter kann man mitmachen?',
+    antwort: [
+      'Ab zwei Jahren beim Eltern-Kind-Turnen. Nach oben gibt es keine Grenze: Bei Fit for Fun trainiert eine bunt gemischte Gruppe ab 30 Jahren.',
+      'Die Kampfsportarten sind ab 15 Jahren, bei Muay Thai geht es ab 12 Jahren mit schriftlicher Zustimmung der Eltern.',
+    ],
+  },
+  {
+    frage: 'Wo findet das Training statt?',
+    antwort: [
+      'Alles an einer Adresse: Sporthalle, Sportplatz und Vereinsheim liegen am Norderweg 4 in Wenningstedt direkt beieinander.',
+      'Turnen, Tanzen und Kampfsport sind in der Halle, Fußball draußen auf dem Platz und bei schlechtem Wetter ebenfalls in der Halle. Dart wird im Vereinsheim gespielt.',
+    ],
+  },
+  {
+    frage: 'Wie viele Angebote gibt es?',
+    antwort: [
+      `Acht Sportarten mit ${einheitenProWoche} Trainings und Kursen in der Woche, von Montag bis Freitag.`,
+    ],
+  },
+  {
+    frage: 'Seit wann gibt es den SC Norddörfer?',
+    antwort: [
+      `Seit ${verein.gegruendet}. Getragen wird der Verein von den Gemeinden Wenningstedt-Braderup und Kampen.`,
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Häufige Fragen"
+  description="Antworten auf die häufigsten Fragen zum SC Norddörfer: Schnuppern ohne Anmeldung, Beiträge, Anmeldung, Trainingsorte und Altersgrenzen."
+>
+  <SeitenKopf
+    eyebrow="Gut zu wissen"
+    titel="Häufige|Fragen"
+    lead="Das Wichtigste auf einen Blick. Wenn deine Frage nicht dabei ist, ruf einfach an."
+    breadcrumb="Häufige Fragen"
+  />
+
+  <section class="section">
+    <div class="container faq">
+      <div class="faq__liste">
+        {fragen.map((f) => (
+          <details name="faq">
+            <summary>
+              <span>{f.frage}</span>
+              <Icon class="pfeil" name="tabler:chevron-down" aria-hidden="true" />
+            </summary>
+            <div class="antwort">
+              {f.antwort.map((a) => <p>{a}</p>)}
+              {f.liste && (
+                <ul>
+                  {f.liste.map((l) => <li>{l}</li>)}
+                </ul>
+              )}
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <aside class="faq__spalte">
+        <div class="kasten">
+          <h2><Icon name="tabler:phone" aria-hidden="true" />Frage nicht dabei?</h2>
+          <p>Ruf an oder schreib uns – wir helfen gern weiter.</p>
+          <a class="kasten__link" href={`tel:${verein.telefonHref}`}>{verein.telefon}</a>
+          <a class="kasten__link" href={`mailto:${verein.email}`}>{verein.email}</a>
+        </div>
+
+        <div class="kasten kasten--hell">
+          <h2><Icon name="tabler:ball-football" aria-hidden="true" />Direkt zur Sportart</h2>
+          <ul class="sparten">
+            {sparten.map((s) => (
+              <li><a href={`/sportarten/${s.slug}/`}>{s.name}</a></li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .faq { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
+  @media (min-width: 62rem) { .faq { grid-template-columns: minmax(0, 1fr) 20rem; } }
+
+  .faq__liste { border-top: 1px solid var(--line); }
+  details { border-bottom: 1px solid var(--line); }
+  summary {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 1.1rem 0.2rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    line-height: 1.1;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { color: var(--scn-red); }
+  .pfeil { flex: none; font-size: 1.3rem; color: var(--scn-red); transition: transform 0.25s ease; }
+  details[open] .pfeil { transform: rotate(180deg); }
+  details[open] summary { color: var(--scn-red); }
+
+  .antwort { padding: 0 0.2rem 1.5rem; max-width: 64ch; }
+  .antwort p { font-size: 1.02rem; line-height: 1.7; }
+  .antwort ul { margin: 0.3rem 0 0; padding-left: 1.1rem; display: grid; gap: 0.3rem; }
+  .antwort li { font-size: 0.97rem; }
+
+  .faq__spalte { display: grid; gap: 1.1rem; align-content: start; }
+  .kasten { padding: 1.3rem 1.4rem 1.5rem; border-radius: var(--radius-lg); background: var(--ink); color: var(--text-on-dark); }
+  .kasten--hell { background: var(--sand); color: var(--text); }
+  .kasten h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.8rem;
+  }
+  .kasten h2 [data-icon] { color: var(--scn-gold); font-size: 1.15rem; }
+  .kasten--hell h2 [data-icon] { color: var(--scn-red); }
+  .kasten p { font-size: 0.93rem; color: var(--text-on-dark-muted); margin-bottom: 0.9rem; }
+  .kasten__link { display: block; font-weight: 700; color: var(--scn-gold); text-decoration: none; padding: 0.15rem 0; }
+  .kasten__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  .sparten { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+  .sparten a { font-size: 0.95rem; font-weight: 600; text-decoration: none; }
+  .sparten a:hover { color: var(--scn-red); }
+</style>

@@ -1,0 +1,163 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeitenKopf from '../components/SeitenKopf.astro';
+import { verein, mannschaften } from '../data/verein';
+import teamBild from '../assets/fotos/galerie-fussball/6.jpg';
+
+const sucht = mannschaften.find((m) => m.sucht);
+
+const felder = [
+  {
+    icon: 'tabler:chalkboard-teacher',
+    titel: 'Training leiten',
+    text: 'Du hast Erfahrung im Sport und Lust, eine Gruppe zu übernehmen? Für Trainerlizenzen gibt es Lehrgänge, die Kosten übernimmt in der Regel der Verein.',
+  },
+  {
+    icon: 'tabler:users-group',
+    titel: 'Bei Spielen und Festen helfen',
+    text: 'Kuchen, Kasse, Grill, Auf- und Abbau: An Heimspieltagen und bei Vereinsfesten sind ein paar helfende Hände immer willkommen.',
+  },
+  {
+    icon: 'tabler:car',
+    titel: 'Fahrdienste',
+    text: 'Auswärtsspiele bedeuten auf einer Insel ein paar Kilometer mehr. Wer mitfahren kann und Platz im Auto hat, hilft den Jugendmannschaften sehr.',
+  },
+  {
+    icon: 'tabler:tools',
+    titel: 'Anpacken auf dem Gelände',
+    text: 'Platz, Halle und Vereinsheim halten sich nicht von allein in Schuss. Das Vereinsheim in seiner heutigen Größe ist selbst in Eigenarbeit entstanden.',
+  },
+];
+---
+
+<BaseLayout
+  title="Mitmachen & Ehrenamt"
+  description="Beim SC Norddörfer mit anpacken: Trainer:innen, Helferinnen und Helfer bei Spielen und Festen, Fahrdienste. Aktuell suchen wir eine Trainerin oder einen Trainer für die F-Jugend."
+>
+  <SeitenKopf
+    eyebrow="Ehrenamt"
+    titel="Wir brauchen|dich"
+    lead="Ein Verein wie unserer funktioniert nur, weil viele mit anpacken. Ob einmal im Jahr beim Sommerfest oder jede Woche an der Seitenlinie – wir freuen uns über jede Hand."
+    breadcrumb="Mitmachen"
+  />
+
+  {sucht && (
+    <section class="gesucht">
+      <div class="container gesucht__inhalt">
+        <figure class="gesucht__bild">
+          <Image src={teamBild} alt="Nachwuchsmannschaft des SC Norddörfer auf dem Platz" widths={[560, 900]} sizes="(min-width: 62rem) 45vw, 92vw" />
+        </figure>
+        <div class="gesucht__text">
+          <p class="eyebrow">Gerade ganz konkret</p>
+          <h2>Die {sucht.name} sucht<br />eine:n Trainer:in</h2>
+          <p>
+            Die Jahrgänge {sucht.jahrgang} pausieren, weil uns jemand fehlt, der das Training
+            übernimmt. Sobald sich eine Trainerin oder ein Trainer findet, geht es wieder los.
+          </p>
+          <p>
+            Du musst dafür keine Lizenz mitbringen. Wichtig ist, dass du Lust hast, mit Kindern
+            zu arbeiten – alles Weitere klären wir gemeinsam.
+          </p>
+          <a class="btn btn--gold" href={`tel:${verein.telefonHref}`}>
+            <Icon name="tabler:phone" aria-hidden="true" />
+            Melde dich: {verein.telefon}
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head felder__kopf">
+        <p class="eyebrow">Wo Hilfe gebraucht wird</p>
+        <h2>Vier Wege,<br />dich einzubringen</h2>
+        <p class="lead">
+          Nicht jedes Ehrenamt bedeutet eine feste Verpflichtung. Manches ist ein Nachmittag im
+          Jahr, anderes eine Stunde in der Woche.
+        </p>
+      </div>
+
+      <ul class="felder">
+        {felder.map((f) => (
+          <li>
+            <span class="feld__chip"><Icon name={f.icon} aria-hidden="true" /></span>
+            <h3>{f.titel}</h3>
+            <p>{f.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container melden">
+      <div class="section-head">
+        <p class="eyebrow">Einfach fragen</p>
+        <h2>Interesse?</h2>
+        <p class="lead">
+          Ruf an oder schreib eine Mail – wir schauen gemeinsam, was zu dir passt.
+          Auch wenn du noch nicht genau weißt, wo du helfen könntest.
+        </p>
+      </div>
+      <div class="cluster">
+        <a class="btn btn--gold" href={`tel:${verein.telefonHref}`}>
+          <Icon name="tabler:phone" aria-hidden="true" />
+          {verein.telefon}
+        </a>
+        <a class="btn btn--ghost" href={`mailto:${verein.email}`}>
+          <Icon name="tabler:mail" aria-hidden="true" />
+          E-Mail schreiben
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .gesucht { background: var(--scn-red); color: #fff; }
+  .gesucht__inhalt { display: grid; gap: 0; align-items: stretch; }
+  @media (min-width: 62rem) { .gesucht__inhalt { grid-template-columns: 1fr 1fr; } }
+
+  .gesucht__bild { margin: 0; }
+  .gesucht__bild :global(img) { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  @media (min-width: 62rem) { .gesucht__bild :global(img) { aspect-ratio: auto; min-height: 100%; } }
+
+  .gesucht__text { padding: clamp(2rem, 5vw, 3.5rem) 0; }
+  @media (min-width: 62rem) { .gesucht__text { padding-left: clamp(2rem, 4vw, 3.5rem); } }
+  .gesucht__text .eyebrow { color: #fff; opacity: 0.8; }
+  .gesucht__text h2 { font-size: var(--step-3); margin: 0.7rem 0 1rem; }
+  .gesucht__text p { max-width: 48ch; color: rgba(255, 255, 255, 0.9); }
+  .gesucht__text .btn { margin-top: 0.8rem; }
+
+  .felder__kopf { margin-bottom: 2.2rem; }
+  .felder__kopf h2 { font-size: var(--step-3); }
+
+  .felder {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 46rem) { .felder { grid-template-columns: repeat(2, 1fr); gap: 2.4rem; } }
+
+  .feld__chip {
+    display: grid;
+    place-items: center;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: var(--scn-blue);
+    color: #fff;
+    font-size: 1.6rem;
+    margin-bottom: 0.9rem;
+  }
+  .felder h3 { font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .felder p { color: var(--text-muted); margin: 0; max-width: 52ch; }
+
+  .melden { display: grid; gap: 1.8rem; align-items: center; }
+  @media (min-width: 62rem) { .melden { grid-template-columns: 1.4fr 1fr; } }
+  .melden h2 { font-size: var(--step-3); }
+</style>
