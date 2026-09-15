@@ -22,7 +22,7 @@ export const verein = {
   claim: 'Eine Insel, ein Verein!',
   strasse: 'Norderweg 4',
   plz: '25996',
-  ort: 'Wenningstedt',
+  ort: 'Wenningstedt-Braderup',
   telefon: '+49 171 2144481',
   telefonHref: '+491712144481',
   email: 'info@sc-norddoerfer.de',
@@ -84,7 +84,7 @@ export const sparten: Sparte[] = [
     detail: {
       intro:
         'Sieben Mannschaften, fünf Trainingstage in der Woche und ein Platz mit Flutlicht: Fußball ist ' +
-        'die größte und belebteste Sparte beim SC Norddörfer – vom ersten Ballgefühl in der G-Jugend ' +
+        'die größte Sparte beim SC Norddörfer – vom ersten Ballgefühl in der G-Jugend ' +
         'bis zum Punktspiel der Herren und Damen.',
       abschnitte: [
         {
@@ -439,7 +439,7 @@ export const sparten: Sparte[] = [
   },
 ];
 
-/** Fußballmannschaften – die größte und belebteste Sparte. */
+/** Fußballmannschaften – die größte Sparte des Vereins. */
 /**
  * Saison-Kuerzel fuer die Links zu fussball.de.
  * Die Team-IDs dort sind saisonbezogen – zum Saisonwechsel muessen Kuerzel

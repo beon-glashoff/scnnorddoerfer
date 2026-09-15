@@ -67,7 +67,7 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
 
 <BaseLayout
   title={sparte.name}
-  description={`${sparte.name} beim SC Norddörfer in Wenningstedt auf Sylt. ${sparte.kurz}`}
+  description={`${sparte.name} beim SC Norddörfer auf Sylt. ${sparte.kurz}`}
 >
   <article class:list={['sparte', `sparte--${sparte.farbe}`]}>
     <!-- Kopf -->
@@ -124,7 +124,7 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
         <div class="container">
           <div class="teams__kopf">
             <h2>Unsere Mannschaften</h2>
-            <p>Acht Mannschaften von den Herren bis zur G-Jugend. Spring direkt zu deinem Team.</p>
+            <p>Sieben Mannschaften von den Herren bis zur G-Jugend. Spring direkt zu deinem Team.</p>
           </div>
 
           <nav class="sprung" aria-label="Zu einer Mannschaft springen">
@@ -203,28 +203,6 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
             ))}
           </div>
 
-          <p class="teams__fuss">
-            <Icon name="tabler:info-circle" aria-hidden="true" />
-            <span>
-              Spieltage am Wochenende stehen nicht im Trainingsplan – die Termine hängen an der
-              Saison. Alle Mannschaften auf einen Blick gibt es auf der{' '}
-              <a href={fussballDeVerein} target="_blank" rel="noopener">Vereinsseite bei fussball.de</a>.
-            </span>
-          </p>
-
-          {/*
-            Platz fuer das fussball.de-Widget "Naechste Spiele". Der Einbettungscode
-            wird auf fussball.de erzeugt ("Inhalte verwalten" -> "Deine Widgets")
-            und dabei fest auf die Domain sc-norddoerfer.de registriert.
-          */}
-          <div class="widget-platz">
-            <Icon name="tabler:calendar-event" aria-hidden="true" />
-            <p><strong>Hier kommen die nächsten Spiele hin.</strong></p>
-            <p class="klein">
-              Das Spielplan-Widget von fussball.de wird auf eine feste Domain registriert.
-              Sobald sc-norddoerfer.de live ist, erzeugen wir den Code und setzen ihn hier ein.
-            </p>
-          </div>
         </div>
       </section>
     ) : (
@@ -493,7 +471,14 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
   .sprung--sucht { color: var(--scn-red) !important; }
   .sprung--sucht:hover { color: #fff !important; }
 
-  .teamliste { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
+  .teamliste { display: grid; }
+  /* Trennstrich zwischen den Mannschaften – hilft vor allem hochkant
+     bei der Zuordnung, wo eine Mannschaft aufhoert und die naechste beginnt. */
+  .teamliste > .team + .team {
+    margin-top: clamp(2.2rem, 4.5vw, 3.5rem);
+    padding-top: clamp(2.2rem, 4.5vw, 3.5rem);
+    border-top: 1px solid var(--line);
+  }
 
   .team { display: grid; gap: 1.5rem; }
   @media (min-width: 60rem) { .team { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 2.5rem; align-items: start; } }
@@ -534,22 +519,6 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
 
   .team__ohneLiga { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
 
-  .teams__fuss {
-    display: flex; gap: 0.6rem; margin-top: clamp(2rem, 4vw, 3rem);
-    font-size: 0.87rem; color: var(--text-muted); max-width: 82ch;
-  }
-  .teams__fuss [data-icon] { flex: none; font-size: 1.1rem; color: var(--scn-blue); }
-  .teams__fuss a { color: var(--scn-blue); }
-
-  .widget-platz {
-    display: grid; justify-items: center; text-align: center; gap: 0.35rem;
-    margin-top: 2rem; padding: clamp(2rem, 5vw, 3.2rem) 1.5rem;
-    border: 2px dashed rgba(11, 23, 32, 0.2); border-radius: var(--radius-lg);
-    color: var(--text-muted);
-  }
-  .widget-platz [data-icon] { font-size: 2.2rem; color: var(--scn-blue); margin-bottom: 0.4rem; }
-  .widget-platz p { margin: 0; }
-  .widget-platz .klein { font-size: 0.87rem; max-width: 52ch; }
 
   /* ---------- Schnuppern ---------- */
   .schnuppern { background: var(--scn-blue); color: #fff; padding-block: clamp(2.5rem, 5vw, 4rem); }

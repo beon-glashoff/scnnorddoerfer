@@ -1,18 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { verein } from '../data/verein';
 import halle from '../assets/fotos/sportstaette-halle.jpg';
 import platz from '../assets/fotos/sportstaette-fussballplatz_abend.jpg';
 import heim from '../assets/fotos/sportstaette-vereinsheim.jpg';
 
 const orte = [
-  {
-    bild: halle,
-    name: 'Die Sporthalle',
-    text: 'Turnen, Tanzen, Kampfsport und im Winter das Fußballtraining – die Norddörfer Halle ist unser Dach über dem Kopf.',
-    alt: 'Innenansicht der Norddörfer Sporthalle',
-  },
   {
     bild: platz,
     name: 'Der Sportplatz',
@@ -25,6 +18,12 @@ const orte = [
     text: 'Hier trainieren die Dartspieler, hier wird gefeiert und hier laufen alle Fäden des Vereins zusammen.',
     alt: 'Das Vereinsheim des SC Norddörfer',
   },
+  {
+    bild: halle,
+    name: 'Die Sporthalle',
+    text: 'Turnen, Tanzen, Kampfsport und im Winter das Fußballtraining – die Norddörfer Halle ist unser Dach über dem Kopf.',
+    alt: 'Innenansicht der Norddörfer Sporthalle',
+  },
 ];
 ---
 
@@ -35,12 +34,13 @@ const orte = [
         <p class="eyebrow">Unsere Sportstätten</p>
         <h2>Alles an<br />einem Ort</h2>
         <p class="lead">
-          Halle, Sportplatz und Vereinsheim liegen direkt beieinander – am Norderweg 4 in Wenningstedt.
+          Sportplatz, Vereinsheim und Halle liegen direkt beieinander – am Norderweg 4 in
+          Wenningstedt-Braderup.
         </p>
       </div>
-      <a class="btn btn--gold" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${verein.strasse}, ${verein.plz} ${verein.ort}`)}`} target="_blank" rel="noopener">
+      <a class="btn btn--gold" href="/verein/anreise/">
         <Icon name="tabler:map-2" aria-hidden="true" />
-        Route planen
+        Anfahrt
       </a>
     </div>
 
