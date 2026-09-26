@@ -71,11 +71,23 @@ Icons: [Tabler Icons](https://tabler.io/icons) über `astro-icon`. Verwendung:
 
 Das Wappen-Motiv aus Gold, Rot und Blau taucht als `.band` wiederholt im Layout auf.
 
+Wappen: `public/wappen-scn.svg` ist die Fassung **mit weißem Rand**
+(Quelle `01_Assets/03_Bilder_Videos/Neu/Wappen_Rand.svg`, auf das Wappen zugeschnitten).
+`public/wappen-scn.png` ist daraus gerendert und dient nur als Favicon-Ersatz.
+
 ### Inhalte pflegen
 
 Sparten, Trainingszeiten, Mannschaften und Beiträge stehen alle in
-`src/data/verein.ts`. Wer dort etwas ändert, ändert es überall – auf den Karten
+`src/data/verein.ts`. Die Beiträge tragen einen eigenen Stand (`beitraegeStand`),
+der bei jeder Änderung der Beitragsordnung mitgezogen werden muss.
+
+Die **Jahrgänge der Fußballmannschaften** sind absolut angegeben und müssen zu jeder
+Saison um ein Jahr weitergezählt werden (Stand Saison 2026/27: E-Jugend 2016 und 2017). Wer dort etwas ändert, ändert es überall – auf den Karten
 der Startseite, im Wochenplan und (sobald gebaut) auf den Spartenseiten.
+
+Der **Wochenplan als PDF** (`/dokumente/SCN-Trainingszeiten.pdf`, Knopf auf der
+Trainingszeiten-Seite) wird beim Build aus denselben Daten erzeugt –
+`src/pages/dokumente/SCN-Trainingszeiten.pdf.ts`. Er muss nie von Hand erneuert werden.
 
 Quelle der Daten: `../01_Assets/07_MDs/03_Abgleich_Lieferung_Tom.md` und
 `../01_Assets/04_Texte/SCN_Uebungsangebote_Hallenbelegung.csv`.
@@ -96,8 +108,9 @@ Die Adressen werden in `src/data/verein.ts` aus drei Teilen zusammengesetzt:
 Jugendmannschaften ändern sich dabei häufig mit – sie stehen auf der
 [Vereinsseite bei fussball.de](https://www.fussball.de/verein/sc-norddoerfer-schleswig-holstein/-/id/00ES8GN8JC000094VV0AG08LVUPGND5I).
 
-G- und F-Jugend haben keinen Eintrag: Die G-Jugend spielt keinen Ligabetrieb,
-die F-Jugend pausiert.
+G- und F-Jugend haben keinen Eintrag, weil beide keinen Ligabetrieb spielen
+(Stand Saison 2026/27). Taucht die F-Jugend später bei fussball.de auf, bekommt sie
+in `verein.ts` einen `fussballDe`-Eintrag statt `ohneLiga`.
 
 ### Heimspiele
 
@@ -135,7 +148,7 @@ Der Platz dafür ist auf der Fußballseite bereits angelegt.
 /verein/                 Vereinstext, Vorstand, Sportstätten
 /verein/anreise/         Zug, Bus, Auto, Parken
 /kontakt/                Anschrift und alle Ansprechpartner
-/mitmachen/              Ehrenamt, gesuchte F-Jugend-Trainer:in
+/mitmachen/              Ehrenamt
 /faq/                    Häufige Fragen
 /bandenwerbung/          Werbetafeln am Sportplatz
 /impressum/              Pflichtangaben
@@ -179,7 +192,11 @@ für die übrigen Sparten erscheint ein Platzhalter.
   Beitrags. Beides steht in der Satzung, die uns nur als unlesbarer Scan vorliegt.
 - Für sechs der acht Sparten fehlt eigenes Bildmaterial. Solange greifen Kopf,
   Karte und Galerie auf ein gestreiftes Farbfeld in der Wappenfarbe zurück.
-- Die **Mannschaftsfotos** auf der Fußballseite sind Spielszenen aus dem jeweiligen
-  Spiel, keine gestellten Mannschaftsfotos.
-- Für **Vorstand und Ansprechpartner** fehlen die Porträtfotos.
+- Die **Mannschaftsfotos** auf der Fußballseite: Herren, Damen und C-Jugend zeigen
+  Gruppenbilder, die A-Jugend noch eine Spielszene. Die übrigen Teams haben noch kein Foto.
+  Das **Herrenfoto liegt nur in 640 px vor** und wirkt auf großen Bildschirmen weich –
+  die volle Auflösung wird nachgereicht und ersetzt dann `teams/herren-gruppe.jpg`.
+- Für **Vorstand und Ansprechpartner** fehlen die Porträtfotos. Einzige Ausnahme bisher:
+  Neal Saurin (Taekwondo) im Kontaktkasten der Spartenseite – zugeordnet über
+  `kontaktBilder` in `[slug].astro`, dargestellt immer quadratisch.
 - Das **fussball.de-Widget** für die nächsten Spiele braucht die finale Domain.

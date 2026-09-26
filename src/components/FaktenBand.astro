@@ -1,10 +1,10 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { einheitenProWoche, verein } from '../data/verein';
+import { einheitenProWoche, mannschaften, sparten, verein } from '../data/verein';
 
 const fakten = [
-  { icon: 'tabler:ball-football', zahl: '8', text: 'Sportarten unter einem Dach' },
-  { icon: 'tabler:users-group', zahl: '7', text: 'Fußballmannschaften' },
+  { icon: 'tabler:ball-football', zahl: String(sparten.length), text: 'Sportarten unter einem Dach' },
+  { icon: 'tabler:users-group', zahl: String(mannschaften.length), text: 'Fußballmannschaften' },
   { icon: 'tabler:calendar', zahl: String(einheitenProWoche), text: 'Trainings und Kurse pro Woche' },
   { icon: 'tabler:flag', zahl: String(verein.gegruendet), text: 'gegründet' },
 ];

@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SeitenKopf from '../components/SeitenKopf.astro';
-import { verein, beitraege, einheitenProWoche, sparten } from '../data/verein';
+import { verein, beitraege, beitraegeStand, einheitenProWoche, sparten } from '../data/verein';
 
 const fragen = [
   {
@@ -22,6 +22,7 @@ const fragen = [
     frage: 'Was kostet die Mitgliedschaft?',
     antwort: [
       'Der Beitrag gilt für den ganzen Verein – egal, ob du eine Sportart machst oder drei. Eingezogen wird vierteljährlich per Lastschrift.',
+      `Die Beiträge im Überblick, Stand ${beitraegeStand}:`,
     ],
     liste: beitraege.map((b) => `${b.wer}: ${b.preis} im Monat`),
   },

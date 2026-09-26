@@ -72,7 +72,7 @@ export const sparten: Sparte[] = [
   {
     slug: 'fussball',
     name: 'Fußball',
-    kurz: 'Sieben Mannschaften von der G-Jugend bis zu Herren und Damen – die größte Sparte im Verein.',
+    kurz: 'Acht Mannschaften von der G-Jugend bis zu Herren und Damen – die größte Sparte im Verein.',
     icon: 'tabler:ball-football',
     farbe: 'rot',
     alter: 'ab 4 Jahren bis Ü30',
@@ -85,16 +85,15 @@ export const sparten: Sparte[] = [
     fotoVorhanden: true,
     detail: {
       intro:
-        'Sieben Mannschaften, fünf Trainingstage in der Woche und ein Platz mit Flutlicht: Fußball ist ' +
+        'Acht Mannschaften, fünf Trainingstage in der Woche und ein Platz mit Flutlicht: Fußball ist ' +
         'die größte Sparte beim SC Norddörfer – vom ersten Ballgefühl in der G-Jugend ' +
         'bis zum Punktspiel der Herren und Damen.',
       abschnitte: [
         {
           titel: 'Jeder Jahrgang zählt',
           absaetze: [
-            'Die Herren treten in der Kreisklasse A an, die Damen in der Frauen-Kreisklasse. Dazu kommen vier Jugendmannschaften und die Jüngsten in der G-Jugend, die noch ohne Tabelle und Punkte spielen.',
+            'Die Herren treten in der Kreisklasse A an, die Damen in der Frauen-Kreisklasse. Dazu kommen vier Jugendmannschaften im Ligabetrieb sowie F- und G-Jugend, die noch ohne Tabelle und Punkte spielen.',
             'Dass jeder Jahrgang eine Mannschaft hat, ist auf einer Insel nicht selbstverständlich. Wird ein Jahrgang zu dünn, legen wir zusammen: Unsere A-Jugend besteht heute zu großen Teilen aus B-Jugendlichen. Hauptsache, sie stehen auf dem Platz.',
-            'Und manchmal fehlt eben doch eine Mannschaft. Die F-Jugend pausiert gerade, bis sich eine Trainerin oder ein Trainer findet – wer Lust hat, ist herzlich eingeladen.',
           ],
         },
         {
@@ -259,7 +258,8 @@ export const sparten: Sparte[] = [
     zeiten: ['Mittwoch, 18:00 – 19:00 Uhr'],
     zeitKurz: 'Mittwoch, 18:00 – 19:00 Uhr',
     ort: 'Sporthalle',
-    ansprechpartner: 'Kerrin',
+    ansprechpartner: 'Kerrin Feddersen',
+    telefon: '0170 3492035',
     textVorhanden: true,
     fotoVorhanden: false,
     detail: {
@@ -467,8 +467,6 @@ export type Mannschaft = {
   liga?: string;
   /** Pfad- und ID-Teil der fussball.de-Adresse */
   fussballDe?: { pfad: string; teamId: string };
-  /** Mannschaft pausiert und sucht eine Trainerin oder einen Trainer */
-  sucht?: boolean;
   /** Spielt keinen Ligabetrieb, steht daher nicht auf fussball.de */
   ohneLiga?: boolean;
 };
@@ -477,7 +475,7 @@ export type Mannschaft = {
 export const mannschaften: Mannschaft[] = [
   {
     name: 'Herren',
-    jahrgang: '2005 und älter',
+    jahrgang: '2007 und älter',
     zeiten: ['Dienstag, 19:00 – 20:30 Uhr', 'Donnerstag, 19:00 – 20:30 Uhr'],
     zeitenKurz: ['Di 19:00 – 20:30', 'Do 19:00 – 20:30'],
     trainer: 'Nick Erdmann',
@@ -490,7 +488,7 @@ export const mannschaften: Mannschaft[] = [
   },
   {
     name: 'Damen',
-    jahrgang: '2007 und älter',
+    jahrgang: '2009 und älter',
     zeiten: ['Mittwoch, 18:30 – 20:00 Uhr'],
     zeitenKurz: ['Mi 18:30 – 20:00'],
     trainer: 'Marko Schneider-Pauly',
@@ -503,7 +501,7 @@ export const mannschaften: Mannschaft[] = [
   },
   {
     name: 'A-Jugend',
-    jahrgang: 'A- und B-Jahrgänge, zusammengelegt',
+    jahrgang: '2008 bis 2011, A- und B-Jahrgänge zusammengelegt',
     zeiten: ['Montag, 19:00 – 20:30 Uhr', 'Mittwoch, 19:00 – 20:30 Uhr'],
     zeitenKurz: ['Mo 19:00 – 20:30', 'Mi 19:00 – 20:30'],
     trainer: 'Maximilian Brachtendorf',
@@ -516,7 +514,7 @@ export const mannschaften: Mannschaft[] = [
   },
   {
     name: 'C-Jugend',
-    jahrgang: '2010 und 2011',
+    jahrgang: '2012 und 2013',
     zeiten: ['Mittwoch, 17:30 – 19:00 Uhr', 'Freitag, 17:30 – 19:00 Uhr'],
     zeitenKurz: ['Mi 17:30 – 19:00', 'Fr 17:30 – 19:00'],
     trainer: 'Kevin Tillmann',
@@ -529,7 +527,7 @@ export const mannschaften: Mannschaft[] = [
   },
   {
     name: 'D-Jugend',
-    jahrgang: '2012 und 2013',
+    jahrgang: '2014 und 2015',
     zeiten: ['Mittwoch, 17:00 – 18:30 Uhr', 'Freitag, 15:00 – 16:30 Uhr'],
     zeitenKurz: ['Mi 17:00 – 18:30', 'Fr 15:00 – 16:30'],
     trainer: 'Max Neumann',
@@ -542,7 +540,7 @@ export const mannschaften: Mannschaft[] = [
   },
   {
     name: 'E-Jugend',
-    jahrgang: '2014 und 2015',
+    jahrgang: '2016 und 2017',
     zeiten: ['Dienstag, 17:30 – 19:00 Uhr', 'Donnerstag, 17:30 – 19:00 Uhr'],
     zeitenKurz: ['Di 17:30 – 19:00', 'Do 17:30 – 19:00'],
     trainer: 'Chris Jaeckstet',
@@ -555,15 +553,16 @@ export const mannschaften: Mannschaft[] = [
   },
   {
     name: 'F-Jugend',
-    jahrgang: '2016 und 2017',
-    zeiten: [],
-    zeitenKurz: [],
-    trainer: null,
-    sucht: true,
+    jahrgang: '2018 und 2019',
+    zeiten: ['Dienstag, 15:00 – 16:30 Uhr', 'Donnerstag, 15:00 – 16:30 Uhr'],
+    zeitenKurz: ['Di 15:00 – 16:30', 'Do 15:00 – 16:30'],
+    trainer: 'Chris Rühling',
+    telefon: '0157 88871664',
+    ohneLiga: true,
   },
   {
     name: 'G-Jugend',
-    jahrgang: '2018 und jünger',
+    jahrgang: '2020 und jünger',
     zeiten: ['Donnerstag, 16:30 – 17:30 Uhr'],
     zeitenKurz: ['Do 16:30 – 17:30'],
     trainer: 'Robert Schröder',
@@ -582,6 +581,7 @@ export const wochenplan = [
     { zeit: 'ab 19:30', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
   ]},
   { tag: 'Dienstag', eintraege: [
+    { zeit: '15:00 – 16:30', was: 'Fußball · F-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '16:30 – 17:30', was: 'Eltern-Kind-Turnen', ort: 'Halle', slug: 'eltern-kind-turnen' },
     { zeit: '17:30 – 19:00', was: 'Fußball · E-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '18:30 – 20:00', was: 'Taekwondo', ort: 'Halle', slug: 'taekwondo' },
@@ -596,6 +596,7 @@ export const wochenplan = [
     { zeit: 'ab 19:00', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
   ]},
   { tag: 'Donnerstag', eintraege: [
+    { zeit: '15:00 – 16:30', was: 'Fußball · F-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '16:30 – 17:30', was: 'Fußball · G-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '17:30 – 19:00', was: 'Fußball · E-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '18:30 – 20:00', was: 'Taekwondo', ort: 'Halle', slug: 'taekwondo' },
@@ -630,6 +631,9 @@ export const vorstand = [
   { funktion: '1. Beisitzer', name: 'Marko Schneider-Pauly' },
   { funktion: '2. Beisitzer', name: 'Nick Erdmann' },
 ];
+
+/** Stand der Beitragsordnung – wird ueberall neben den Beitraegen ausgewiesen. */
+export const beitraegeStand = 'Mai 2026';
 
 /** Monatliche Mitgliedsbeiträge, Einzug vierteljährlich per Lastschrift. */
 export const beitraege = [

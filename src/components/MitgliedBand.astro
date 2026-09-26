@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { beitraege } from '../data/verein';
+import { beitraege, beitraegeStand } from '../data/verein';
 ---
 
 <section class="mitglied section" id="mitglied">
@@ -32,7 +32,7 @@ import { beitraege } from '../data/verein';
           </li>
         ))}
       </ul>
-      <p class="hinweis">Der Einzug erfolgt vierteljährlich per Lastschrift.</p>
+      <p class="hinweis">Stand: {beitraegeStand}. Der Einzug erfolgt vierteljährlich per Lastschrift.</p>
     </div>
   </div>
 </section>

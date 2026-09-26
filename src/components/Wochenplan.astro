@@ -5,8 +5,10 @@ import { wochenplan, standDerDaten } from '../data/verein';
 interface Props {
   /** Auf der eigenen Unterseite uebernimmt der Seitenkopf die Ueberschrift. */
   ohneKopf?: boolean;
+  /** Knopf zum Herunterladen des Wochenplans als PDF */
+  pdf?: boolean;
 }
-const { ohneKopf = false } = Astro.props;
+const { ohneKopf = false, pdf = false } = Astro.props;
 
 ---
 
@@ -24,6 +26,15 @@ const { ohneKopf = false } = Astro.props;
       </div>
     )}
 
+    {pdf && (
+      <div class="plan__download">
+        <a class="btn" href="/dokumente/SCN-Trainingszeiten.pdf" download>
+          <Icon name="tabler:file-download" aria-hidden="true" />
+          Wochenplan als PDF
+        </a>
+        <p>PDF, A4 quer – zum Ausdrucken und Aufhängen.</p>
+      </div>
+    )}
 
     <div class="plan reveal">
       {wochenplan.map((tag) => (
@@ -62,6 +73,15 @@ const { ohneKopf = false } = Astro.props;
   }
   .plan__kopf h2 { font-size: var(--step-4); }
 
+
+  .plan__download {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.2rem;
+    margin-bottom: clamp(1.6rem, 3vw, 2.2rem);
+  }
+  .plan__download p { margin: 0; font-size: 0.82rem; color: var(--text-muted); }
 
   /* Farbpunkt zeigt den Ort an */
   .punkt {

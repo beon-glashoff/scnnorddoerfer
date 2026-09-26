@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SeitenKopf from '../components/SeitenKopf.astro';
-import { beitraege, verein } from '../data/verein';
+import { beitraege, beitraegeStand, verein } from '../data/verein';
 
 const schritte = [
   {
@@ -62,7 +62,7 @@ const schritte = [
           <Icon name="tabler:file-download" aria-hidden="true" />
           Anmeldeformular herunterladen
         </a>
-        <p class="beitrag__hinweis">PDF, Stand Juni 2024 – zum Ausdrucken und Ausfüllen.</p>
+        <p class="beitrag__hinweis">PDF – zum Ausdrucken und Ausfüllen.</p>
       </div>
 
       <div class="beitrag__tabelle">
@@ -75,6 +75,7 @@ const schritte = [
             </li>
           ))}
         </ul>
+        <p class="beitrag__stand">Stand: {beitraegeStand}</p>
       </div>
     </div>
   </section>
@@ -162,6 +163,7 @@ const schritte = [
     font-size: 0.95rem;
   }
   .beitrag__tabelle li:last-child { border-bottom: 0; }
+  .beitrag__stand { margin: 0.9rem 0 0; font-size: 0.82rem; color: rgba(255, 255, 255, 0.72); }
   .preis {
     font-family: var(--font-display);
     font-size: 1.35rem;

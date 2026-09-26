@@ -14,10 +14,12 @@ import {
 } from '../../data/verein';
 
 import fussballKopf from '../../assets/fotos/fussball-duell.jpg';
-import teamHerren from '../../assets/fotos/teams/herren.jpg';
-import teamDamen from '../../assets/fotos/teams/damen.jpg';
+// Vorlaeufig in 640 px – das Herrenfoto in voller Aufloesung wird nachgereicht.
+import teamHerren from '../../assets/fotos/teams/herren-gruppe.jpg';
+import teamDamen from '../../assets/fotos/teams/damen-gruppe.jpg';
 import teamAJugend from '../../assets/fotos/teams/a-jugend.jpg';
-import teamCJugend from '../../assets/fotos/teams/c-jugend.jpg';
+import teamCJugend from '../../assets/fotos/teams/c-jugend-gruppe.jpg';
+import trainerTaekwondo from '../../assets/fotos/trainer/taekwondo-neal.jpg';
 import g1 from '../../assets/fotos/galerie-fussball/1.jpg';
 import g2 from '../../assets/fotos/galerie-fussball/2.jpg';
 import g3 from '../../assets/fotos/galerie-fussball/3.jpg';
@@ -48,6 +50,10 @@ const teamBilder: Record<string, ImageMetadata> = {
   'A-Jugend': teamAJugend,
   'C-Jugend': teamCJugend,
 };
+
+// Foto der Ansprechperson im Kontaktkasten der Seitenspalte
+const kontaktBilder: Record<string, ImageMetadata> = { taekwondo: trainerTaekwondo };
+const kontaktBild = kontaktBilder[sparte.slug];
 
 const galerien: Record<string, { bild: ImageMetadata; alt: string }[]> = {
   fussball: [
@@ -125,18 +131,18 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
         <div class="container">
           <div class="teams__kopf">
             <h2>Unsere Mannschaften</h2>
-            <p>Sieben Mannschaften von den Herren bis zur G-Jugend. Spring direkt zu deinem Team.</p>
+            <p>Acht Mannschaften von den Herren bis zur G-Jugend. Spring direkt zu deinem Team.</p>
           </div>
 
           <nav class="sprung" aria-label="Zu einer Mannschaft springen">
             {mannschaften.map((m) => (
-              <a href={`#${ankerId(m.name)}`} class:list={[m.sucht && 'sprung--sucht']}>{m.name}</a>
+              <a href={`#${ankerId(m.name)}`}>{m.name}</a>
             ))}
           </nav>
 
           <div class="teamliste">
             {mannschaften.map((m) => (
-              <article class:list={['team', m.sucht && 'team--sucht']} id={ankerId(m.name)}>
+              <article class="team" id={ankerId(m.name)}>
                 <figure class="team__bild">
                   {teamBilder[m.name] ? (
                     <Image src={teamBilder[m.name]} alt={`Die ${m.name} des SC Norddörfer`} widths={[420, 760]} sizes="(min-width: 60rem) 34vw, 92vw" loading="lazy" />
@@ -147,39 +153,26 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
 
                 <div class="team__text">
                   <h3>{m.name}</h3>
-                  <p class="team__liga">
-                    {m.sucht ? 'Pausiert – Trainer:in gesucht' : (m.liga ?? 'Kein Ligabetrieb')}
-                  </p>
+                  <p class="team__liga">{m.liga ?? 'Kein Ligabetrieb'}</p>
 
-                  {m.sucht ? (
-                    <div class="team__sucht">
-                      <p>
-                        Die F-Jugend pausiert, weil uns eine Trainerin oder ein Trainer fehlt. Wer
-                        Lust hat, die Jahrgänge {m.jahrgang} wieder auf den Platz zu bringen, meldet
-                        sich am besten direkt beim Verein.
-                      </p>
-                      <a class="btn btn--gold" href="/mitmachen/">Trainer:in werden</a>
+                  <div class="team__spalten">
+                    <div class="kasten">
+                      <h4><span class="kasten__chip"><Icon name="tabler:calendar" aria-hidden="true" /></span>Training</h4>
+                      <ul class="zeiten">{m.zeiten.map((z) => <li>{z}</li>)}</ul>
+                      <p class="kasten__fuss">Jahrgänge: {m.jahrgang}</p>
                     </div>
-                  ) : (
-                    <div class="team__spalten">
-                      <div class="kasten">
-                        <h4><span class="kasten__chip"><Icon name="tabler:calendar" aria-hidden="true" /></span>Training</h4>
-                        <ul class="zeiten">{m.zeiten.map((z) => <li>{z}</li>)}</ul>
-                        <p class="kasten__fuss">Jahrgänge: {m.jahrgang}</p>
-                      </div>
 
-                      <div class="kasten kasten--kontakt">
-                        <h4><span class="kasten__chip"><Icon name="tabler:user-heart" aria-hidden="true" /></span>Trainer</h4>
-                        <p class="kontakt__name">{m.trainer}</p>
-                        {m.telefon && (
-                          <a class="kontakt__tel" href={`tel:${m.telefon.replace(/\s/g, '')}`}>
-                            <Icon name="tabler:phone" aria-hidden="true" />
-                            {m.telefon}
-                          </a>
-                        )}
-                      </div>
+                    <div class="kasten kasten--kontakt">
+                      <h4><span class="kasten__chip"><Icon name="tabler:user-heart" aria-hidden="true" /></span>Trainer</h4>
+                      <p class="kontakt__name">{m.trainer}</p>
+                      {m.telefon && (
+                        <a class="kontakt__tel" href={`tel:${m.telefon.replace(/\s/g, '')}`}>
+                          <Icon name="tabler:phone" aria-hidden="true" />
+                          {m.telefon}
+                        </a>
+                      )}
                     </div>
-                  )}
+                  </div>
 
                   {m.fussballDe && (
                     <a
@@ -196,7 +189,7 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
 
                   {m.ohneLiga && (
                     <p class="team__ohneLiga">
-                      Die G-Jugend spielt noch keinen Ligabetrieb – hier geht es ums Kicken, nicht um Punkte.
+                      Die {m.name} spielt noch keinen Ligabetrieb – hier geht es ums Kicken, nicht um Punkte.
                     </p>
                   )}
                 </div>
@@ -262,6 +255,11 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
             )}
 
             <div class="kasten kasten--kontakt">
+              {kontaktBild && (
+                <figure class="kontakt__bild">
+                  <Image src={kontaktBild} alt={`${sparte.ansprechpartner}, Ansprechpartner ${sparte.name}`} widths={[340, 680]} sizes="(min-width: 62rem) 21rem, 92vw" loading="lazy" />
+                </figure>
+              )}
               <h4><span class="kasten__chip"><Icon name="tabler:user-heart" aria-hidden="true" /></span>Dein Kontakt</h4>
               <p class="kontakt__name">{sparte.ansprechpartner}</p>
               {sparte.telefon ? (
@@ -470,6 +468,17 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
   .haken [data-icon] { color: var(--akzent-text); flex: none; margin-top: 0.2rem; }
 
   .kasten--kontakt { background: var(--ink); color: var(--text-on-dark); }
+  /* Trainerfoto: immer quadratisch, randlos oben und seitlich im Kasten */
+  .kontakt__bild { margin: -1.3rem -1.4rem 1.3rem; }
+  .kontakt__bild :global(img) {
+    display: block;
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
   .kontakt__name { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.6rem; }
   .kontakt__tel {
     display: inline-flex; align-items: center; gap: 0.45rem;
@@ -498,8 +507,6 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
     transition: background-color 0.18s ease, color 0.18s ease;
   }
   .sprung a:hover { background: var(--scn-red); color: #fff; }
-  .sprung--sucht { color: var(--scn-red) !important; }
-  .sprung--sucht:hover { color: #fff !important; }
 
   .teamliste { display: grid; }
   /* Trennstrich zwischen den Mannschaften – hilft vor allem hochkant
@@ -514,27 +521,24 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
   @media (min-width: 60rem) { .team { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 2.5rem; align-items: start; } }
 
   .team__bild { margin: 0; border-radius: var(--radius-lg); overflow: hidden; position: relative; background: var(--scn-red); }
-  .team__bild :global(img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  /* 3:2 wie die Vorlagen – bei 4:3 wuerden Gruppenbilder an den Raendern angeschnitten */
+  .team__bild :global(img) { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
   .team__muster {
-    display: block; width: 100%; aspect-ratio: 4 / 3;
+    display: block; width: 100%; aspect-ratio: 3 / 2;
     background:
       repeating-linear-gradient(135deg, rgba(255,255,255,0.12) 0 16px, rgba(255,255,255,0) 16px 32px),
       var(--scn-red);
   }
-  .team--sucht .team__bild, .team--sucht .team__muster { background-color: var(--ink); }
 
   .team__text h3 { font-size: var(--step-2); margin-bottom: 0.25rem; }
   .team__liga {
     font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--text-muted); margin-bottom: 1.2rem;
   }
-  .team--sucht .team__liga { color: var(--scn-red); }
 
   .team__spalten { display: grid; gap: 1rem; margin-bottom: 1.2rem; }
   @media (min-width: 40rem) { .team__spalten { grid-template-columns: 1.2fr 1fr; } }
 
-  .team__sucht { display: grid; gap: 1rem; justify-items: start; margin-bottom: 1.2rem; }
-  .team__sucht p { max-width: 56ch; }
 
   .team__tabelle {
     display: inline-flex; align-items: center; gap: 0.55rem;
