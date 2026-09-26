@@ -27,6 +27,17 @@ ein eigener Build-Befehl im Dashboard muss nicht gesetzt sein.
 
 Beim ersten lokalen Deploy fragt Wrangler nach dem Cloudflare-Login.
 
+### Domain
+
+Die Seite läuft unter **https://sc-norddoerfer.de** (seit 27.09.2026):
+
+- Domain registriert bei **IONOS**, Nameserver zeigen auf Cloudflare
+  (`gabe` und `isla.ns.cloudflare.com`)
+- `sc-norddoerfer.de` und `www` sind Custom Domains am Worker `scnnorddoerfer`
+- `www` leitet per Redirect Rule (301) auf die Hauptdomain, „Always Use HTTPS“ ist an
+- **E-Mail bleibt bei IONOS.** MX, SPF, DKIM (`s1`/`s2-ionos._domainkey`), DMARC und
+  autodiscover stehen im Cloudflare-DNS und müssen dort auf „DNS only“ bleiben
+
 ### Späterer Umzug zu Strato
 
 Weil der Build rein statisch ist (`output: 'static'`, `build.format: 'directory'`),
@@ -153,9 +164,10 @@ Der Platz dafür ist auf der Fußballseite bereits angelegt.
 /bandenwerbung/          Werbetafeln am Sportplatz
 /impressum/              Pflichtangaben
 /datenschutz/            Datenschutzerklärung
+/404                     Fehlerseite für unbekannte Adressen (nicht indexiert)
 ```
 
-Insgesamt 20 Seiten. `npm run pruefen` geht nach dem Build alle internen
+Insgesamt 21 Seiten. `npm run pruefen` geht nach dem Build alle internen
 Verweise durch und meldet, wenn einer ins Leere zeigt.
 
 ### Der Spartenseiten-Typ

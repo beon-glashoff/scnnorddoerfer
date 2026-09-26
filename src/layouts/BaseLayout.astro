@@ -11,9 +11,11 @@ interface Props {
   description: string;
   /** Header liegt transparent über einem Bild (Startseite) */
   transparentHeader?: boolean;
+  /** Seite nicht in Suchmaschinen aufnehmen (z. B. die 404-Seite) */
+  noindex?: boolean;
 }
 
-const { title, description, transparentHeader = false } = Astro.props;
+const { title, description, transparentHeader = false, noindex = false } = Astro.props;
 const fullTitle = `${title} | ${verein.kurzname}`;
 ---
 
@@ -27,7 +29,11 @@ const fullTitle = `${title} | ${verein.kurzname}`;
     <meta name="theme-color" content="#0b1720" />
     <link rel="icon" href="/wappen-scn.png" type="image/png" />
     <link rel="icon" href="/wappen-scn.svg" type="image/svg+xml" />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    )}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={verein.kurzname} />

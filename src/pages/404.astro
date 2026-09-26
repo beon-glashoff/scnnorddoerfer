@@ -1,0 +1,81 @@
+---
+/**
+ * Fehlerseite. Cloudflare liefert sie fuer jede unbekannte Adresse aus
+ * (not_found_handling: "404-page" in wrangler.jsonc), mit Status 404.
+ */
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SeitenKopf from '../components/SeitenKopf.astro';
+import { sparten } from '../data/verein';
+
+const ziele = [
+  { href: '/', icon: 'tabler:home', titel: 'Startseite', text: 'Zurück zum Anstoßkreis.' },
+  { href: '/sportarten/', icon: 'tabler:ball-football', titel: 'Sportarten', text: `Alle ${sparten.length} Sportarten im Überblick.` },
+  { href: '/trainingszeiten/', icon: 'tabler:calendar', titel: 'Trainingszeiten', text: 'Wer wann wo trainiert.' },
+  { href: '/kontakt/', icon: 'tabler:phone', titel: 'Kontakt', text: 'Frag uns einfach direkt.' },
+];
+---
+
+<BaseLayout
+  title="Seite nicht gefunden"
+  description="Diese Seite gibt es beim SC Norddörfer nicht. Hier geht's zurück zur Startseite, zu den Sportarten und Trainingszeiten."
+  noindex
+>
+  <SeitenKopf
+    eyebrow="Fehler 404"
+    titel="Der ging|daneben."
+    breadcrumb="Seite nicht gefunden"
+    lead="Diese Seite gibt es nicht – vielleicht ein Tippfehler, vielleicht ein alter Link. Der Ball ist jedenfalls hinter dem Tor gelandet. Kein Grund zum Ärgern: Abstoß, und weiter geht's."
+  />
+
+  <section class="section section--sand">
+    <div class="container">
+      <div class="section-head ziele__kopf">
+        <p class="eyebrow">Weiterspielen</p>
+        <h2>Hier geht's<br />zurück ins Spiel</h2>
+      </div>
+
+      <ul class="ziele">
+        {ziele.map((z) => (
+          <li>
+            <a class="ziel" href={z.href}>
+              <Icon name={z.icon} aria-hidden="true" />
+              <h3>{z.titel}</h3>
+              <p>{z.text}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ziele__kopf { margin-bottom: 2rem; }
+  .ziele__kopf h2 { font-size: var(--step-3); }
+
+  .ziele {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+  @media (min-width: 40rem) { .ziele { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 62rem) { .ziele { grid-template-columns: repeat(4, 1fr); } }
+
+  .ziel {
+    display: block;
+    height: 100%;
+    padding: 1.2rem 1.3rem 1.3rem;
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ziel:hover { transform: translateY(-3px); box-shadow: 0 14px 26px -16px rgba(11, 23, 32, 0.4); }
+  .ziel [data-icon] { font-size: 1.5rem; color: var(--scn-red); }
+  .ziel h3 { font-size: 1.35rem; margin: 0.4rem 0 0.3rem; }
+  .ziel p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+</style>
