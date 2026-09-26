@@ -131,7 +131,11 @@ import { verein, vorstand, sparten, einheitenProWoche } from '../../data/verein'
   @media (min-width: 52rem) { .vorstand { grid-template-columns: repeat(2, 1fr); } }
 
   .vorstand li { background: var(--sand); padding: 0.95rem 0.2rem; display: grid; gap: 0.15rem; }
-  @media (min-width: 52rem) { .vorstand li { padding-inline: 0 1.5rem; } }
+  @media (min-width: 52rem) {
+    .vorstand li { padding-inline: 0 1.5rem; }
+    /* Rechte Spalte: Abstand zur senkrechten Trennlinie */
+    .vorstand li:nth-child(even) { padding-inline: 1.5rem 0; }
+  }
 
   .vorstand__funktion {
     font-size: 0.72rem;
