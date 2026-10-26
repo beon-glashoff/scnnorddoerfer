@@ -3,7 +3,7 @@
  *
  * ACHTUNG – diese Liste ist ein Abzug, kein Live-Feed.
  * Einmalig übernommen von den Mannschaftsseiten auf fussball.de
- * (Saison 2026/27, abgerufen am 15.09.2026).
+ * (Saison 2026/27, zuletzt abgeglichen am 26.10.2026).
  *
  * So wird sie aktualisiert:
  *   1. Auf der Vereinsseite bei fussball.de jede Mannschaft öffnen
@@ -11,9 +11,9 @@
  *   2. Aus dem Spielplan die Partien heraussuchen, bei denen der SCN Heimrecht hat
  *   3. Hier eintragen und `heimspieleStand` hochsetzen
  *
- * Dauerhaft besser ist das Spielplan-Widget von fussball.de. Das lässt sich
- * aber erst erzeugen, wenn die Domain sc-norddoerfer.de steht – es wird fest
- * auf eine Domain registriert. Siehe README.
+ * Dauerhaft besser ist das Spielplan-Widget von fussball.de. Es wird fest auf
+ * eine Domain registriert; seit sc-norddoerfer.de live ist, lässt es sich
+ * erzeugen (Konto mit Vereinszugriff nötig). Siehe README.
  *
  * Vergangene Partien werden automatisch ausgeblendet: beim Bauen der Seite
  * und zusätzlich im Browser, damit die Liste auch ohne neuen Build stimmt.
@@ -28,25 +28,12 @@ export type Heimspiel = {
   wettbewerb: string;
 };
 
-export const heimspieleStand = '15.09.2026';
+export const heimspieleStand = '26.10.2026';
 
 export const heimspiele: Heimspiel[] = [
-  // --- September 2026 ---
-  { anstoss: '2026-09-18T19:30', mannschaft: 'Herren', gegner: 'TSV Stedesand', wettbewerb: 'Kreisklasse A' },
-  { anstoss: '2026-09-20T11:00', mannschaft: 'E-Jugend', gegner: 'SG Südtondern Nord', wettbewerb: 'Kreisklasse A' },
-  { anstoss: '2026-09-26T13:00', mannschaft: 'A-Jugend', gegner: 'SC Weiche Flensburg II', wettbewerb: 'Kreisliga' },
-  { anstoss: '2026-09-27T11:00', mannschaft: 'E-Jugend', gegner: 'SV Frisia 03 Risum-Lindholm', wettbewerb: 'Kreisklasse A' },
-  { anstoss: '2026-09-27T13:00', mannschaft: 'Damen', gegner: 'SG Langenhorn/Enge-Sande II', wettbewerb: 'Kreisklasse A' },
-
   // --- Oktober 2026 ---
-  { anstoss: '2026-10-02T16:30', mannschaft: 'D-Jugend', gegner: 'Husumer SV III', wettbewerb: 'Kreisklasse A' },
-  { anstoss: '2026-10-02T19:30', mannschaft: 'Herren', gegner: 'SV Dörpum II', wettbewerb: 'Kreisklasse A' },
-  { anstoss: '2026-10-03T13:00', mannschaft: 'A-Jugend', gegner: 'SG Rot-Blau Lagedeich', wettbewerb: 'Kreisliga' },
-  { anstoss: '2026-10-03T16:00', mannschaft: 'C-Jugend', gegner: 'SG Satrup-Havetoft', wettbewerb: 'Kreisliga' },
-  { anstoss: '2026-10-16T19:30', mannschaft: 'Herren', gegner: 'SV Blau-Weiß Löwenstedt III', wettbewerb: 'Kreisklasse A' },
-  { anstoss: '2026-10-23T19:30', mannschaft: 'Herren', gegner: 'TSV Süderlügum', wettbewerb: 'Kreisklasse A' },
   { anstoss: '2026-10-30T17:00', mannschaft: 'D-Jugend', gegner: 'SV Frisia 03 Risum-Lindholm II', wettbewerb: 'Kreisklasse A' },
-  { anstoss: '2026-10-31T16:00', mannschaft: 'C-Jugend', gegner: 'SG Nordau', wettbewerb: 'Kreisliga' },
+  { anstoss: '2026-10-31T14:00', mannschaft: 'C-Jugend', gegner: 'SG Nordau', wettbewerb: 'Kreisliga' },
 
   // --- November 2026 ---
   { anstoss: '2026-11-01T13:00', mannschaft: 'Damen', gegner: 'Husumer SV', wettbewerb: 'Kreisklasse A' },
@@ -58,6 +45,14 @@ export const heimspiele: Heimspiel[] = [
 
   // --- März 2027 ---
   { anstoss: '2027-03-05T19:30', mannschaft: 'Herren', gegner: 'SG Mitte NF II', wettbewerb: 'Kreisklasse A' },
+  { anstoss: '2027-03-19T19:30', mannschaft: 'Herren', gegner: 'SZ Arlewatt II', wettbewerb: 'Kreisklasse A' },
+
+  // --- April 2027 ---
+  { anstoss: '2027-04-09T19:30', mannschaft: 'Herren', gegner: 'SG Drelsdorf/Goldebek', wettbewerb: 'Kreisklasse A' },
+  { anstoss: '2027-04-23T19:30', mannschaft: 'Herren', gegner: 'SG Wiedingharde-Emmelsbüll', wettbewerb: 'Kreisklasse A' },
+
+  // --- Mai 2027 ---
+  { anstoss: '2027-05-02T13:00', mannschaft: 'Damen', gegner: 'FSV Wyk-Föhr', wettbewerb: 'Kreisklasse A' },
 ];
 
 /** Partien ab jetzt, aufsteigend sortiert. */
