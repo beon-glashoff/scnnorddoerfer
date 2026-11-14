@@ -101,15 +101,19 @@ const karte = `https://www.google.com/maps/search/?api=1&query=${encodeURICompon
             <span class="person__chip"><Icon name={s.icon} aria-hidden="true" /></span>
             <div class="person__text">
               <a class="person__sparte" href={`/sportarten/${s.slug}/`}>{s.name}</a>
-              <span class="person__name">{s.ansprechpartner}</span>
-              {s.telefon ? (
-                <a class="person__tel" href={`tel:${s.telefon.replace(/\s/g, '')}`}>
-                  <Icon name="tabler:phone" aria-hidden="true" />
-                  {s.telefon}
-                </a>
-              ) : (
-                <span class="person__offen">Kontaktdaten folgen</span>
-              )}
+              {s.kontakte.map((k) => (
+                <span class="person__kontakt">
+                  <span class="person__name">{k.name}</span>
+                  {k.telefon ? (
+                    <a class="person__tel" href={`tel:${k.telefon.replace(/\s/g, '')}`}>
+                      <Icon name="tabler:phone" aria-hidden="true" />
+                      {k.telefon}
+                    </a>
+                  ) : (
+                    <span class="person__offen">Kontaktdaten folgen</span>
+                  )}
+                </span>
+              ))}
             </div>
           </li>
         ))}
@@ -209,6 +213,8 @@ const karte = `https://www.google.com/maps/search/?api=1&query=${encodeURICompon
     color: inherit;
   }
   .person__sparte:hover { color: var(--akzent-text); }
+  .person__kontakt { display: grid; gap: 0.15rem; justify-items: start; }
+  .person__kontakt + .person__kontakt { margin-top: 0.45rem; }
   .person__name { font-size: 0.93rem; }
   .person__tel {
     display: inline-flex;

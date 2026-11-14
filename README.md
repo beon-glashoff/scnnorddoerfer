@@ -187,7 +187,7 @@ Zwei Abweichungen gibt es:
 
 `src/components/Galerie.astro` ist eine waagerechte Spur mit Scroll-Einrasten –
 ohne JavaScript, auf dem Telefon wischbar. Die Bilder je Sparte stehen in
-`[slug].astro` in der Zuordnung `galerien`. Bisher ist nur Fußball befüllt;
+`[slug].astro` in der Zuordnung `galerien`. Befüllt sind Fußball und Taekwondo;
 für die übrigen Sparten erscheint ein Platzhalter.
 
 ## Offene Punkte
@@ -202,13 +202,18 @@ für die übrigen Sparten erscheint ein Platzhalter.
   vom Verein bestätigt.
 - Im **FAQ** fehlen Kündigungsfrist der Mitgliedschaft und Fälligkeit des ersten
   Beitrags. Beides steht in der Satzung, die uns nur als unlesbarer Scan vorliegt.
-- Für sechs der acht Sparten fehlt eigenes Bildmaterial. Solange greifen Kopf,
-  Karte und Galerie auf ein gestreiftes Farbfeld in der Wappenfarbe zurück.
-- Die **Mannschaftsfotos** auf der Fußballseite: Herren, Damen und C-Jugend zeigen
-  Gruppenbilder, die A-Jugend noch eine Spielszene. Die übrigen Teams haben noch kein Foto.
+- Eigene Fotos gibt es bisher für Fußball und Taekwondo. Die Taekwondo-Bilder sind
+  Handyfotos in 640 px – genug für die Galerie, zu klein für Kopfbild und Karte.
+  Wo Bilder fehlen, greifen Kopf, Karte und Galerie auf ein gestreiftes Farbfeld
+  in der Wappenfarbe zurück.
+- Die **Mannschaftsfotos** auf der Fußballseite: Herren, Damen, A-, C- und E-Jugend zeigen
+  Gruppenbilder, die D-Jugend eine Spielszene. F- und G-Jugend haben noch kein Foto.
   Das **Herrenfoto liegt nur in 640 px vor** und wirkt auf großen Bildschirmen weich –
   die volle Auflösung wird nachgereicht und ersetzt dann `teams/herren-gruppe.jpg`.
 - Für **Vorstand und Ansprechpartner** fehlen die Porträtfotos. Einzige Ausnahme bisher:
-  Neal Saurin (Taekwondo) im Kontaktkasten der Spartenseite – zugeordnet über
-  `kontaktBilder` in `[slug].astro`, dargestellt immer quadratisch.
-- Das **fussball.de-Widget** für die nächsten Spiele braucht die finale Domain.
+  Neal Saurin und Finn Wright (Taekwondo) im Kontaktkasten der Spartenseite –
+  zugeordnet über `kontaktBilder` in `[slug].astro`, dargestellt immer quadratisch.
+- Sparten und Mannschaften können **mehrere Ansprechpersonen** haben (`kontakte` bzw.
+  `trainer` in `verein.ts`, jeweils eine Liste mit Name und Telefon).
+- Das **fussball.de-Widget** für die nächsten Spiele kann jetzt erzeugt werden, die
+  Domain steht. Es braucht ein fussball.de-Konto mit Zugriff auf den Verein.

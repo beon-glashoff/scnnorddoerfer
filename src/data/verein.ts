@@ -13,7 +13,7 @@
  * Wird auf der Seite bei den Trainingszeiten ausgewiesen – bitte bei jeder
  * Aktualisierung des Uebungsplans mitziehen.
  */
-export const standDerDaten = 'September 2026';
+export const standDerDaten = 'November 2026';
 
 export const verein = {
   kurzname: 'SC Norddörfer',
@@ -32,6 +32,13 @@ export const verein = {
   spotify: 'https://open.spotify.com/track/6uIOR1rqQxMgXqsy7PKqEO',
   vereinsregister: 'VR 194 NI, Amtsgericht Niebüll',
 } as const;
+
+/** Ansprechperson oder Trainer:in mit Telefonnummer */
+export type Kontakt = { name: string; telefon?: string };
+
+const listenFormat = new Intl.ListFormat('de-DE', { type: 'conjunction' });
+/** Namen als Aufzaehlung, z. B. "Neal Saurin und Finn Wright" */
+export const kontaktNamen = (kontakte: Kontakt[]) => listenFormat.format(kontakte.map((k) => k.name));
 
 /** Inhalte der Spartenseite. Aufbau ist fuer alle Sparten gleich. */
 export type SpartenDetail = {
@@ -58,8 +65,8 @@ export type Sparte = {
   /** Kompakte Angabe fuer Karten und Uebersichten */
   zeitKurz: string;
   ort: string;
-  ansprechpartner: string;
-  telefon?: string;
+  /** Ansprechpersonen der Sparte, die erste steht vorn */
+  kontakte: Kontakt[];
   /** true = Beschreibungstext liegt vor und ist freigegeben */
   textVorhanden: boolean;
   /** true = es gibt bereits eigenes Bildmaterial */
@@ -79,8 +86,7 @@ export const sparten: Sparte[] = [
     zeiten: ['Mo, Di, Mi, Do und Fr – je nach Mannschaft'],
     zeitKurz: 'Mo bis Fr, je nach Mannschaft',
     ort: 'Sportplatz, bei schlechtem Wetter in der Halle',
-    ansprechpartner: 'Nick Erdmann',
-    telefon: '0176 43450045',
+    kontakte: [{ name: 'Tom Langmaack', telefon: '0171 2144481' }],
     textVorhanden: true,
     fotoVorhanden: true,
     detail: {
@@ -123,8 +129,7 @@ export const sparten: Sparte[] = [
     zeiten: ['Dienstag, 16:30 – 17:30 Uhr'],
     zeitKurz: 'Dienstag, 16:30 – 17:30 Uhr',
     ort: 'Sporthalle',
-    ansprechpartner: 'Annika Johannsen',
-    telefon: '0151 21291761',
+    kontakte: [{ name: 'Julia Filipenko', telefon: '0173 7966537' }],
     textVorhanden: true,
     fotoVorhanden: true,
     detail: {
@@ -169,8 +174,7 @@ export const sparten: Sparte[] = [
     ],
     zeitKurz: 'Montags, drei Gruppen ab 15:00 Uhr',
     ort: 'Sporthalle',
-    ansprechpartner: 'Esther El Ghazy',
-    telefon: '0151 11606718',
+    kontakte: [{ name: 'Esther El Ghazy', telefon: '0151 11606718' }],
     textVorhanden: true,
     fotoVorhanden: false,
     detail: {
@@ -217,8 +221,7 @@ export const sparten: Sparte[] = [
     zeiten: ['Montag, 18:30 – 19:30 Uhr'],
     zeitKurz: 'Montag, 18:30 – 19:30 Uhr',
     ort: 'Sporthalle',
-    ansprechpartner: 'Birgit Stöver',
-    telefon: '0170 3804070',
+    kontakte: [{ name: 'Birgit Stöver', telefon: '0170 3804070' }],
     textVorhanden: true,
     fotoVorhanden: false,
     detail: {
@@ -258,8 +261,7 @@ export const sparten: Sparte[] = [
     zeiten: ['Mittwoch, 18:00 – 19:00 Uhr'],
     zeitKurz: 'Mittwoch, 18:00 – 19:00 Uhr',
     ort: 'Sporthalle',
-    ansprechpartner: 'Kerrin Feddersen',
-    telefon: '0170 3492035',
+    kontakte: [{ name: 'Kerrin Feddersen', telefon: '0170 3492035' }],
     textVorhanden: true,
     fotoVorhanden: false,
     detail: {
@@ -305,8 +307,10 @@ export const sparten: Sparte[] = [
     zeiten: ['Dienstag, 18:30 – 20:00 Uhr', 'Donnerstag, 18:30 – 20:00 Uhr'],
     zeitKurz: 'Dienstag und Donnerstag, 18:30 Uhr',
     ort: 'Sporthalle',
-    ansprechpartner: 'Neal Saurin',
-    telefon: '0171 3165942',
+    kontakte: [
+      { name: 'Neal Saurin', telefon: '0171 3165942' },
+      { name: 'Finn Wright', telefon: '0162 1376548' },
+    ],
     textVorhanden: true,
     fotoVorhanden: false,
     detail: {
@@ -345,11 +349,10 @@ export const sparten: Sparte[] = [
     icon: 'tabler:flame',
     farbe: 'rot',
     alter: 'ab 15 Jahren, ab 12 mit Zustimmung der Eltern',
-    zeiten: ['Montag, ab 19:30 Uhr', 'Mittwoch, ab 19:00 Uhr'],
+    zeiten: ['Montag, ab 19:30 Uhr', 'Mittwoch, ab 20:00 Uhr'],
     zeitKurz: 'Montag und Mittwoch, abends',
     ort: 'Sporthalle',
-    ansprechpartner: 'Marko Kobasic',
-    telefon: '0176 47863543',
+    kontakte: [{ name: 'Marko Kobasic', telefon: '0176 47863543' }],
     textVorhanden: true,
     fotoVorhanden: false,
     detail: {
@@ -404,8 +407,7 @@ export const sparten: Sparte[] = [
     zeiten: ['Montag, ab 19:00 Uhr', 'Donnerstag, 19:00 – 20:00 Uhr'],
     zeitKurz: 'Montag und Donnerstag, ab 19:00 Uhr',
     ort: 'Vereinsheim',
-    ansprechpartner: 'Alexander „Ebi“ Ebert',
-    telefon: '0151 50412257',
+    kontakte: [{ name: 'Alexander „Ebi“ Ebert', telefon: '0151 50412257' }],
     textVorhanden: true,
     fotoVorhanden: false,
     detail: {
@@ -461,8 +463,7 @@ export type Mannschaft = {
   zeiten: string[];
   /** Kurzform fuer die Uebersicht auf der Startseite */
   zeitenKurz: string[];
-  trainer: string | null;
-  telefon?: string;
+  trainer: Kontakt[];
   /** Liga laut fussball.de */
   liga?: string;
   /** Pfad- und ID-Teil der fussball.de-Adresse */
@@ -478,8 +479,10 @@ export const mannschaften: Mannschaft[] = [
     jahrgang: '2007 und älter',
     zeiten: ['Dienstag, 19:00 – 20:30 Uhr', 'Donnerstag, 19:00 – 20:30 Uhr'],
     zeitenKurz: ['Di 19:00 – 20:30', 'Do 19:00 – 20:30'],
-    trainer: 'Nick Erdmann',
-    telefon: '0176 43450045',
+    trainer: [
+      { name: 'Nick Erdmann', telefon: '0176 43450045' },
+      { name: 'Thies Brodersen', telefon: '01577 2541957' },
+    ],
     liga: 'Kreisklasse A 1',
     fussballDe: {
       pfad: 'sc-norddoerfer-sc-norddoerfer-schleswig-holstein',
@@ -489,10 +492,9 @@ export const mannschaften: Mannschaft[] = [
   {
     name: 'Damen',
     jahrgang: '2009 und älter',
-    zeiten: ['Mittwoch, 18:30 – 20:00 Uhr'],
-    zeitenKurz: ['Mi 18:30 – 20:00'],
-    trainer: 'Marko Schneider-Pauly',
-    telefon: '0172 4195559',
+    zeiten: ['Mittwoch, 19:00 – 20:00 Uhr, in der Halle'],
+    zeitenKurz: ['Mi 19:00 – 20:00, Halle'],
+    trainer: [{ name: 'Marko Schneider-Pauly', telefon: '0172 4195559' }],
     liga: 'Frauen KKA N-W (NF), 7er',
     fussballDe: {
       pfad: 'sc-norddoerfer-7er-sc-norddoerfer-schleswig-holstein',
@@ -504,8 +506,7 @@ export const mannschaften: Mannschaft[] = [
     jahrgang: '2008 bis 2011, A- und B-Jahrgänge zusammengelegt',
     zeiten: ['Montag, 19:00 – 20:30 Uhr', 'Mittwoch, 19:00 – 20:30 Uhr'],
     zeitenKurz: ['Mo 19:00 – 20:30', 'Mi 19:00 – 20:30'],
-    trainer: 'Maximilian Brachtendorf',
-    telefon: '0151 20095586',
+    trainer: [{ name: 'Maximilian Brachtendorf', telefon: '0151 20095586' }],
     liga: 'Kreisliga Vorrunde SL-FL, 9er',
     fussballDe: {
       pfad: 'sc-norddoerfer-9er-sc-norddoerfer-schleswig-holstein',
@@ -515,10 +516,9 @@ export const mannschaften: Mannschaft[] = [
   {
     name: 'C-Jugend',
     jahrgang: '2012 und 2013',
-    zeiten: ['Mittwoch, 17:30 – 19:00 Uhr', 'Freitag, 17:30 – 19:00 Uhr'],
-    zeitenKurz: ['Mi 17:30 – 19:00', 'Fr 17:30 – 19:00'],
-    trainer: 'Kevin Tillmann',
-    telefon: '0179 6887516',
+    zeiten: ['Mittwoch, 17:00 – 18:30 Uhr', 'Freitag, 17:00 – 18:30 Uhr'],
+    zeitenKurz: ['Mi 17:00 – 18:30', 'Fr 17:00 – 18:30'],
+    trainer: [{ name: 'Kevin Tillmann', telefon: '0176 66348264' }],
     liga: 'Kreisliga Vorrunde C-Junioren NF 1',
     fussballDe: {
       pfad: 'sc-norddoerfer-sc-norddoerfer-schleswig-holstein',
@@ -530,8 +530,7 @@ export const mannschaften: Mannschaft[] = [
     jahrgang: '2014 und 2015',
     zeiten: ['Mittwoch, 17:00 – 18:30 Uhr', 'Freitag, 15:00 – 16:30 Uhr'],
     zeitenKurz: ['Mi 17:00 – 18:30', 'Fr 15:00 – 16:30'],
-    trainer: 'Max Neumann',
-    telefon: '0152 08772534',
+    trainer: [{ name: 'Max Neumann', telefon: '0152 08772534' }],
     liga: 'KKA D-Junioren Quali Staffel 2',
     fussballDe: {
       pfad: 'sc-norddoerfer-sc-norddoerfer-schleswig-holstein',
@@ -543,8 +542,7 @@ export const mannschaften: Mannschaft[] = [
     jahrgang: '2016 und 2017',
     zeiten: ['Dienstag, 17:30 – 19:00 Uhr', 'Donnerstag, 17:30 – 19:00 Uhr'],
     zeitenKurz: ['Di 17:30 – 19:00', 'Do 17:30 – 19:00'],
-    trainer: 'Chris Jaeckstet',
-    telefon: '0176 82492829',
+    trainer: [{ name: 'Chris Jaeckstat', telefon: '0176 82492829' }],
     liga: 'E-Junioren Quali Staffel 1',
     fussballDe: {
       pfad: 'sc-norddoerfer-sc-norddoerfer-schleswig-holstein',
@@ -556,8 +554,7 @@ export const mannschaften: Mannschaft[] = [
     jahrgang: '2018 und 2019',
     zeiten: ['Dienstag, 15:00 – 16:30 Uhr', 'Donnerstag, 15:00 – 16:30 Uhr'],
     zeitenKurz: ['Di 15:00 – 16:30', 'Do 15:00 – 16:30'],
-    trainer: 'Chris Rühling',
-    telefon: '0157 88871664',
+    trainer: [{ name: 'Chris Rühling', telefon: '0157 88871664' }],
     ohneLiga: true,
   },
   {
@@ -565,8 +562,7 @@ export const mannschaften: Mannschaft[] = [
     jahrgang: '2020 und jünger',
     zeiten: ['Donnerstag, 16:30 – 17:30 Uhr'],
     zeitenKurz: ['Do 16:30 – 17:30'],
-    trainer: 'Robert Schröder',
-    telefon: '0152 54874305',
+    trainer: [{ name: 'Robert Schröder', telefon: '0152 54874305' }],
     ohneLiga: true,
   },
 ];
@@ -589,11 +585,11 @@ export const wochenplan = [
   ]},
   { tag: 'Mittwoch', eintraege: [
     { zeit: '17:00 – 18:30', was: 'Fußball · D-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '17:30 – 19:00', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '17:00 – 18:30', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '18:00 – 19:00', was: 'Zumba & Mobility', ort: 'Halle', slug: 'zumba-mobility' },
-    { zeit: '18:30 – 20:00', was: 'Fußball · Damen', ort: 'Platz', slug: 'fussball' },
+    { zeit: '19:00 – 20:00', was: 'Fußball · Damen', ort: 'Halle', slug: 'fussball' },
     { zeit: '19:00 – 20:30', was: 'Fußball · A-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: 'ab 19:00', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
+    { zeit: 'ab 20:00', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
   ]},
   { tag: 'Donnerstag', eintraege: [
     { zeit: '15:00 – 16:30', was: 'Fußball · F-Jugend', ort: 'Platz', slug: 'fussball' },
@@ -605,7 +601,7 @@ export const wochenplan = [
   ]},
   { tag: 'Freitag', eintraege: [
     { zeit: '15:00 – 16:30', was: 'Fußball · D-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '17:30 – 19:00', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '17:00 – 18:30', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
   ]},
 ];
 
