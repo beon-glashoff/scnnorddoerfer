@@ -203,7 +203,8 @@ für die übrigen Sparten erscheint ein Platzhalter.
 - Im **FAQ** fehlen Kündigungsfrist der Mitgliedschaft und Fälligkeit des ersten
   Beitrags. Beides steht in der Satzung, die uns nur als unlesbarer Scan vorliegt.
 - Eigene Fotos gibt es bisher für Fußball und Taekwondo. Die Taekwondo-Bilder sind
-  Handyfotos in 640 px – genug für die Galerie, zu klein für Kopfbild und Karte.
+  Handyfotos in 640 px. Das Kopfbild (Gruppenfoto) wirkt deshalb auf großen
+  Bildschirmen weich – ein Foto ab etwa 2000 px Breite würde es ersetzen.
   Wo Bilder fehlen, greifen Kopf, Karte und Galerie auf ein gestreiftes Farbfeld
   in der Wappenfarbe zurück.
 - Die **Mannschaftsfotos** auf der Fußballseite: Herren, Damen, A-, C- und E-Jugend zeigen

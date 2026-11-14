@@ -53,8 +53,8 @@ interface Props { sparte: Sparte }
 const { sparte } = Astro.props;
 const istFussball = sparte.slug === 'fussball';
 
-// Kopfbild – bisher nur fuer den Fussball vorhanden.
-const kopfBilder: Record<string, ImageMetadata> = { fussball: fussballKopf };
+// Kopfbild – Sparten ohne Eintrag zeigen das gestreifte Farbfeld.
+const kopfBilder: Record<string, ImageMetadata> = { fussball: fussballKopf, taekwondo: tk1 };
 const bild = kopfBilder[sparte.slug];
 
 const teamBilder: Record<string, ImageMetadata> = {
@@ -84,7 +84,6 @@ const galerien: Record<string, { bild: ImageMetadata; alt: string }[]> = {
     { bild: g8, alt: 'Spielszene der C-Jugend' },
   ],
   taekwondo: [
-    { bild: tk1, alt: 'Die Taekwondo-Gruppe des SC Norddörfer' },
     { bild: tk2, alt: 'Prüfung mit Schülerinnen und Schülern, Großmeister Mathias Grün und Meister Neal Saurin' },
     { bild: tk3, alt: 'Partnerübung im Training' },
     { bild: tk4, alt: 'Trainingssequenz in der Halle' },
