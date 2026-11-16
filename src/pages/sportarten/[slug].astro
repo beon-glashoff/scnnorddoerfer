@@ -41,6 +41,15 @@ import tk7 from '../../assets/fotos/galerie-taekwondo/7.jpg';
 import tk8 from '../../assets/fotos/galerie-taekwondo/8.jpg';
 import tk9 from '../../assets/fotos/galerie-taekwondo/9.jpg';
 import tk10 from '../../assets/fotos/galerie-taekwondo/10.jpg';
+import dartKopf from '../../assets/fotos/dart-kopf.jpg';
+import d1 from '../../assets/fotos/galerie-dart/1.jpg';
+import d2 from '../../assets/fotos/galerie-dart/2.jpg';
+import d3 from '../../assets/fotos/galerie-dart/3.jpg';
+import d4 from '../../assets/fotos/galerie-dart/4.jpg';
+import d5 from '../../assets/fotos/galerie-dart/5.jpg';
+import d6 from '../../assets/fotos/galerie-dart/6.jpg';
+import d7 from '../../assets/fotos/galerie-dart/7.jpg';
+import d8 from '../../assets/fotos/galerie-dart/8.jpg';
 
 export function getStaticPaths() {
   return sparten.map((sparte) => ({
@@ -54,8 +63,15 @@ const { sparte } = Astro.props;
 const istFussball = sparte.slug === 'fussball';
 
 // Kopfbild – Sparten ohne Eintrag zeigen das gestreifte Farbfeld.
-const kopfBilder: Record<string, ImageMetadata> = { fussball: fussballKopf, taekwondo: tk1 };
-const bild = kopfBilder[sparte.slug];
+// `position` legt den Bildausschnitt fest: Der Kopf ist auf breiten Bildschirmen
+// flach, bei Gruppenfotos muessen die Gesichter oben im Bild sichtbar bleiben.
+const kopfBilder: Record<string, { bild: ImageMetadata; position?: string }> = {
+  fussball: { bild: fussballKopf },
+  taekwondo: { bild: tk1, position: 'center 35%' },
+  dart: { bild: dartKopf, position: 'center 8%' },
+};
+const kopfBild = kopfBilder[sparte.slug];
+const bild = kopfBild?.bild;
 
 const teamBilder: Record<string, ImageMetadata> = {
   Herren: teamHerren,
@@ -94,6 +110,16 @@ const galerien: Record<string, { bild: ImageMetadata; alt: string }[]> = {
     { bild: tk9, alt: 'Tjorben und Joe beim Lehrgang in Bad Segeberg' },
     { bild: tk10, alt: 'Finn, Tjorben und Joe beim Lehrgang' },
   ],
+  dart: [
+    { bild: d1, alt: 'Beide Mannschaften beim gemeinsamen Gruppenfoto' },
+    { bild: d2, alt: 'Konzentrierter Blick aufs Board vor dem Wurf' },
+    { bild: d3, alt: 'Drei Darts im Board' },
+    { bild: d4, alt: 'Nachwuchsspieler beim Wurf' },
+    { bild: d5, alt: 'Spieler beim Wurf' },
+    { bild: d6, alt: 'Das Trikot mit dem Stier von hinten' },
+    { bild: d7, alt: 'Wurf auf das beleuchtete Board' },
+    { bild: d8, alt: 'Spieler beim Zielen' },
+  ],
 };
 const galerie = galerien[sparte.slug] ?? [];
 
@@ -109,7 +135,14 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
     <header class="kopf">
       <div class="kopf__medium" aria-hidden="true">
         {bild ? (
-          <Image src={bild} alt="" widths={[768, 1280, 1920]} sizes="100vw" loading="eager" />
+          <Image
+            src={bild}
+            alt=""
+            widths={[768, 1280, 1920]}
+            sizes="100vw"
+            loading="eager"
+            style={kopfBild?.position ? `object-position: ${kopfBild.position}` : undefined}
+          />
         ) : (
           <span class="kopf__muster"></span>
         )}

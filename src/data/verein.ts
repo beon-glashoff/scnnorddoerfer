@@ -140,7 +140,7 @@ export const sparten: Sparte[] = [
         {
           titel: 'Was passiert in der Stunde?',
           absaetze: [
-            'Annika baut jede Menge Möglichkeiten zum Toben, Spielen und Ausprobieren auf. Reckstangen, Ringe, Bälle, Matten und viele weitere Gelegenheiten zum Klettern und Balancieren warten darauf, erobert zu werden.',
+            'In der Halle warten jede Menge Möglichkeiten zum Toben, Spielen und Ausprobieren. Reckstangen, Ringe, Bälle, Matten und viele weitere Gelegenheiten zum Klettern und Balancieren wollen erobert werden.',
             'Die richtige Musik und gemeinsames Singen dürfen dabei natürlich nicht fehlen.',
           ],
         },
@@ -312,7 +312,7 @@ export const sparten: Sparte[] = [
       { name: 'Finn Wright', telefon: '0162 1376548' },
     ],
     textVorhanden: true,
-    fotoVorhanden: false,
+    fotoVorhanden: true,
     detail: {
       intro:
         'Zweimal in der Woche wird es in der Norddörfer Halle laut: Beim Taekwondo lernst du eine ' +
@@ -409,7 +409,7 @@ export const sparten: Sparte[] = [
     ort: 'Vereinsheim',
     kontakte: [{ name: 'Alexander „Ebi“ Ebert', telefon: '0151 50412257' }],
     textVorhanden: true,
-    fotoVorhanden: false,
+    fotoVorhanden: true,
     detail: {
       intro:
         'Seit über 20 Jahren gehören die Blinddarters fest zur Sylter Dart-Szene. Etwa zwölf Mitglieder ' +

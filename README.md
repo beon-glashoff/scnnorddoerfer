@@ -187,8 +187,15 @@ Zwei Abweichungen gibt es:
 
 `src/components/Galerie.astro` ist eine waagerechte Spur mit Scroll-Einrasten –
 ohne JavaScript, auf dem Telefon wischbar. Die Bilder je Sparte stehen in
-`[slug].astro` in der Zuordnung `galerien`. Befüllt sind Fußball und Taekwondo;
-für die übrigen Sparten erscheint ein Platzhalter.
+`[slug].astro` in der Zuordnung `galerien`. Befüllt sind Fußball, Taekwondo und
+Dart; für die übrigen Sparten erscheint ein Platzhalter.
+
+Kopfbilder stehen in `kopfBilder`, Kachelbilder (Startseite und Sportarten-Übersicht)
+in `SpartenKarte.astro`. Der Kopf ist auf breiten Bildschirmen flach – bei
+Gruppenfotos legt `position` den Ausschnitt fest, damit die Gesichter sichtbar bleiben.
+Fotos aus der Kamera vor dem Einchecken verkleinern (Kopf 2000 px, Galerie 1400 px
+lange Kante, Kachel 1280 × 720 vorab auf 16:9 zugeschnitten); `sharp` entfernt dabei
+die Metadaten.
 
 ## Offene Punkte
 
@@ -202,7 +209,9 @@ für die übrigen Sparten erscheint ein Platzhalter.
   vom Verein bestätigt.
 - Im **FAQ** fehlen Kündigungsfrist der Mitgliedschaft und Fälligkeit des ersten
   Beitrags. Beides steht in der Satzung, die uns nur als unlesbarer Scan vorliegt.
-- Eigene Fotos gibt es bisher für Fußball und Taekwondo. Die Taekwondo-Bilder sind
+- Eigene Fotos gibt es bisher für Fußball, Taekwondo und Dart. Die Dart-Originale
+  (23 Kamerafotos) liegen in `02_Kundenabstimmung/03_Inhalte/Dart`; acht davon
+  sind in der Galerie. Die Taekwondo-Bilder sind
   Handyfotos in 640 px. Das Kopfbild (Gruppenfoto) wirkt deshalb auf großen
   Bildschirmen weich – ein Foto ab etwa 2000 px Breite würde es ersetzen.
   Wo Bilder fehlen, greifen Kopf, Karte und Galerie auf ein gestreiftes Farbfeld

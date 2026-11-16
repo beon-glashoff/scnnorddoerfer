@@ -3,12 +3,14 @@ import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import type { Sparte } from '../data/verein';
 import fussballBild from '../assets/fotos/fussball-spielzug.jpg';
+import taekwondoBild from '../assets/fotos/galerie-taekwondo/1.jpg';
+import dartBild from '../assets/fotos/dart-karte.jpg';
 
 interface Props { sparte: Sparte }
 const { sparte } = Astro.props;
 
 // Nur fuer die Sparten, zu denen es schon Bildmaterial gibt.
-const bilder: Record<string, ImageMetadata> = { fussball: fussballBild };
+const bilder: Record<string, ImageMetadata> = { fussball: fussballBild, taekwondo: taekwondoBild, dart: dartBild };
 const bild = bilder[sparte.slug];
 ---
 
