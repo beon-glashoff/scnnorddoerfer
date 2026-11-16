@@ -425,7 +425,7 @@ export const sparten: Sparte[] = [
         {
           titel: 'Ligaspiele auf der Insel',
           absaetze: [
-            'Auf Sylt wird in zwei Inselligen gespielt, einer A- und einer B-Liga. Die Saison läuft von Herbst bis ins Frühjahr, die Ligaspiele finden meist donnerstags statt.',
+            'Auf Sylt wird in zwei Inselligen gespielt, einer A- und einer B-Liga. Die Saison läuft von Herbst bis ins Frühjahr.',
             'Technisch ließen sich Partien auch online zwischen zwei Orten austragen. Die Sylter Mannschaften treffen sich trotzdem lieber persönlich – denn neben dem Sport zählt hier auch das Miteinander.',
           ],
         },
