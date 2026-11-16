@@ -400,7 +400,7 @@ export const sparten: Sparte[] = [
   {
     slug: 'dart',
     name: 'Dart',
-    kurz: 'Die „Blinddarters“ – seit über 20 Jahren fest in der Sylter Dart-Szene, mit zwei Ligamannschaften.',
+    kurz: 'Das Team „Bulls Ei“ – seit 2008 am Board, seit 2022 beim SC Norddörfer und mittendrin im Sylter Ligabetrieb.',
     icon: 'tabler:target-arrow',
     farbe: 'blau',
     alter: 'von 16 bis 99 Jahren',
@@ -412,26 +412,34 @@ export const sparten: Sparte[] = [
     fotoVorhanden: true,
     detail: {
       intro:
-        'Seit über 20 Jahren gehören die Blinddarters fest zur Sylter Dart-Szene. Etwa zwölf Mitglieder ' +
-        'treffen sich regelmäßig zum Training im gemütlichen Vereinsheim am Sam-Beese-Sportpark.',
+        'Beim SC Norddörfer fliegen die Pfeile: Das Team Bulls Ei trainiert im Vereinsheim am Sportplatz ' +
+        'und tritt im Sylter Ligabetrieb an – mit Ehrgeiz am Board und viel Gemeinschaft drumherum.',
       abschnitte: [
         {
-          titel: 'Zwei Mannschaften in der Inselliga',
+          titel: 'Seit 2008 am Board',
           absaetze: [
-            'Wir spielen mit zwei Mannschaften in der Dart Inselliga Sylt. Zu dieser gehören 13 Mannschaften, die ihre Ligaspiele zwischen Ende Oktober und etwa Mitte Mai absolvieren.',
+            'Die Geschichte von Bulls Ei reicht bis ins Jahr 2008 zurück. Im März 2022 hat das Team beim SC Norddörfer ein Zuhause gefunden und spielt seitdem für den Verein in der Liga.',
+            'Heimspielstätte ist das Vereinsheim am Sportplatz in Wenningstedt. Dort stehen vier Dartboards – genug Platz für Training und Ligaabende.',
           ],
         },
         {
-          titel: 'Eine Deutsche Meisterschaft auf Sylt',
+          titel: 'Ligaspiele auf der Insel',
           absaetze: [
-            'Zu den Highlights der Blinddarter-Geschichte gehört die Ausrichtung der Deutschen Meisterschaft: Gemeinsam mit dem Schleswig-Holsteinischen Dartverband wurde sie in der Norddörfer Halle ausgetragen, mit über 200 Dartern aus ganz Deutschland.',
+            'Auf Sylt wird in zwei Inselligen gespielt, einer A- und einer B-Liga. Die Saison läuft von Herbst bis ins Frühjahr, die Ligaspiele finden meist donnerstags statt.',
+            'Technisch ließen sich Partien auch online zwischen zwei Orten austragen. Die Sylter Mannschaften treffen sich trotzdem lieber persönlich – denn neben dem Sport zählt hier auch das Miteinander.',
           ],
         },
         {
-          titel: 'Das Vereinsheim ist auch unser Werk',
+          titel: 'So wird gespielt',
           absaetze: [
-            'Die heutige Form und Größe des Vereinsheims ist zu einem guten Teil den Blinddarters zu verdanken. In Eigenarbeit haben sie die Fläche auf fast das Doppelte erweitert.',
-            'So entstand nicht nur das eigene Reich mit optimalen Bedingungen für Training und Heimspiele, sondern auch die Möglichkeit, größere Gesellschaften im Vereinsheim zu feiern.',
+            'Jedes Leg beginnt bei 501 Punkten. Die Treffer werden abgezogen, bis genau null erreicht ist – und der letzte Pfeil muss ein Doppelfeld treffen („Double Out“). Eine Partie gewinnt, wer zuerst zwei Legs für sich entscheidet.',
+          ],
+        },
+        {
+          titel: 'Dart hat Tradition im Verein',
+          absaetze: [
+            'Dart gehört beim SC Norddörfer schon lange dazu. Zu den Höhepunkten zählt eine Deutsche Meisterschaft: Gemeinsam mit dem Schleswig-Holsteinischen Dartverband wurde sie in der Norddörfer Halle ausgetragen, mit über 200 Darterinnen und Dartern aus ganz Deutschland.',
+            'Auch das Vereinsheim trägt die Handschrift der Darter: In Eigenarbeit haben sie die Fläche fast verdoppelt. So entstanden optimale Bedingungen für Training und Heimspiele – und genug Platz, um im Vereinsheim auch größere Feiern auszurichten.',
           ],
         },
       ],
