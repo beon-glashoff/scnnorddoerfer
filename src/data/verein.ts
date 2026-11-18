@@ -83,8 +83,8 @@ export const sparten: Sparte[] = [
     icon: 'tabler:ball-football',
     farbe: 'rot',
     alter: 'ab 4 Jahren bis Ü30',
-    zeiten: ['Mo, Di, Mi, Do und Fr – je nach Mannschaft'],
-    zeitKurz: 'Mo bis Fr, je nach Mannschaft',
+    zeiten: ['Di, Mi, Do und Fr – je nach Mannschaft'],
+    zeitKurz: 'Di bis Fr, je nach Mannschaft',
     ort: 'Sportplatz, bei schlechtem Wetter in der Halle',
     kontakte: [{ name: 'Tom Langmaack', telefon: '0171 2144481' }],
     textVorhanden: true,
@@ -304,8 +304,8 @@ export const sparten: Sparte[] = [
     icon: 'tabler:karate',
     farbe: 'blau',
     alter: 'ab 15 Jahren',
-    zeiten: ['Dienstag, 18:30 – 20:00 Uhr', 'Donnerstag, 18:30 – 20:00 Uhr'],
-    zeitKurz: 'Dienstag und Donnerstag, 18:30 Uhr',
+    zeiten: ['Dienstag, 18:45 – 20:00 Uhr', 'Donnerstag, 18:45 – 20:00 Uhr'],
+    zeitKurz: 'Dienstag und Donnerstag, 18:45 Uhr',
     ort: 'Sporthalle',
     kontakte: [
       { name: 'Neal Saurin', telefon: '0171 3165942' },
@@ -349,7 +349,7 @@ export const sparten: Sparte[] = [
     icon: 'tabler:flame',
     farbe: 'rot',
     alter: 'ab 15 Jahren, ab 12 mit Zustimmung der Eltern',
-    zeiten: ['Montag, ab 19:30 Uhr', 'Mittwoch, ab 20:00 Uhr'],
+    zeiten: ['Montag, 19:30 – 21:00 Uhr', 'Mittwoch, 20:00 – 21:00 Uhr'],
     zeitKurz: 'Montag und Mittwoch, abends',
     ort: 'Sporthalle',
     kontakte: [{ name: 'Marko Kobasic', telefon: '0176 47863543' }],
@@ -485,8 +485,8 @@ export const mannschaften: Mannschaft[] = [
   {
     name: 'Herren',
     jahrgang: '2007 und älter',
-    zeiten: ['Dienstag, 19:00 – 20:30 Uhr', 'Donnerstag, 19:00 – 20:30 Uhr'],
-    zeitenKurz: ['Di 19:00 – 20:30', 'Do 19:00 – 20:30'],
+    zeiten: ['Dienstag, 20:00 – 21:00 Uhr'],
+    zeitenKurz: ['Di 20:00 – 21:00'],
     trainer: [
       { name: 'Nick Erdmann', telefon: '0176 43450045' },
       { name: 'Thies Brodersen', telefon: '01577 2541957' },
@@ -512,8 +512,8 @@ export const mannschaften: Mannschaft[] = [
   {
     name: 'A-Jugend',
     jahrgang: '2008 bis 2011, A- und B-Jahrgänge zusammengelegt',
-    zeiten: ['Montag, 19:00 – 20:30 Uhr', 'Mittwoch, 19:00 – 20:30 Uhr'],
-    zeitenKurz: ['Mo 19:00 – 20:30', 'Mi 19:00 – 20:30'],
+    zeiten: ['Donnerstag, 20:00 – 21:00 Uhr'],
+    zeitenKurz: ['Do 20:00 – 21:00'],
     trainer: [{ name: 'Maximilian Brachtendorf', telefon: '0151 20095586' }],
     liga: 'Kreisliga Vorrunde SL-FL, 9er',
     fussballDe: {
@@ -524,8 +524,8 @@ export const mannschaften: Mannschaft[] = [
   {
     name: 'C-Jugend',
     jahrgang: '2012 und 2013',
-    zeiten: ['Mittwoch, 17:00 – 18:30 Uhr', 'Freitag, 17:00 – 18:30 Uhr'],
-    zeitenKurz: ['Mi 17:00 – 18:30', 'Fr 17:00 – 18:30'],
+    zeiten: ['Mittwoch, 16:30 – 18:00 Uhr', 'Freitag, 16:30 – 18:00 Uhr'],
+    zeitenKurz: ['Mi 16:30 – 18:00', 'Fr 16:30 – 18:00'],
     trainer: [{ name: 'Kevin Tillmann', telefon: '0176 66348264' }],
     liga: 'Kreisliga Vorrunde C-Junioren NF 1',
     fussballDe: {
@@ -536,8 +536,8 @@ export const mannschaften: Mannschaft[] = [
   {
     name: 'D-Jugend',
     jahrgang: '2014 und 2015',
-    zeiten: ['Mittwoch, 17:00 – 18:30 Uhr', 'Freitag, 15:00 – 16:30 Uhr'],
-    zeitenKurz: ['Mi 17:00 – 18:30', 'Fr 15:00 – 16:30'],
+    zeiten: ['Mittwoch, 15:00 – 16:30 Uhr', 'Freitag, 15:00 – 16:30 Uhr'],
+    zeitenKurz: ['Mi 15:00 – 16:30', 'Fr 15:00 – 16:30'],
     trainer: [{ name: 'Max Neumann', telefon: '0152 08772534' }],
     liga: 'KKA D-Junioren Quali Staffel 2',
     fussballDe: {
@@ -548,8 +548,8 @@ export const mannschaften: Mannschaft[] = [
   {
     name: 'E-Jugend',
     jahrgang: '2016 und 2017',
-    zeiten: ['Dienstag, 17:30 – 19:00 Uhr', 'Donnerstag, 17:30 – 19:00 Uhr'],
-    zeitenKurz: ['Di 17:30 – 19:00', 'Do 17:30 – 19:00'],
+    zeiten: ['Dienstag, 17:30 – 18:45 Uhr', 'Donnerstag, 17:30 – 18:45 Uhr'],
+    zeitenKurz: ['Di 17:30 – 18:45', 'Do 17:30 – 18:45'],
     trainer: [{ name: 'Chris Jaeckstat', telefon: '0176 82492829' }],
     liga: 'E-Junioren Quali Staffel 1',
     fussballDe: {
@@ -580,36 +580,34 @@ export const wochenplan = [
   { tag: 'Montag', eintraege: [
     { zeit: '15:00 – 18:00', was: 'Tanzen · drei Gruppen', ort: 'Halle', slug: 'tanzen', einheiten: 3 },
     { zeit: '18:30 – 19:30', was: 'Fit for Fun', ort: 'Halle', slug: 'fit-for-fun' },
-    { zeit: '19:00 – 20:30', was: 'Fußball · A-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: 'ab 19:00', was: 'Dart', ort: 'Vereinsheim', slug: 'dart' },
-    { zeit: 'ab 19:30', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
+    { zeit: '19:30 – 21:00', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
   ]},
   { tag: 'Dienstag', eintraege: [
     { zeit: '15:00 – 16:30', was: 'Fußball · F-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '16:30 – 17:30', was: 'Eltern-Kind-Turnen', ort: 'Halle', slug: 'eltern-kind-turnen' },
-    { zeit: '17:30 – 19:00', was: 'Fußball · E-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '18:30 – 20:00', was: 'Taekwondo', ort: 'Halle', slug: 'taekwondo' },
-    { zeit: '19:00 – 20:30', was: 'Fußball · Herren', ort: 'Platz', slug: 'fussball' },
+    { zeit: '17:30 – 18:45', was: 'Fußball · E-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '18:45 – 20:00', was: 'Taekwondo', ort: 'Halle', slug: 'taekwondo' },
+    { zeit: '20:00 – 21:00', was: 'Fußball · Herren', ort: 'Platz', slug: 'fussball' },
   ]},
   { tag: 'Mittwoch', eintraege: [
-    { zeit: '17:00 – 18:30', was: 'Fußball · D-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '17:00 – 18:30', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '15:00 – 16:30', was: 'Fußball · D-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '16:30 – 18:00', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '18:00 – 19:00', was: 'Zumba & Mobility', ort: 'Halle', slug: 'zumba-mobility' },
     { zeit: '19:00 – 20:00', was: 'Fußball · Damen', ort: 'Halle', slug: 'fussball' },
-    { zeit: '19:00 – 20:30', was: 'Fußball · A-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: 'ab 20:00', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
+    { zeit: '20:00 – 21:00', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
   ]},
   { tag: 'Donnerstag', eintraege: [
     { zeit: '15:00 – 16:30', was: 'Fußball · F-Jugend', ort: 'Platz', slug: 'fussball' },
     { zeit: '16:30 – 17:30', was: 'Fußball · G-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '17:30 – 19:00', was: 'Fußball · E-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '18:30 – 20:00', was: 'Taekwondo', ort: 'Halle', slug: 'taekwondo' },
+    { zeit: '17:30 – 18:45', was: 'Fußball · E-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '18:45 – 20:00', was: 'Taekwondo', ort: 'Halle', slug: 'taekwondo' },
     { zeit: '19:00 – 20:00', was: 'Dart', ort: 'Vereinsheim', slug: 'dart' },
-    { zeit: '19:00 – 20:30', was: 'Fußball · Herren', ort: 'Platz', slug: 'fussball' },
+    { zeit: '20:00 – 21:00', was: 'Fußball · A-Jugend', ort: 'Platz', slug: 'fussball' },
   ]},
   { tag: 'Freitag', eintraege: [
     { zeit: '15:00 – 16:30', was: 'Fußball · D-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '17:00 – 18:30', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '16:30 – 18:00', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
   ]},
 ];
 
