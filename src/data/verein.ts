@@ -15,6 +15,19 @@
  */
 export const standDerDaten = 'November 2026';
 
+/**
+ * Wo der Fussball gerade trainiert: im Winter in der Halle, sonst auf dem Platz.
+ * Im Fruehjahr auf 'Platz' umstellen – Wochenplan, PDF und Fussballseite ziehen mit.
+ * Der Eintrag der Damen steht fest auf Halle; beim Umstellen pruefen, ob das so bleibt.
+ */
+export const fussballTrainingsort: 'Halle' | 'Platz' = 'Halle';
+const fussballImWinter = fussballTrainingsort === 'Halle';
+
+/** Kurzer Hinweis zum Fussball-Trainingsort, z. B. unter dem Wochenplan im PDF */
+export const fussballOrtHinweis = fussballImWinter
+  ? 'Fußball trainiert im Winter in der Halle.'
+  : 'Fußball bei schlechtem Wetter in der Halle.';
+
 export const verein = {
   kurzname: 'SC Norddörfer',
   gegruendet: 1963,
@@ -85,7 +98,7 @@ export const sparten: Sparte[] = [
     alter: 'ab 4 Jahren bis Ü30',
     zeiten: ['Di, Mi, Do und Fr – je nach Mannschaft'],
     zeitKurz: 'Di bis Fr, je nach Mannschaft',
-    ort: 'Sportplatz, bei schlechtem Wetter in der Halle',
+    ort: fussballImWinter ? 'Im Winter in der Halle, sonst auf dem Sportplatz' : 'Sportplatz, bei schlechtem Wetter in der Halle',
     kontakte: [{ name: 'Tom Langmaack', telefon: '0171 2144481' }],
     textVorhanden: true,
     fotoVorhanden: true,
@@ -500,8 +513,8 @@ export const mannschaften: Mannschaft[] = [
   {
     name: 'Damen',
     jahrgang: '2009 und älter',
-    zeiten: ['Mittwoch, 19:00 – 20:00 Uhr, in der Halle'],
-    zeitenKurz: ['Mi 19:00 – 20:00, Halle'],
+    zeiten: ['Mittwoch, 19:00 – 20:00 Uhr'],
+    zeitenKurz: ['Mi 19:00 – 20:00'],
     trainer: [{ name: 'Marko Schneider-Pauly', telefon: '0172 4195559' }],
     liga: 'Frauen KKA N-W (NF), 7er',
     fussballDe: {
@@ -584,30 +597,30 @@ export const wochenplan = [
     { zeit: '19:30 – 21:00', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
   ]},
   { tag: 'Dienstag', eintraege: [
-    { zeit: '15:00 – 16:30', was: 'Fußball · F-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '15:00 – 16:30', was: 'Fußball · F-Jugend', ort: fussballTrainingsort, slug: 'fussball' },
     { zeit: '16:30 – 17:30', was: 'Eltern-Kind-Turnen', ort: 'Halle', slug: 'eltern-kind-turnen' },
-    { zeit: '17:30 – 18:45', was: 'Fußball · E-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '17:30 – 18:45', was: 'Fußball · E-Jugend', ort: fussballTrainingsort, slug: 'fussball' },
     { zeit: '18:45 – 20:00', was: 'Taekwondo', ort: 'Halle', slug: 'taekwondo' },
-    { zeit: '20:00 – 21:00', was: 'Fußball · Herren', ort: 'Platz', slug: 'fussball' },
+    { zeit: '20:00 – 21:00', was: 'Fußball · Herren', ort: fussballTrainingsort, slug: 'fussball' },
   ]},
   { tag: 'Mittwoch', eintraege: [
-    { zeit: '15:00 – 16:30', was: 'Fußball · D-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '16:30 – 18:00', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '15:00 – 16:30', was: 'Fußball · D-Jugend', ort: fussballTrainingsort, slug: 'fussball' },
+    { zeit: '16:30 – 18:00', was: 'Fußball · C-Jugend', ort: fussballTrainingsort, slug: 'fussball' },
     { zeit: '18:00 – 19:00', was: 'Zumba & Mobility', ort: 'Halle', slug: 'zumba-mobility' },
     { zeit: '19:00 – 20:00', was: 'Fußball · Damen', ort: 'Halle', slug: 'fussball' },
     { zeit: '20:00 – 21:00', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
   ]},
   { tag: 'Donnerstag', eintraege: [
-    { zeit: '15:00 – 16:30', was: 'Fußball · F-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '16:30 – 17:30', was: 'Fußball · G-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '17:30 – 18:45', was: 'Fußball · E-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '15:00 – 16:30', was: 'Fußball · F-Jugend', ort: fussballTrainingsort, slug: 'fussball' },
+    { zeit: '16:30 – 17:30', was: 'Fußball · G-Jugend', ort: fussballTrainingsort, slug: 'fussball' },
+    { zeit: '17:30 – 18:45', was: 'Fußball · E-Jugend', ort: fussballTrainingsort, slug: 'fussball' },
     { zeit: '18:45 – 20:00', was: 'Taekwondo', ort: 'Halle', slug: 'taekwondo' },
     { zeit: '19:00 – 20:00', was: 'Dart', ort: 'Vereinsheim', slug: 'dart' },
-    { zeit: '20:00 – 21:00', was: 'Fußball · A-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '20:00 – 21:00', was: 'Fußball · A-Jugend', ort: fussballTrainingsort, slug: 'fussball' },
   ]},
   { tag: 'Freitag', eintraege: [
-    { zeit: '15:00 – 16:30', was: 'Fußball · D-Jugend', ort: 'Platz', slug: 'fussball' },
-    { zeit: '16:30 – 18:00', was: 'Fußball · C-Jugend', ort: 'Platz', slug: 'fussball' },
+    { zeit: '15:00 – 16:30', was: 'Fußball · D-Jugend', ort: fussballTrainingsort, slug: 'fussball' },
+    { zeit: '16:30 – 18:00', was: 'Fußball · C-Jugend', ort: fussballTrainingsort, slug: 'fussball' },
   ]},
 ];
 

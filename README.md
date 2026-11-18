@@ -100,6 +100,12 @@ Der **Wochenplan als PDF** (`/dokumente/SCN-Trainingszeiten.pdf`, Knopf auf der
 Trainingszeiten-Seite) wird beim Build aus denselben Daten erzeugt –
 `src/pages/dokumente/SCN-Trainingszeiten.pdf.ts`. Er muss nie von Hand erneuert werden.
 
+**Fußball im Winter in der Halle:** `fussballTrainingsort` in `verein.ts` steht im Winter
+auf `'Halle'`, sonst auf `'Platz'`. Der Schalter setzt den Ort aller Fußball-Einträge im
+Wochenplan und im PDF, die Ortsangabe auf der Fußballseite und den Hinweis über den
+Mannschaften. **Im Frühjahr zurückstellen.** Die Damen stehen fest auf Halle – beim
+Umstellen prüfen, ob das so bleibt.
+
 Quelle der Daten: `../01_Assets/07_MDs/03_Abgleich_Lieferung_Tom.md` und
 `../01_Assets/04_Texte/SCN_Uebungsangebote_Hallenbelegung.csv`.
 

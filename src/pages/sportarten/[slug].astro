@@ -11,6 +11,7 @@ import {
   fussballDeLink,
   fussballDeVerein,
   kontaktNamen,
+  fussballTrainingsort,
   type Sparte,
 } from '../../data/verein';
 
@@ -192,7 +193,10 @@ const ankerId = (name: string) => 'team-' + name.toLowerCase().replace('ä', 'ae
         <div class="container">
           <div class="teams__kopf">
             <h2>Unsere Mannschaften</h2>
-            <p>Acht Mannschaften von den Herren bis zur G-Jugend. Spring direkt zu deinem Team.</p>
+            <p>
+              Acht Mannschaften von den Herren bis zur G-Jugend. Spring direkt zu deinem Team.
+              {fussballTrainingsort === 'Halle' && ' Im Winter trainieren alle Mannschaften in der Norddörfer Halle.'}
+            </p>
           </div>
 
           <nav class="sprung" aria-label="Zu einer Mannschaft springen">

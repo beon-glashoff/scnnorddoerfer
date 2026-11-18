@@ -10,7 +10,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import PDFDocument from 'pdfkit';
 import sharp from 'sharp';
-import { verein, wochenplan, standDerDaten } from '../../data/verein';
+import { verein, wochenplan, standDerDaten, fussballOrtHinweis } from '../../data/verein';
 
 const farbe = {
   rot: '#e30613',
@@ -127,13 +127,15 @@ export const GET: APIRoute = async () => {
   // Legende und Hinweise unter dem Raster
   let y = oben + kartenHoehe + 16;
   let x = rand;
-  for (const [ort, f] of Object.entries(ortFarbe)) {
+  // Nur Orte zeigen, die im Plan vorkommen (im Winter z. B. kein Platz)
+  const genutzt = new Set(wochenplan.flatMap((t) => t.eintraege.map((e) => e.ort)));
+  for (const [ort, f] of Object.entries(ortFarbe).filter(([o]) => genutzt.has(o))) {
     doc.circle(x + 3, y + 3.2, 3).fill(f);
     doc.font('Helvetica-Bold').fontSize(8).fillColor(farbe.ink).text(ort, x + 10, y, { lineBreak: false });
     x += 10 + doc.widthOfString(ort) + 18;
   }
   doc.font('Helvetica').fontSize(8).fillColor(farbe.gedaempft)
-    .text('Fußball bei schlechtem Wetter in der Halle. Alles liegt an einer Adresse.', x + 6, y, { lineBreak: false });
+    .text(`${fussballOrtHinweis} Alles liegt an einer Adresse.`, x + 6, y, { lineBreak: false });
 
   // Fusszeile
   const fussY = hoehe - rand - 22;
