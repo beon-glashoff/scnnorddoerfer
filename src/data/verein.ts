@@ -591,7 +591,9 @@ export const mannschaften: Mannschaft[] = [
 /** Wochenplan – gespiegelt aus SCN_Uebungsangebote_Hallenbelegung.csv */
 export const wochenplan = [
   { tag: 'Montag', eintraege: [
-    { zeit: '15:00 – 18:00', was: 'Tanzen · drei Gruppen', ort: 'Halle', slug: 'tanzen', einheiten: 3 },
+    { zeit: '15:00 – 16:00', was: 'Tanzen · 5–7 Jahre', ort: 'Halle', slug: 'tanzen' },
+    { zeit: '16:00 – 17:00', was: 'Tanzen · 8–12 Jahre', ort: 'Halle', slug: 'tanzen' },
+    { zeit: '17:00 – 18:00', was: 'Tanzen · 13–15 Jahre', ort: 'Halle', slug: 'tanzen' },
     { zeit: '18:30 – 19:30', was: 'Fit for Fun', ort: 'Halle', slug: 'fit-for-fun' },
     { zeit: 'ab 19:00', was: 'Dart', ort: 'Vereinsheim', slug: 'dart' },
     { zeit: '19:30 – 21:00', was: 'Muay Thai', ort: 'Halle', slug: 'muay-thai' },
@@ -624,14 +626,8 @@ export const wochenplan = [
   ]},
 ];
 
-/**
- * Anzahl der Trainings- und Kurseinheiten pro Woche, abgeleitet aus dem Wochenplan.
- * Gebuendelte Eintraege (z. B. die drei Tanzgruppen) zaehlen ueber `einheiten`.
- */
-export const einheitenProWoche = wochenplan.reduce(
-  (summe, tag) => summe + tag.eintraege.reduce((t, e) => t + ('einheiten' in e ? e.einheiten : 1), 0),
-  0,
-);
+/** Anzahl der Trainings- und Kurseinheiten pro Woche: ein Eintrag im Wochenplan ist eine Einheit. */
+export const einheitenProWoche = wochenplan.reduce((summe, tag) => summe + tag.eintraege.length, 0);
 
 /** Vorstand des Vereins, Stand September 2026. */
 export const vorstand = [
